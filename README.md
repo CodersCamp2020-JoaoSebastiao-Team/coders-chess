@@ -137,4 +137,4 @@ Template znajdziecie w poprzednim projekcie.
    
 ## Konwercji Branch
 
-Czytaj konwercji branch'a [tutaj](./branching.md)
+Czytaj konwercji branch'a [TUTAJ](./branching.md)
