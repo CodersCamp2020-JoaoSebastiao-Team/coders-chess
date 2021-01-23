@@ -138,3 +138,6 @@ Template znajdziecie w poprzednim projekcie.
 ## Konwercji Branch
 
 Czytaj konwercji branch'a [TUTAJ](./branching.md)
+
+## Konwencje kodowania
+Czytaj Konwencje kodowania [TUTAJ](https://github.com/basarat/typescript-book/blob/master/docs/styleguide/styleguide.md)
