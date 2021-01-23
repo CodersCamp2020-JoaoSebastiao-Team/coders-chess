@@ -134,3 +134,7 @@ Template znajdziecie w poprzednim projekcie.
    - https://captainobjective.github.io/chessGame/
 - Dla testów może warto wykorzystać trochę reprezentacji wizualnej. Co powiecie na emoji :) ? Post mentora Mateusza Nowaka.
    - [Emoji-Driven Development | ZycieNaKodach.pl](https://zycienakodach.pl/tdd-dsl-szachy-emojis)
+   
+## Konwercji Branch
+
+Czytaj konwercji branch'a [tutaj](./branching.md)
