@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "ts-node node_modules/jasmine/bin/jasmine --config=jasmine.json",
+    "coverage": "nyc -r text -e .ts -x \"spec/*.spec.ts\" npm run test"
   },
   "repository": {
     "type": "git",
@@ -19,7 +20,11 @@
   },
   "homepage": "https://github.com/CodersCamp2020-JoaoSebastiao-Team/coders-chess#readme",
   "devDependencies": {
+    "@types/jasmine": "^3.6.3",
     "@types/node": "^14.14.22",
+    "jasmine": "^3.6.4",
+    "nyc": "^15.1.0",
+    "ts-node": "^9.1.1",
     "typescript": "^4.1.3"
   }
 }
