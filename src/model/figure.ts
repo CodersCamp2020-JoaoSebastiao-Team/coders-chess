@@ -7,13 +7,13 @@ export enum ChessFigure {
     Rook,
 }
 
-export enum ChessColour{
+export enum ChessColor{
     Black,
     White,
 }
 
 export abstract class Figure{
-    constructor(protected figure:ChessFigure, protected colour:ChessColour, protected position:[number, number]) {}
+    constructor(protected figure:ChessFigure, protected color:ChessColor, protected position:[number, number]) {}
     getFigurePosition(): [number, number]{
         return [this.position[0], this.position[1]];
     };
@@ -21,6 +21,8 @@ export abstract class Figure{
         this.position[0] = set[0];
         this.position[1] = set[1];
     };
-
+    getColor(): string{
+        return this.color == ChessColor.Black ? "black" : "white";
+    }
 }
 
