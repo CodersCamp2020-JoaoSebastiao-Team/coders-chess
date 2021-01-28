@@ -4,4 +4,10 @@ export class Knight extends Figure{
     log(){
         console.log("Knight!");
     }
+    moveFigure(){
+        return true;
+    };
+    captureFigure(){
+        return true;
+    };
 }
