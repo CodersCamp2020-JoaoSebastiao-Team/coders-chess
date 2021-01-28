@@ -4,8 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Coders Chess</title>
+    <link rel="stylesheet" href="app.css">
+    <link rel="stylesheet" href="home.css">
 </head>
 <body>
+    <div class="container">
+        <h1 id="game-name">.coders <span>chess</span></h1>
+        <div id="home" class="flex-center flex-column">
+            <h3 id="game-name">ustawienia gry</h3>
+            <form>
+                <div>
+                    <h4>imiona graczy</h4>
+                    <input type="text" name="username" id="player1" placeholder="player1">
+                    <input type="text" name="username" id="player2" placeholder="player2">
+                </div>
+                <div class="range-slider--container">
+                    <h4>czas gry</h4>
+                    <div class="range-slider">
+                      <span id="rs-bullet" class="rs-label">0</span>
+                      <input id="rs-range-line" class="rs-range" type="range" value="0" min="0" max="200">
+                    </div>
+                    <div class="box-minmax">
+                      <span>0</span><span>200</span>
+                    </div>
+                  </div>
+                <button type="submit" class="btn" id="saveOptions" disabled>Save</button>
+            </form>
+        </div>
+    </div>
+    <script src="main.js"></script>
     
 </body>
 </html>
