@@ -15,37 +15,37 @@ var Game = /** @class */ (function () {
     }
     Game.prototype.gameInit = function () {
         // Set figures for white player
-        var pawnWhite1 = new pawn_js_1.Pawn(figure_js_1.ChessFigure.Pawn, figure_js_1.ChessColor.White, [0, 1]);
+        var pawnWhite1 = new pawn_js_1.Pawn(figure_js_1.ChessFigure.Pawn, figure_js_1.ChessColor.White, [0, 6]);
         this.gameFigures.push(pawnWhite1);
-        var pawnWhite2 = new pawn_js_1.Pawn(figure_js_1.ChessFigure.Pawn, figure_js_1.ChessColor.White, [1, 1]);
+        var pawnWhite2 = new pawn_js_1.Pawn(figure_js_1.ChessFigure.Pawn, figure_js_1.ChessColor.White, [1, 6]);
         this.gameFigures.push(pawnWhite2);
-        var pawnWhite3 = new pawn_js_1.Pawn(figure_js_1.ChessFigure.Pawn, figure_js_1.ChessColor.White, [2, 1]);
+        var pawnWhite3 = new pawn_js_1.Pawn(figure_js_1.ChessFigure.Pawn, figure_js_1.ChessColor.White, [2, 6]);
         this.gameFigures.push(pawnWhite3);
-        var pawnWhite4 = new pawn_js_1.Pawn(figure_js_1.ChessFigure.Pawn, figure_js_1.ChessColor.White, [3, 1]);
+        var pawnWhite4 = new pawn_js_1.Pawn(figure_js_1.ChessFigure.Pawn, figure_js_1.ChessColor.White, [3, 6]);
         this.gameFigures.push(pawnWhite4);
-        var pawnWhite5 = new pawn_js_1.Pawn(figure_js_1.ChessFigure.Pawn, figure_js_1.ChessColor.White, [4, 1]);
+        var pawnWhite5 = new pawn_js_1.Pawn(figure_js_1.ChessFigure.Pawn, figure_js_1.ChessColor.White, [4, 6]);
         this.gameFigures.push(pawnWhite5);
-        var pawnWhite6 = new pawn_js_1.Pawn(figure_js_1.ChessFigure.Pawn, figure_js_1.ChessColor.White, [5, 1]);
+        var pawnWhite6 = new pawn_js_1.Pawn(figure_js_1.ChessFigure.Pawn, figure_js_1.ChessColor.White, [5, 6]);
         this.gameFigures.push(pawnWhite6);
-        var pawnWhite7 = new pawn_js_1.Pawn(figure_js_1.ChessFigure.Pawn, figure_js_1.ChessColor.White, [6, 1]);
+        var pawnWhite7 = new pawn_js_1.Pawn(figure_js_1.ChessFigure.Pawn, figure_js_1.ChessColor.White, [6, 6]);
         this.gameFigures.push(pawnWhite7);
-        var pawnWhite8 = new pawn_js_1.Pawn(figure_js_1.ChessFigure.Pawn, figure_js_1.ChessColor.White, [7, 1]);
+        var pawnWhite8 = new pawn_js_1.Pawn(figure_js_1.ChessFigure.Pawn, figure_js_1.ChessColor.White, [7, 6]);
         this.gameFigures.push(pawnWhite8);
-        var rookWhiteLeft = new rook_js_1.Rook(figure_js_1.ChessFigure.Rook, figure_js_1.ChessColor.White, [0, 0]);
+        var rookWhiteLeft = new rook_js_1.Rook(figure_js_1.ChessFigure.Rook, figure_js_1.ChessColor.White, [0, 7]);
         this.gameFigures.push(rookWhiteLeft);
-        var rookWhiteRight = new rook_js_1.Rook(figure_js_1.ChessFigure.Rook, figure_js_1.ChessColor.White, [7, 0]);
+        var rookWhiteRight = new rook_js_1.Rook(figure_js_1.ChessFigure.Rook, figure_js_1.ChessColor.White, [7, 7]);
         this.gameFigures.push(rookWhiteRight);
-        var knightWhiteLeft = new knight_js_1.Knight(figure_js_1.ChessFigure.Knight, figure_js_1.ChessColor.White, [1, 0]);
+        var knightWhiteLeft = new knight_js_1.Knight(figure_js_1.ChessFigure.Knight, figure_js_1.ChessColor.White, [1, 7]);
         this.gameFigures.push(knightWhiteLeft);
-        var knightWhiteRight = new knight_js_1.Knight(figure_js_1.ChessFigure.Knight, figure_js_1.ChessColor.White, [6, 0]);
+        var knightWhiteRight = new knight_js_1.Knight(figure_js_1.ChessFigure.Knight, figure_js_1.ChessColor.White, [6, 7]);
         this.gameFigures.push(knightWhiteRight);
-        var bishoptWhiteLeft = new bishop_js_1.Bishop(figure_js_1.ChessFigure.Bishop, figure_js_1.ChessColor.White, [2, 0]);
+        var bishoptWhiteLeft = new bishop_js_1.Bishop(figure_js_1.ChessFigure.Bishop, figure_js_1.ChessColor.White, [2, 7]);
         this.gameFigures.push(bishoptWhiteLeft);
-        var bishopWhiteRight = new bishop_js_1.Bishop(figure_js_1.ChessFigure.Bishop, figure_js_1.ChessColor.White, [5, 0]);
+        var bishopWhiteRight = new bishop_js_1.Bishop(figure_js_1.ChessFigure.Bishop, figure_js_1.ChessColor.White, [5, 7]);
         this.gameFigures.push(bishopWhiteRight);
-        var kingWhite = new king_js_1.King(figure_js_1.ChessFigure.King, figure_js_1.ChessColor.White, [3, 0]);
+        var kingWhite = new king_js_1.King(figure_js_1.ChessFigure.King, figure_js_1.ChessColor.White, [3, 7]);
         this.gameFigures.push(kingWhite);
-        var queenWhite = new queen_js_1.Queen(figure_js_1.ChessFigure.Queen, figure_js_1.ChessColor.White, [4, 0]);
+        var queenWhite = new queen_js_1.Queen(figure_js_1.ChessFigure.Queen, figure_js_1.ChessColor.White, [4, 7]);
         this.gameFigures.push(queenWhite);
         // Set figures for dark player
         var pawnBlack1 = new pawn_js_1.Pawn(figure_js_1.ChessFigure.Pawn, figure_js_1.ChessColor.Black, [0, 1]);
@@ -86,9 +86,13 @@ var Game = /** @class */ (function () {
         return this.gameFigures;
     };
     Game.prototype.refreshBoard = function (gameFigures) {
+        var actualBoardArray = [];
+        var figurePosition = 0;
         for (var _i = 0, gameFigures_1 = gameFigures; _i < gameFigures_1.length; _i++) {
             var figure = gameFigures_1[_i];
             console.log("figure: ", figure);
+            figurePosition = figure.getFigurePosition()[0] + 8 * figure.getFigurePosition()[1];
+            console.log(figurePosition);
         }
     };
     return Game;
