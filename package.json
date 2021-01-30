@@ -4,8 +4,9 @@
   "description": "**UWAGA! Zaczynając pracę nad projektem — nie róbcie forka.\r Jedna osoba z zespołu (np. Mentor) powinna użyć przycisku `Use this template` i dodać innych członków zespołu jako Collaborators do tego repozytorium.\r Mentorzy mogą dowolnie zmieniać zakres projektu lub zdecydować się na zupełnie inny temat.**",
   "main": "index.js",
   "scripts": {
+    "dev":"parcel src/index.html",
     "start": "node server.js",
-    "build": "tsc",
+    "build": "tsc & parcel build src/index.html",
     "test": "ts-node node_modules/jasmine/bin/jasmine --config=jasmine.json",
     "coverage": "nyc -r text -e .ts -x \"spec/*.spec.ts\" npm run test"
   },
@@ -25,6 +26,7 @@
     "@types/node": "^14.14.22",
     "jasmine": "^3.6.4",
     "nyc": "^15.1.0",
+    "parcel-bundler": "^1.12.4",
     "ts-node": "^9.1.1",
     "typescript": "^4.1.3"
   },
