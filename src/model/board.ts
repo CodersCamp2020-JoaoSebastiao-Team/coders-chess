@@ -1,10 +1,10 @@
 const board = <HTMLElement>document.querySelector(".board");
 const boardLetters = <HTMLElement>document.querySelector(".letters");
 const boardNumbers = <HTMLElement>document.querySelector(".numbers");
-let letters = ["a", "b", "c", "d","e", "f", "g", "h"];
-let index = 0;
-let black = false;
-let num= 1;
+let letters:string[] = ["A", "B", "C", "D","E", "F", "G", "H"];
+let index:number = 0;
+let black:boolean = false;
+let num:number = 8;
 
 for(let i = 0; i < 8; i++) {
   let letter = document.createElement("li");
@@ -12,7 +12,7 @@ for(let i = 0; i < 8; i++) {
   boardLetters.appendChild(letter);
   let numbers = document.createElement("li");
   numbers.textContent = String(num);
-  num++;
+  num--;
   boardNumbers.appendChild(numbers);
 
 }
