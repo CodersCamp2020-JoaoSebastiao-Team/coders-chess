@@ -87,7 +87,16 @@ export class Game {
         this.gameFigures.push(kingBlack);
         const queenBlack = new Queen(ChessFigure.Queen, ChessColor.Black, [4, 0]);
         this.gameFigures.push(queenBlack);
-        console.log(this.gameFigures);
+        //console.log(this.gameFigures);
+    }
+    getGameFigures(): Array<Pawn | Rook | Knight | Bishop | King | Queen | unknown> {
+        return this.gameFigures;
+    }
+    refreshBoard(gameFigures: Array<Pawn | Rook | Knight | Bishop | King | Queen | unknown>): void{
+        for (let figure of gameFigures){
+            console.log("figure: ",figure);
+        }
+        
     }
 }
 
