@@ -23,7 +23,7 @@
 
 .square {
     height: 62px;
-    width: 62x;
+    width: 62px;
 }
 
 .black {
@@ -58,4 +58,8 @@
 
 li {
     list-style: none;
+}
+
+.figure-checked{
+    background-color: rgba(0,255,255,0.6);
 }
