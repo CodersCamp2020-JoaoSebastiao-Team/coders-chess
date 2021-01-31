@@ -158,7 +158,7 @@ function figureValidateUrl(figure: string, color: string): string {
                 url = "url('/figures/knightPink.svg')";
                 break;
             case "Queen":
-                url = "url('../figures/queenPink.svg')";
+                url = "url('/figures/queenPink.svg')";
                 break;
             case "Rook":
                 url = "url('/figures/rookPink.svg')";
