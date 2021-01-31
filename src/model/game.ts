@@ -122,22 +122,22 @@ function figureValidateUrl(figure: string, color: string): string {
     if (color == "white") {
         switch (figure) {
             case "Pawn":
-                url = "url('/figures/pawnOrange.svg')";
+                url = "url('../figures/pawnOrange.svg')";
                 break;
             case "Bishop":
-                url = "url('/figures/bishopOrange.svg')";
+                url = "url('../figures/bishopOrange.svg')";
                 break;
             case "King":
-                url = "url('/figures/kingOrange.svg')";
+                url = "url('../figures/kingOrange.svg')";
                 break;
             case "Knight":
-                url = "url('/figures/knightOrange.svg')";
+                url = "url('../figures/knightOrange.svg')";
                 break;
             case "Queen":
-                url = "url('/figures/queenOrange.svg')";
+                url = "url('../figures/queenOrange.svg')";
                 break;
             case "Rook":
-                url = "url('/figures/rookOrange.svg')";
+                url = "url('../figures/rookOrange.svg')";
                 break;
             default:
                 url = "none";
@@ -146,22 +146,22 @@ function figureValidateUrl(figure: string, color: string): string {
     if (color == "black") {
         switch (figure) {
             case "Pawn":
-                url = "url('/figures/pawnPink.svg')";
+                url = "url('../figures/pawnPink.svg')";
                 break;
             case "Bishop":
-                url = "url('/figures/bishopPink.svg')";
+                url = "url('../figures/bishopPink.svg')";
                 break;
             case "King":
-                url = "url('/figures/kingPink.svg')";
+                url = "url('../figures/kingPink.svg')";
                 break;
             case "Knight":
-                url = "url('/figures/knightPink.svg')";
+                url = "url('../figures/knightPink.svg')";
                 break;
             case "Queen":
-                url = "url('/figures/queenPink.svg')";
+                url = "url('../figures/queenPink.svg')";
                 break;
             case "Rook":
-                url = "url('/figures/rookPink.svg')";
+                url = "url('../figures/rookPink.svg')";
                 break;
             default:
                 url = "none";
