@@ -13,30 +13,30 @@
 //         const bulletPosition:number = parseFloat(rangeSlider.value) / parseFloat(rangeSlider.max);
 //         rangeBullet.style.left = (bulletPosition * 487) + "px";
 //     }
-  
 // }
 
 const range = <HTMLInputElement>document.getElementById("range");
 const bubble = <HTMLOutputElement>document.getElementById("bubble");
 
 
-if(range){
-   range.addEventListener("input", () => {
-    setBubble(range, bubble)}, false); 
+if (range) {
+    range.addEventListener("input", () => {
+        setBubble(range, bubble)
+    }, false);
 }
 
-function setBubble(range:HTMLInputElement, bubble:HTMLOutputElement) {
-    const val:number = parseFloat(range.value);
-  
-    const min:number = parseFloat(range.min) || 0;
-    const max:number =  parseFloat(range.max) || 100;
-  
+function setBubble(range: HTMLInputElement, bubble: HTMLOutputElement) {
+    const val: number = parseFloat(range.value);
+
+    const min: number = parseFloat(range.min) || 0;
+    const max: number = parseFloat(range.max) || 100;
+
     const offset = Number(((val - min) * 100) / (max - min));
-  
+
     bubble.textContent = String(val);
-  
+
     bubble.style.left = `calc(${offset}% - 10px)`;
-    bubble.style.color= 'black';
+    bubble.style.color = 'black';
 }
 
 
