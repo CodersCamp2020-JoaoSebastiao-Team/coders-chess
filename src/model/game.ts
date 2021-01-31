@@ -179,7 +179,7 @@ function figureClick(figure: Pawn | Rook | Knight | Bishop | King | Queen, field
         figureImg.classList.remove('figure-checked');
     }
     field.classList.toggle('figure-checked');
-    console.log(`Player clicked: ${figure.getFigure()}`);
+    //console.log(`Player clicked: ${figure.getFigure()}`);
 }
 
 function getFigureWrapper(figurePosition: [number, number]){
