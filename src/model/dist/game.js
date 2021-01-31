@@ -43,9 +43,9 @@ var Game = /** @class */ (function () {
         this.gameFigures.push(bishoptWhiteLeft);
         var bishopWhiteRight = new bishop_js_1.Bishop(figure_js_1.ChessFigure.Bishop, figure_js_1.ChessColor.White, [5, 7]);
         this.gameFigures.push(bishopWhiteRight);
-        var kingWhite = new king_js_1.King(figure_js_1.ChessFigure.King, figure_js_1.ChessColor.White, [3, 7]);
+        var kingWhite = new king_js_1.King(figure_js_1.ChessFigure.King, figure_js_1.ChessColor.White, [4, 7]);
         this.gameFigures.push(kingWhite);
-        var queenWhite = new queen_js_1.Queen(figure_js_1.ChessFigure.Queen, figure_js_1.ChessColor.White, [4, 7]);
+        var queenWhite = new queen_js_1.Queen(figure_js_1.ChessFigure.Queen, figure_js_1.ChessColor.White, [3, 7]);
         this.gameFigures.push(queenWhite);
         // Set figures for dark player
         var pawnBlack1 = new pawn_js_1.Pawn(figure_js_1.ChessFigure.Pawn, figure_js_1.ChessColor.Black, [0, 1]);
@@ -76,9 +76,9 @@ var Game = /** @class */ (function () {
         this.gameFigures.push(bishoptBlackLeft);
         var bishopBlackRight = new bishop_js_1.Bishop(figure_js_1.ChessFigure.Bishop, figure_js_1.ChessColor.Black, [5, 0]);
         this.gameFigures.push(bishopBlackRight);
-        var kingBlack = new king_js_1.King(figure_js_1.ChessFigure.King, figure_js_1.ChessColor.Black, [3, 0]);
+        var kingBlack = new king_js_1.King(figure_js_1.ChessFigure.King, figure_js_1.ChessColor.Black, [4, 0]);
         this.gameFigures.push(kingBlack);
-        var queenBlack = new queen_js_1.Queen(figure_js_1.ChessFigure.Queen, figure_js_1.ChessColor.Black, [4, 0]);
+        var queenBlack = new queen_js_1.Queen(figure_js_1.ChessFigure.Queen, figure_js_1.ChessColor.Black, [3, 0]);
         this.gameFigures.push(queenBlack);
     };
     Game.prototype.getGameFigures = function () {
@@ -92,16 +92,21 @@ var Game = /** @class */ (function () {
             var figureImg = boardFields[i].querySelector(".figureImg");
             figureImg.style.cursor = "none";
         }
-        for (var _i = 0, gameFigures_1 = gameFigures; _i < gameFigures_1.length; _i++) {
-            var figure = gameFigures_1[_i];
-            figurePosition = figure.getFigurePosition()[0] + 8 * figure.getFigurePosition()[1];
+        var _loop_1 = function (figure) {
+            figurePosition = getFigureWrapper(figure.getFigurePosition());
             var figureImg = boardFields[figurePosition].querySelector(".figureImg");
             figureImg.style.width = "100%";
             figureImg.style.height = "100%";
             figureImageUrl = figureValidateUrl(figure.getFigure(), figure.getColor());
             figureImg.style.backgroundImage = figureImageUrl;
             figureImg.style.cursor = "pointer";
-            boardFields[figurePosition].addEventListener("click", figureClick);
+            boardFields[figurePosition].addEventListener("click", function () {
+                figureClick(figure, figureImg, boardFields);
+            });
+        };
+        for (var _i = 0, gameFigures_1 = gameFigures; _i < gameFigures_1.length; _i++) {
+            var figure = gameFigures_1[_i];
+            _loop_1(figure);
         }
     };
     return Game;
@@ -159,6 +164,18 @@ function figureValidateUrl(figure, color) {
     }
     return url;
 }
-function figureClick() {
-    console.log("Clicked!");
+function figureClick(figure, field, fieldList) {
+    var clickedFigure = getFigureWrapper(figure.getFigurePosition());
+    for (var i = 0; i < fieldList.length; i++) {
+        var figureImg = fieldList[i].querySelector(".figureImg");
+        if (i === clickedFigure) {
+            continue;
+        }
+        figureImg.classList.remove('figure-checked');
+    }
+    field.classList.toggle('figure-checked');
+    console.log("Player clicked: " + figure.getFigure());
+}
+function getFigureWrapper(figurePosition) {
+    return figurePosition[0] + 8 * figurePosition[1];
 }
