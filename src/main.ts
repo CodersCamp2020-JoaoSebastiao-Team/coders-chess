@@ -1,10 +1,3 @@
-import { Game } from './model/game.js';
-
-const GameStart = new Game(200);
-GameStart.gameInit();
-const gameFiguresArray = GameStart.getGameFigures();
-console.log(gameFiguresArray);
-GameStart.refreshBoard(gameFiguresArray);
 // const rangeSlider = <HTMLInputElement>document.getElementById("rs-range-line");
 // const rangeBullet = <HTMLInputElement>document.getElementById("rs-bullet");
 

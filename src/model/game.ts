@@ -87,21 +87,85 @@ export class Game {
         this.gameFigures.push(kingBlack);
         const queenBlack = new Queen(ChessFigure.Queen, ChessColor.Black, [4, 0]);
         this.gameFigures.push(queenBlack);
-        //console.log(this.gameFigures);
     }
     getGameFigures(): Array<Pawn | Rook | Knight | Bishop | King | Queen> {
         return this.gameFigures;
     }
-    refreshBoard(gameFigures: Array<Pawn | Rook | Knight | Bishop | King | Queen >): void{
+    refreshBoard(gameFigures: Array<Pawn | Rook | Knight | Bishop | King | Queen>, boardFields: NodeListOf<Element>): void {
         const actualBoardArray: Array<Pawn | Rook | Knight | Bishop | King | Queen | unknown> = [];
-        let figurePosition: Number = 0;
-        for (let figure of gameFigures){
-            console.log("figure: ", figure);
-            figurePosition = figure.getFigurePosition()[0] + 8*figure.getFigurePosition()[1];
-            console.log(figurePosition);
+        let figurePosition: number = 0;
+        let figureImageUrl:string = "";
+
+        for (let i = 0; i < boardFields.length; i++){
+            let figureImg = <HTMLInputElement>boardFields[i].querySelector(".figureImg");
+            figureImg.style.cursor = "none";
         }
-        
+
+        for (let figure of gameFigures) {
+            figurePosition = figure.getFigurePosition()[0] + 8 * figure.getFigurePosition()[1];
+            let figureImg = <HTMLInputElement>boardFields[figurePosition].querySelector(".figureImg");
+            figureImg.style.width = "100%";
+            figureImg.style.height = "100%";
+            figureImageUrl = figureValidateUrl(figure.getFigure(), figure.getColor());
+            figureImg.style.backgroundImage = figureImageUrl;
+            figureImg.style.cursor = "pointer";
+            boardFields[figurePosition].addEventListener("click",figureClick);
+        }
     }
 }
 
-
+function figureValidateUrl(figure: string, color: string):string{
+    let url: string = "";
+    if (color == "white"){
+        switch (figure) {
+            case "Pawn":
+                url = "url('../static/figures/pawnOrange.svg')";
+                break;
+            case "Bishop":
+                url = "url('../static/figures/bishopOrange.svg')";
+                break;
+            case "King":
+                url = "url('../static/figures/kingOrange.svg')";
+                break;
+            case "Knight":
+                url = "url('../static/figures/knightOrange.svg')";
+                break;
+            case "Queen":
+                url = "url('../static/figures/queenOrange.svg')";
+                break;
+            case "Rook":
+                url = "url('../static/figures/rookOrange.svg')";
+                break;
+            default:
+                url = "none";
+        }
+    }
+    if (color == "black"){
+        switch (figure) {
+            case "Pawn":
+                url = "url('../static/figures/pawnPink.svg')";
+                break;
+            case "Bishop":
+                url = "url('../static/figures/bishopPink.svg')";
+                break;
+            case "King":
+                url = "url('../static/figures/kingPink.svg')";
+                break;
+            case "Knight":
+                url = "url('../static/figures/knightPink.svg')";
+                break;
+            case "Queen":
+                url = "url('../static/figures/queenPink.svg')";
+                break;
+            case "Rook":
+                url = "url('../static/figures/rookPink.svg')";
+                break;
+            default:
+                url = "none";
+        }
+    }
+    return url;
+}
+function figureClick(){
+    console.log("Clicked!");
+}

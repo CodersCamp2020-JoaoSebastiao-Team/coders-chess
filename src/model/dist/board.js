@@ -1,4 +1,6 @@
-import { Game } from './game.js';
+"use strict";
+exports.__esModule = true;
+var game_js_1 = require("./game.js");
 var board = document.querySelector(".board");
 var boardLetters = document.querySelector(".letters");
 var boardNumbers = document.querySelector(".numbers");
@@ -41,7 +43,7 @@ for (var i = 1; i <= 64; i++) {
 // export class Board{
 // }
 var boardFields = document.querySelectorAll(".square");
-var GameStart = new Game(200);
+var GameStart = new game_js_1.Game(200);
 GameStart.gameInit();
 var gameFiguresArray = GameStart.getGameFigures();
 GameStart.refreshBoard(gameFiguresArray, boardFields);
