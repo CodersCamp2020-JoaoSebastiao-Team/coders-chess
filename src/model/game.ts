@@ -111,15 +111,15 @@ export class Game {
         }
 
     }
-    checkBoardForFigure(field: number): number{
+    checkBoardForFigure(field: number): number {
         let index = 0;
         for (let figure of this.gameFigures) {
             const figurePosition = figure.getFigurePosition();
-            if ((figurePosition[0] + 8 * figurePosition[1]) === field){
+            if ((figurePosition[0] + 8 * figurePosition[1]) === field) {
                 figure.checked = figure.checked ? false : true;
                 const newArray = [...this.gameFigures];
-                newArray.splice(index,1);
-                newArray.forEach((element) =>{
+                newArray.splice(index, 1);
+                newArray.forEach((element) => {
                     element.checked = false;
                 })
                 return index;
@@ -128,7 +128,7 @@ export class Game {
         }
         return -1;
     }
-    figureClicked(figure: Pawn | Rook | Knight | Bishop | King | Queen, fieldList: NodeListOf<Element>){
+    figureClicked(figure: Pawn | Rook | Knight | Bishop | King | Queen, fieldList: NodeListOf<Element>) {
         let field = <HTMLInputElement>fieldList[getFigureWrapper(figure.getFigurePosition())].querySelector(".figureImg");
         let clickedFigure = getFigureWrapper(figure.getFigurePosition());
         for (let i = 0; i < fieldList.length; i++) {
@@ -138,46 +138,33 @@ export class Game {
             }
             fieldList[i].classList.remove('figure-checked');
         }
-        if (figure.checked){
+        if (figure.checked) {
             fieldList[getFigureWrapper(figure.getFigurePosition())].classList.add('figure-checked');
+            const boardMatrix = getBoardMatrix(this.gameFigures);
+            let figureDirection:Array<[number, number]> = [];
             switch (figure.getFigure()) {
                 case "Pawn":
-                    PawnDirection(fieldList,figure);
+
+                    figureDirection = figure.showDirections(boardMatrix);
+                    PawnDirection(fieldList, figure,figureDirection);
                     break;
-            
                 default:
                     break;
             }
         }
-        else{
+        else {
             fieldList[getFigureWrapper(figure.getFigurePosition())].classList.remove('figure-checked');
         }
-        
+
 
         //console.log(`Player clicked: ${figure.getFigure()}`);
-        function showFigureDirection(fieldList:NodeListOf<Element>, figure: Pawn | Rook | Knight | Bishop | King | Queen, set: [number, number]){
-            fieldList[getFigureWrapper([figure.getFigurePosition()[0] + set[0],figure.getFigurePosition()[1]+set[1]])].classList.add('figure-checked');
+        function showFigureDirection(fieldList: NodeListOf<Element>, figure: Pawn | Rook | Knight | Bishop | King | Queen, set: [number, number]) {
+            fieldList[getFigureWrapper([figure.getFigurePosition()[0] + set[0], figure.getFigurePosition()[1] + set[1]])].classList.add('figure-checked');
         }
-        function PawnDirection(fieldList:NodeListOf<Element>, figure: Pawn | Rook | Knight | Bishop | King | Queen){
-            if(figure.getColor() == "white"){
-                if (figure.getFigurePosition()[1] == 6){
-                    showFigureDirection(fieldList, figure, [0,-2]);
-                    showFigureDirection(fieldList, figure, [0,-1]);
-                }
-                else if(figure.getFigurePosition()[1] != 0){
-                    showFigureDirection(fieldList, figure, [0,-1]);
-                }
-
-            }
-            else{
-                if (figure.getFigurePosition()[1] == 1){
-                    showFigureDirection(fieldList, figure, [0,2]);
-                    showFigureDirection(fieldList, figure, [0,1]);
-                }
-                else if(figure.getFigurePosition()[1] != 7){
-                    showFigureDirection(fieldList, figure, [0,1]);
-                }
-            }
+        function PawnDirection(fieldList: NodeListOf<Element>, figure: Pawn | Rook | Knight | Bishop | King | Queen,figureDirection:Array<[number,number]>) {
+            figureDirection.forEach(element => {
+                showFigureDirection(fieldList, figure, element);
+            });
         }
     }
 }
@@ -237,4 +224,12 @@ function figureValidateUrl(figure: string, color: string): string {
 
 function getFigureWrapper(figurePosition: [number, number]) {
     return figurePosition[0] + 8 * figurePosition[1];
+}
+
+function getBoardMatrix(gameFigures: Array<Pawn | Rook | Knight | Bishop | King | Queen>){
+    let boardMatrix:Array<[number, number]> = [];
+    for (let figure of gameFigures){
+        boardMatrix.push(figure.getFigurePosition());
+    }
+    return boardMatrix;
 }

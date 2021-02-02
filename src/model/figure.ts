@@ -55,4 +55,5 @@ export abstract class Figure {
     }
     abstract moveFigure(position: [number, number]): boolean;
     abstract captureFigure(position: [number, number]): boolean;
+    abstract showDirections(boardMatrix:Array<[number, number]>): Array<[number, number]>;
 }

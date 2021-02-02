@@ -10,4 +10,9 @@ export class Rook extends Figure{
     captureFigure(){
         return true;
     };
+    showDirections(boardMatrix:Array<[number, number]>){
+        console.log("Pawn board matrix: ",boardMatrix);
+        let Directions:Array<[number, number]> = [];
+        return Directions;
+    }
 }
