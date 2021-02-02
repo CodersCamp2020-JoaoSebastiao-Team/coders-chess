@@ -13,7 +13,10 @@ export enum ChessColor {
 }
 
 export abstract class Figure {
-    constructor(protected figure: ChessFigure, protected color: ChessColor, protected position: [number, number]) { }
+    constructor(protected figure: ChessFigure,
+        protected color: ChessColor,
+        protected position: [number, number],
+        public checked: boolean) { }
     getFigurePosition(): [number, number] {
         return [this.position[0], this.position[1]];
     }
@@ -50,6 +53,6 @@ export abstract class Figure {
         }
         return figure;
     }
-    abstract moveFigure(position: [number,number]):boolean;
-    abstract captureFigure(position: [number,number]):boolean;
+    abstract moveFigure(position: [number, number]): boolean;
+    abstract captureFigure(position: [number, number]): boolean;
 }
