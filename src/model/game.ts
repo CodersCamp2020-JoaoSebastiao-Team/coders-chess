@@ -142,15 +142,8 @@ export class Game {
             fieldList[getFigureWrapper(figure.getFigurePosition())].classList.add('figure-checked');
             const boardMatrix = getBoardMatrix(this.gameFigures);
             let figureDirection:Array<[number, number]> = [];
-            switch (figure.getFigure()) {
-                case "Pawn":
-
-                    figureDirection = figure.showDirections(boardMatrix);
-                    PawnDirection(fieldList, figure,figureDirection);
-                    break;
-                default:
-                    break;
-            }
+            figureDirection = figure.showDirections(boardMatrix);
+            showDirections(fieldList, figure,figureDirection);
         }
         else {
             fieldList[getFigureWrapper(figure.getFigurePosition())].classList.remove('figure-checked');
@@ -161,7 +154,7 @@ export class Game {
         function showFigureDirection(fieldList: NodeListOf<Element>, figure: Pawn | Rook | Knight | Bishop | King | Queen, set: [number, number]) {
             fieldList[getFigureWrapper([figure.getFigurePosition()[0] + set[0], figure.getFigurePosition()[1] + set[1]])].classList.add('figure-checked');
         }
-        function PawnDirection(fieldList: NodeListOf<Element>, figure: Pawn | Rook | Knight | Bishop | King | Queen,figureDirection:Array<[number,number]>) {
+        function showDirections(fieldList: NodeListOf<Element>, figure: Pawn | Rook | Knight | Bishop | King | Queen,figureDirection:Array<[number,number]>) {
             figureDirection.forEach(element => {
                 showFigureDirection(fieldList, figure, element);
             });

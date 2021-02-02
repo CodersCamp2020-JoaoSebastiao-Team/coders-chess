@@ -11,7 +11,7 @@ export class Bishop extends Figure{
         return true;
     };
     showDirections(boardMatrix:Array<[number, number]>){
-        console.log("Pawn board matrix: ",boardMatrix);
+        //console.log("Pawn board matrix: ",boardMatrix);
         let Directions:Array<[number, number]> = [];
         return Directions;
     }
