@@ -141,6 +141,7 @@ export class Game {
         }
         if (figure.checked) {
             fieldList[getFigureWrapper(figure.getFigurePosition())].classList.add('figure-checked');
+            fieldList[getFigureWrapper(figure.getFigurePosition())].classList.remove('figure-capture');
             const boardMatrix = getBoardMatrix(this.gameFigures);
             let figureDirection: Array<[number, number]> = [];
             let figureCapture: Array<[number, number]> = [];
@@ -150,6 +151,7 @@ export class Game {
         }
         else {
             fieldList[getFigureWrapper(figure.getFigurePosition())].classList.remove('figure-checked');
+            fieldList[getFigureWrapper(figure.getFigurePosition())].classList.remove('figure-capture');
         }
 
 

@@ -17,7 +17,7 @@ export class Pawn extends Figure {
         let Directions: Array<[number, number]> = [];
         if (this.getColor() == "white") {
             if (this.getFigurePosition()[1] == 6) {
-                if (!findFigure(boardMatrix, this.getFigurePosition(), [0, -2])){
+                if (!findFigure(boardMatrix, this.getFigurePosition(), [0, -2]) && !findFigure(boardMatrix, this.getFigurePosition(), [0, -1])){
                     Directions.push([0, -2]);
                 }
                 if (!findFigure(boardMatrix, this.getFigurePosition(), [0, -1])){
@@ -32,7 +32,7 @@ export class Pawn extends Figure {
         }
         else {
             if (this.getFigurePosition()[1] == 1) {
-                if (!findFigure(boardMatrix, this.getFigurePosition(), [0, 2])){
+                if (!findFigure(boardMatrix, this.getFigurePosition(), [0, 2]) && !findFigure(boardMatrix, this.getFigurePosition(), [0, 1])){
                     Directions.push([0, 2]);
                 }
                 if (!findFigure(boardMatrix, this.getFigurePosition(), [0, 1])){
