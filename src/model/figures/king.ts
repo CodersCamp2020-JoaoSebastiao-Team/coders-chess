@@ -11,7 +11,6 @@ export class King extends Figure{
         return true;
     };
     showDirections(boardMatrix: Array<[number, number]>) {
-        //console.log("Pawn board matrix: ", boardMatrix);
         let Directions: Array<[number, number]> = [];
 
         if (!findFigure(boardMatrix, this.getFigurePosition(), [0, 1])) {
@@ -60,7 +59,6 @@ export class King extends Figure{
         return Directions;
     }
     showCaptures(boardMatrix: Array<[number, number]>) {
-        //console.log("Pawn board matrix: ", boardMatrix);
         let Directions: Array<[number, number]> = [];
 
         if (findFigure(boardMatrix, this.getFigurePosition(), [0, 1])[0] && !findFigure(boardMatrix, this.getFigurePosition(), [0, 1])[1]) {
