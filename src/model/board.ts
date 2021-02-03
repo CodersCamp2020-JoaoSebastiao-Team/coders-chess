@@ -60,6 +60,7 @@ const gameFiguresArray = Contest.getGameFigures();
 Contest.refreshBoard(gameFiguresArray, boardFields);
 
 let PlayerTour: ChessPlayerTour = ChessPlayerTour.White;
+console.log(`Player white begin.`);
 let previousNumber: number = -1;
 let previousFigure = gameFiguresArray[0];
 
@@ -81,6 +82,7 @@ for (let i = 0; i < boardFields.length; i++) {
                     console.log(`Congratulate! ${figure.getColor()} ${figure.getFigure()} was captured!`);
                     //Next player tour
                     PlayerTour = PlayerTour == ChessPlayerTour.White ? ChessPlayerTour.Black : ChessPlayerTour.White;
+                    console.log(`Now is ${PlayerTour} player tour`);
                     }
                 }
                 else {
@@ -99,6 +101,7 @@ for (let i = 0; i < boardFields.length; i++) {
                     Contest.figureClicked(gameFiguresArray[previousNumber], boardFields);
                     //Next player tour
                     PlayerTour = PlayerTour == ChessPlayerTour.White ? ChessPlayerTour.Black : ChessPlayerTour.White;
+                    console.log(`Now is ${PlayerTour} player tour`);
                 }
             }
         }
