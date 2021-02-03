@@ -20,6 +20,9 @@ export abstract class Figure {
     getFigurePosition(): [number, number] {
         return [this.position[0], this.position[1]];
     }
+    getFigureField(): number{
+        return this.position[0] + 8 * this.position[1];
+    }
     setFigurePosition(set: [number, number]): void {
         this.position[0] = set[0];
         this.position[1] = set[1];

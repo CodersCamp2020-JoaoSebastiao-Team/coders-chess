@@ -142,11 +142,11 @@ export class Game {
         if (figure.checked) {
             fieldList[getFigureWrapper(figure.getFigurePosition())].classList.add('figure-checked');
             const boardMatrix = getBoardMatrix(this.gameFigures);
-            let figureDirection:Array<[number, number]> = [];
-            let figureCapture:Array<[number, number]> = [];
+            let figureDirection: Array<[number, number]> = [];
+            let figureCapture: Array<[number, number]> = [];
             figureDirection = figure.showDirections(boardMatrix);
             figureCapture = figure.showCaptures(boardMatrix);
-            showDirections(fieldList, figure,figureDirection,figureCapture);
+            showDirections(fieldList, figure, figureDirection, figureCapture, this.gameFigures);
         }
         else {
             fieldList[getFigureWrapper(figure.getFigurePosition())].classList.remove('figure-checked');
@@ -157,15 +157,20 @@ export class Game {
         function showFigureDirection(fieldList: NodeListOf<Element>, figure: Pawn | Rook | Knight | Bishop | King | Queen, set: [number, number]) {
             fieldList[getFigureWrapper([figure.getFigurePosition()[0] + set[0], figure.getFigurePosition()[1] + set[1]])].classList.add('figure-checked');
         }
-        function showFigureCaptures(fieldList: NodeListOf<Element>, figure: Pawn | Rook | Knight | Bishop | King | Queen, set: [number, number]) {
-            fieldList[getFigureWrapper([figure.getFigurePosition()[0] + set[0], figure.getFigurePosition()[1] + set[1]])].classList.add('figure-capture');
+        function showFigureCaptures(fieldList: NodeListOf<Element>, figure: Pawn | Rook | Knight | Bishop | King | Queen, set: [number, number], gameFigures: Array<Pawn | Rook | Knight | Bishop | King | Queen>) {
+            const actualColor = figure.getColor();
+            const opponentColor = lookingForOpponentColor(gameFigures, [figure.getFigurePosition()[0] + set[0], figure.getFigurePosition()[1] + set[1]]);
+            if (actualColor != opponentColor) {
+                fieldList[getFigureWrapper([figure.getFigurePosition()[0] + set[0], figure.getFigurePosition()[1] + set[1]])].classList.add('figure-capture');
+            }
+
         }
-        function showDirections(fieldList: NodeListOf<Element>, figure: Pawn | Rook | Knight | Bishop | King | Queen,figureDirection:Array<[number,number]>,figureCaptures:Array<[number,number]>) {
+        function showDirections(fieldList: NodeListOf<Element>, figure: Pawn | Rook | Knight | Bishop | King | Queen, figureDirection: Array<[number, number]>, figureCaptures: Array<[number, number]>, gameFigures: Array<Pawn | Rook | Knight | Bishop | King | Queen>) {
             figureDirection.forEach(element => {
                 showFigureDirection(fieldList, figure, element);
             });
             figureCaptures.forEach(element => {
-                showFigureCaptures(fieldList, figure, element);
+                showFigureCaptures(fieldList, figure, element, gameFigures);
             });
         }
     }
@@ -228,10 +233,21 @@ function getFigureWrapper(figurePosition: [number, number]) {
     return figurePosition[0] + 8 * figurePosition[1];
 }
 
-function getBoardMatrix(gameFigures: Array<Pawn | Rook | Knight | Bishop | King | Queen>){
-    let boardMatrix:Array<[number, number]> = [];
-    for (let figure of gameFigures){
+function getBoardMatrix(gameFigures: Array<Pawn | Rook | Knight | Bishop | King | Queen>) {
+    let boardMatrix: Array<[number, number]> = [];
+    for (let figure of gameFigures) {
         boardMatrix.push(figure.getFigurePosition());
     }
     return boardMatrix;
+}
+
+function lookingForOpponentColor(gameFigures: Array<Pawn | Rook | Knight | Bishop | King | Queen>, figurePosition: [number, number]): string {
+    let opponentPosition = getFigureWrapper(figurePosition);
+    let opponentColor = "";
+    for (let figure of gameFigures) {
+        if (opponentPosition == getFigureWrapper(figure.getFigurePosition())) {
+            opponentColor = figure.getColor();
+        }
+    }
+    return opponentColor;
 }
