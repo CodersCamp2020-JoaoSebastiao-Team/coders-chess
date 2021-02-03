@@ -69,3 +69,13 @@ li {
 .figure-checked:hover{
     cursor: pointer;
 }
+
+.figure-capture{
+    box-sizing: border-box;
+    background-color: rgba(255, 72, 0, 0.6);
+    border: 1px solid rgb(255, 0, 0);
+
+}
+.figure-capture:hover{
+    cursor: pointer;
+}

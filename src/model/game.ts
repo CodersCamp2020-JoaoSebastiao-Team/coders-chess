@@ -137,13 +137,16 @@ export class Game {
                 continue;
             }
             fieldList[i].classList.remove('figure-checked');
+            fieldList[i].classList.remove('figure-capture');
         }
         if (figure.checked) {
             fieldList[getFigureWrapper(figure.getFigurePosition())].classList.add('figure-checked');
             const boardMatrix = getBoardMatrix(this.gameFigures);
             let figureDirection:Array<[number, number]> = [];
+            let figureCapture:Array<[number, number]> = [];
             figureDirection = figure.showDirections(boardMatrix);
-            showDirections(fieldList, figure,figureDirection);
+            figureCapture = figure.showCaptures(boardMatrix);
+            showDirections(fieldList, figure,figureDirection,figureCapture);
         }
         else {
             fieldList[getFigureWrapper(figure.getFigurePosition())].classList.remove('figure-checked');
@@ -154,9 +157,15 @@ export class Game {
         function showFigureDirection(fieldList: NodeListOf<Element>, figure: Pawn | Rook | Knight | Bishop | King | Queen, set: [number, number]) {
             fieldList[getFigureWrapper([figure.getFigurePosition()[0] + set[0], figure.getFigurePosition()[1] + set[1]])].classList.add('figure-checked');
         }
-        function showDirections(fieldList: NodeListOf<Element>, figure: Pawn | Rook | Knight | Bishop | King | Queen,figureDirection:Array<[number,number]>) {
+        function showFigureCaptures(fieldList: NodeListOf<Element>, figure: Pawn | Rook | Knight | Bishop | King | Queen, set: [number, number]) {
+            fieldList[getFigureWrapper([figure.getFigurePosition()[0] + set[0], figure.getFigurePosition()[1] + set[1]])].classList.add('figure-capture');
+        }
+        function showDirections(fieldList: NodeListOf<Element>, figure: Pawn | Rook | Knight | Bishop | King | Queen,figureDirection:Array<[number,number]>,figureCaptures:Array<[number,number]>) {
             figureDirection.forEach(element => {
                 showFigureDirection(fieldList, figure, element);
+            });
+            figureCaptures.forEach(element => {
+                showFigureCaptures(fieldList, figure, element);
             });
         }
     }
