@@ -11,7 +11,6 @@ export class Bishop extends Figure{
         return true;
     };
     showDirections(boardMatrix: Array<[number, number]>) {
-        //console.log("Pawn board matrix: ", boardMatrix);
         let Directions: Array<[number, number]> = [];
 
         diagonalDirections(boardMatrix, this.getFigurePosition());
@@ -71,7 +70,6 @@ export class Bishop extends Figure{
         return Directions;
     }
     showCaptures(boardMatrix: Array<[number, number]>) {
-        //console.log("Pawn board matrix: ", boardMatrix);
         let Directions: Array<[number, number]> = [];
 
         diagonalDirections(boardMatrix, this.getFigurePosition());
@@ -103,7 +101,6 @@ export class Bishop extends Figure{
         function diagonalDirections(boardMatrix: Array<[number, number]>, position: [number, number]){
             for (let i = 1 ; i <= 7; i++){
                 if (findFigure(boardMatrix, position, [i, i])[0] && !findFigure(boardMatrix, position, [i, i])[1]) {
-                    console.log("loking for i,i - > ",i, "figurefind function: ", findFigure(boardMatrix, position, [i, i])[0])
                     Directions.push([i, i]);
                     break;
                 }

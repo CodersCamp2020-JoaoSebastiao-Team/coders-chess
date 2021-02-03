@@ -12,6 +12,7 @@ export class Game {
     private gameFigures: Array<Pawn | Rook | Knight | Bishop | King | Queen> = [];
 
     gameInit(): void {
+        console.log("Lets ChessPlay begun!");
         // Set figures for white player
         const pawnWhite1 = new Pawn(ChessFigure.Pawn, ChessColor.White, [0, 6], false);
         this.gameFigures.push(pawnWhite1);
@@ -154,8 +155,6 @@ export class Game {
             fieldList[getFigureWrapper(figure.getFigurePosition())].classList.remove('figure-capture');
         }
 
-
-        //console.log(`Player clicked: ${figure.getFigure()}`);
         function showFigureDirection(fieldList: NodeListOf<Element>, figure: Pawn | Rook | Knight | Bishop | King | Queen, set: [number, number]) {
             fieldList[getFigureWrapper([figure.getFigurePosition()[0] + set[0], figure.getFigurePosition()[1] + set[1]])].classList.add('figure-checked');
         }
