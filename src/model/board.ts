@@ -54,40 +54,38 @@ Contest.gameInit();
 const gameFiguresArray = Contest.getGameFigures();
 Contest.refreshBoard(gameFiguresArray, boardFields);
 
-console.log("Game has been initialized", "Game figures Array: ",gameFiguresArray);
-let previousNumber:number = -1;
+console.log("Game has been initialized", "Game figures Array: ", gameFiguresArray);
+let previousNumber: number = -1;
 let previousFigure = gameFiguresArray[0];
 
 for (let i = 0; i < boardFields.length; i++) {
     boardFields[i].addEventListener("click", () => {
-        //console.log(i);
         const figureNumber = Contest.checkBoardForFigure(i);
         const figure = gameFiguresArray[figureNumber];
-        if (figureNumber != -1){
-            //console.log(figure);
-            Contest.figureClicked(gameFiguresArray[figureNumber],boardFields);
+        const boardFields = document.querySelectorAll(".square");
+        if (figureNumber != -1) {
+            Contest.figureClicked(gameFiguresArray[figureNumber], boardFields);
             previousNumber = figureNumber;
         }
-        else{
-            console.log("previous figure: ", previousFigure, "prvious number: ", previousNumber,"previous checked: ",previousFigure.checked);
-            if ((previousNumber != -1) && previousFigure.checked ){
-                //console.log("decoded field: ",decodeField(i));
-                //console.log("previous figure: ", previousFigure);
-                previousFigure.setFigurePosition(decodeField(i));
-                previousFigure.checked = false;
-                Contest.figureClicked(gameFiguresArray[previousNumber],boardFields);
-
+        else {
+            if ((previousNumber != -1) && previousFigure.checked) {
+                if (boardFields[i].classList.contains('figure-checked')) {
+                    previousFigure.setFigurePosition(decodeField(i));
+                    previousFigure.checked = false;
+                    Contest.figureClicked(gameFiguresArray[previousNumber], boardFields);
+                }
             }
-
         }
         Contest.refreshBoard(gameFiguresArray, boardFields);
+        if (boardFields[i].classList.contains('figure-checked')) {
         previousNumber = figureNumber;
         previousFigure = gameFiguresArray[figureNumber];
+        }
     });
 
 }
 
-function decodeField(field: number): [number, number]{
+function decodeField(field: number): [number, number] {
     return [field % 8, Math.floor(field / 8)];
 
 }
