@@ -11,7 +11,7 @@ export class Rook extends Figure{
         return true;
     };
     showDirections(boardMatrix: Array<[number, number]>) {
-        console.log("Pawn board matrix: ", boardMatrix);
+        //console.log("Pawn board matrix: ", boardMatrix);
         let Directions: Array<[number, number]> = [];
 
         straightDirections(boardMatrix, this.getFigurePosition());
@@ -71,7 +71,7 @@ export class Rook extends Figure{
         return Directions;
     }
     showCaptures(boardMatrix: Array<[number, number]>) {
-        console.log("Pawn board matrix: ", boardMatrix);
+        //console.log("Pawn board matrix: ", boardMatrix);
         let Directions: Array<[number, number]> = [];
 
         straightDirections(boardMatrix, this.getFigurePosition());

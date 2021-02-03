@@ -11,7 +11,7 @@ export class Knight extends Figure {
         return true;
     };
     showDirections(boardMatrix: Array<[number, number]>) {
-        console.log("Pawn board matrix: ", boardMatrix);
+        //console.log("Pawn board matrix: ", boardMatrix);
         let Directions: Array<[number, number]> = [];
 
         if (!findFigure(boardMatrix, this.getFigurePosition(), [2, 1])) {
@@ -60,31 +60,31 @@ export class Knight extends Figure {
         return Directions;
     }
     showCaptures(boardMatrix: Array<[number, number]>) {
-        console.log("Pawn board matrix: ", boardMatrix);
+        //console.log("Pawn board matrix: ", boardMatrix);
         let Directions: Array<[number, number]> = [];
 
         if (findFigure(boardMatrix, this.getFigurePosition(), [2, 1])[0] == true && findFigure(boardMatrix, this.getFigurePosition(), [2, 1])[1] == false) {
             Directions.push([2, 1]);
         }
-        if (findFigure(boardMatrix, this.getFigurePosition(), [1, 2])[0] == true ) {
+        if (findFigure(boardMatrix, this.getFigurePosition(), [1, 2])[0] == true && findFigure(boardMatrix, this.getFigurePosition(), [1, 2])[1] == false) {
             Directions.push([1, 2]);
         }
-        if (findFigure(boardMatrix, this.getFigurePosition(), [-1, 2])[0] == true) {
+        if (findFigure(boardMatrix, this.getFigurePosition(), [-1, 2])[0] == true && findFigure(boardMatrix, this.getFigurePosition(), [-1, 2])[1] == false) {
             Directions.push([-1, 2]);
         }
-        if (findFigure(boardMatrix, this.getFigurePosition(), [-2, 1])[0] == true) {
+        if (findFigure(boardMatrix, this.getFigurePosition(), [-2, 1])[0] == true && findFigure(boardMatrix, this.getFigurePosition(), [-2, 1])[1] == false) {
             Directions.push([-2, 1]);
         }
-        if (findFigure(boardMatrix, this.getFigurePosition(), [-2, -1])[0] == true) {
+        if (findFigure(boardMatrix, this.getFigurePosition(), [-2, -1])[0] == true && findFigure(boardMatrix, this.getFigurePosition(), [-2, -1])[1] == false) {
             Directions.push([-2, -1]);
         }
-        if (findFigure(boardMatrix, this.getFigurePosition(), [-1, -2])[0] == true) {
+        if (findFigure(boardMatrix, this.getFigurePosition(), [-1, -2])[0] == true && findFigure(boardMatrix, this.getFigurePosition(), [-1, -2])[1] == false) {
             Directions.push([-1, -2]);
         }
-        if (findFigure(boardMatrix, this.getFigurePosition(), [1, -2])[0] == true) {
+        if (findFigure(boardMatrix, this.getFigurePosition(), [1, -2])[0] == true && findFigure(boardMatrix, this.getFigurePosition(), [1, -2])[1] == false) {
             Directions.push([1, -2]);
         }
-        if (findFigure(boardMatrix, this.getFigurePosition(), [2, -1])[0] == true) {
+        if (findFigure(boardMatrix, this.getFigurePosition(), [2, -1])[0] == true && findFigure(boardMatrix, this.getFigurePosition(), [2, -1])[1] == false) {
             Directions.push([2, -1]);
         }
 

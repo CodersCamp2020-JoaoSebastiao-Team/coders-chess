@@ -13,7 +13,7 @@ export class Pawn extends Figure {
         return true;
     };
     showDirections(boardMatrix: Array<[number, number]>) {
-        console.log("Pawn board matrix: ", boardMatrix);
+        //console.log("Pawn board matrix: ", boardMatrix);
         let Directions: Array<[number, number]> = [];
         if (this.getColor() == "white") {
             if (this.getFigurePosition()[1] == 6) {
