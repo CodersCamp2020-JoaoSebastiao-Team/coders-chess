@@ -83,6 +83,7 @@ for (let i = 0; i < boardFields.length; i++) {
                     //Next player tour
                     PlayerTour = PlayerTour == ChessPlayerTour.White ? ChessPlayerTour.Black : ChessPlayerTour.White;
                     console.log(`Now is ${PlayerTour} player tour`);
+                    updateLocalStarage();
                     }
                 }
                 else {
@@ -102,6 +103,7 @@ for (let i = 0; i < boardFields.length; i++) {
                     //Next player tour
                     PlayerTour = PlayerTour == ChessPlayerTour.White ? ChessPlayerTour.Black : ChessPlayerTour.White;
                     console.log(`Now is ${PlayerTour} player tour`);
+                    updateLocalStarage();
                 }
             }
         }
@@ -119,3 +121,11 @@ function decodeField(field: number): [number, number] {
 
 }
 
+function updateLocalStarage(){
+    if(PlayerTour == ChessPlayerTour.White){
+        localStorage.setItem("color","white")
+    }
+    else{
+        localStorage.setItem("color","black")
+    }
+}
