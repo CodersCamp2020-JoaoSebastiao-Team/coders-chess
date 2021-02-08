@@ -38,6 +38,8 @@ function setBubble(range: HTMLInputElement, bubble: HTMLOutputElement) {
 
     bubble.style.left = `calc(${offset}% - 10px)`;
     bubble.style.color = 'black';
+    localStorage.setItem("bubble", val.toString());
+    localStorage.setItem("color","white")
 }
 
 
