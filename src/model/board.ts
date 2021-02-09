@@ -63,7 +63,8 @@ let PlayerTour: ChessPlayerTour = ChessPlayerTour.White;
 console.log(`Player white begin.`);
 let previousNumber: number = -1;
 let previousFigure = gameFiguresArray[0];
-localStorage.clear()
+localStorage.removeItem('movesText');
+localStorage.removeItem('movesNotation');
 for (let i = 0; i < boardFields.length; i++) {
     boardFields[i].addEventListener("click", () => {
 
