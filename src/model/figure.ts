@@ -56,6 +56,15 @@ export abstract class Figure {
         }
         return figure;
     }
+    getFigureNumber(): number{
+        return this.figure.valueOf()
+    }
+    getFigureEnum():ChessFigure{
+        return this.figure
+    }
+    getFigureColorEnum():ChessColor{
+        return this.color
+    }
     abstract moveFigure(position: [number, number]): boolean;
     abstract captureFigure(position: [number, number]): boolean;
     abstract showDirections(boardMatrix:Array<[number, number]>): Array<[number, number]>;

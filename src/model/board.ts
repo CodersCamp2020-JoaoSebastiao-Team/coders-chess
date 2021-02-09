@@ -1,5 +1,5 @@
 import { Game } from './game.js';
-
+import {saveMoveToLocalStorage} from "./stats"
 const board = <HTMLElement>document.querySelector(".board");
 const boardLetters = <HTMLElement>document.querySelector(".letters");
 const boardNumbers = <HTMLElement>document.querySelector(".numbers");
@@ -63,7 +63,7 @@ let PlayerTour: ChessPlayerTour = ChessPlayerTour.White;
 console.log(`Player white begin.`);
 let previousNumber: number = -1;
 let previousFigure = gameFiguresArray[0];
-
+localStorage.clear()
 for (let i = 0; i < boardFields.length; i++) {
     boardFields[i].addEventListener("click", () => {
 
@@ -83,6 +83,7 @@ for (let i = 0; i < boardFields.length; i++) {
                     //Next player tour
                     PlayerTour = PlayerTour == ChessPlayerTour.White ? ChessPlayerTour.Black : ChessPlayerTour.White;
                     console.log(`Now is ${PlayerTour} player tour`);
+                    saveMoveToLocalStorage(figure, previousFigure)
                     updateLocalStarage();
                     }
                 }
@@ -90,6 +91,7 @@ for (let i = 0; i < boardFields.length; i++) {
                     if (figure.getColor() == PlayerTour) {
                     Contest.figureClicked(gameFiguresArray[figureNumber], boardFields);
                     previousNumber = figureNumber;
+                    localStorage.setItem("figure", JSON.stringify(figure));
                     }
                 }
         }
@@ -103,7 +105,8 @@ for (let i = 0; i < boardFields.length; i++) {
                     //Next player tour
                     PlayerTour = PlayerTour == ChessPlayerTour.White ? ChessPlayerTour.Black : ChessPlayerTour.White;
                     console.log(`Now is ${PlayerTour} player tour`);
-                      updateLocalStarage();
+                    saveMoveToLocalStorage(null, previousFigure)
+                    updateLocalStarage();
                 }
             }
         }
