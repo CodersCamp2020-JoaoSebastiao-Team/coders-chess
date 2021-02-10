@@ -43,3 +43,12 @@
     color: black;
     font-size: large;
 }
+.dead-black-figures{
+ 
+    color: wheat;
+    background-color: green;
+}
+.dead-white-figures{
+    color:wheat;
+    background-color: hotpink;
+}
