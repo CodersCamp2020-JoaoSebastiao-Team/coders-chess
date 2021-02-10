@@ -136,10 +136,36 @@ function makeFigureObject(figure: any, moveTo: Figure) {
 }
 
 export function movesNotationHTML(movesNotation:Array<string>) {
-    return '<ol>' + movesNotation.map((move: string, index: number) => '<li>' + index + ". " + move +
-        '</li>').join(' ') + '</ol>'
+    let moves: Array<Array<string>> = [];
+    movesNotation.forEach((move: string, index:number)=>{
+        if (index%2===0){
+            moves.push([move])
+        }else{
+            moves[moves.length-1].push(move)
+        }
+    })
+
+    return  moves.map((move: Array<string>, index: number) =>  {
+        let blackMove = move[1]?'<div class="black-move">' +move[1]+ '</div>':''
+        return'<div class="move">'+
+        '<div class="white-move">' + move[0] + '</div>'+
+         blackMove+
+        '</div>'}).join(' ')
 }
 export function movesTextHTML(movesText:Array<string>) {
-    return '<ol>' + movesText.map((move: string, index: number) => '<li>' + index + ". " + move + '</li>').join(' ') +
-        '</ol>'
+    let moves: Array<Array<string>> = [];
+    movesText.forEach((move: string, index: number) => {
+        if (index % 2 === 0) {
+            moves.push([move])
+        } else {
+            moves[moves.length - 1].push(move)
+        }
+    })
+    return moves.map((move: Array<string>, index: number) => {
+        let blackMove = move[1] ? '<div class="black-move">' + move[1] + '</div>' : ''
+        return '<div class="move">' +
+            '<div class="white-move">' + move[0] + '</div>' +
+            blackMove +
+            '</div>'
+    }).join(' ')
 }
