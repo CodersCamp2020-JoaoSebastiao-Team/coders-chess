@@ -114,25 +114,25 @@ export function saveMoveToLocalStorage(opponentFigure: Figure | null, moveTo: Fi
     localStorage.setItem("movesNotation", JSON.stringify(movesNotation));
     const list = window.document.getElementById("history-list")!;
 
-    list.innerHTML ='<div style="word-wrap: break-word; overflow: auto; height: 100% ">' +
-        '<ol>' +  movesText.map((move:string, index: number) => '<li style="color: whitesmoke; ' +
-            'font-size: 16px; margin-left: 10px" >'+index+". " +move+'</li>').join(' ') + '</ol></div>';
+    list.innerHTML = '<div style="word-wrap: break-word; overflow: auto; height: 100% ">' +
+        '<ol>' + movesText.map((move: string, index: number) => '<li style="color: whitesmoke; ' +
+            'font-size: 16px; margin-left: 10px" >' + index + ". " + move + '</li>').join(' ') + '</ol></div>';
 
 }
 
 function makeFigureObject(figure: any, moveTo: Figure) {
     switch (moveTo.getFigureEnum()) {
         case ChessFigure.Pawn:
-            return new Pawn(ChessFigure.Pawn,moveTo.getFigureColorEnum(),figure.position,false)
+            return new Pawn(ChessFigure.Pawn, moveTo.getFigureColorEnum(), figure.position, false)
         case ChessFigure.Queen:
-            return new Queen(ChessFigure.Queen,moveTo.getFigureColorEnum(),figure.position,false)
+            return new Queen(ChessFigure.Queen, moveTo.getFigureColorEnum(), figure.position, false)
         case ChessFigure.Rook:
-            return new Rook(ChessFigure.Rook,moveTo.getFigureColorEnum(),figure.position,false)
+            return new Rook(ChessFigure.Rook, moveTo.getFigureColorEnum(), figure.position, false)
         case ChessFigure.Bishop:
-            return new Bishop(ChessFigure.Bishop,moveTo.getFigureColorEnum(),figure.position,false)
+            return new Bishop(ChessFigure.Bishop, moveTo.getFigureColorEnum(), figure.position, false)
         case ChessFigure.King:
-            return new King(ChessFigure.King,moveTo.getFigureColorEnum(),figure.position,false)
+            return new King(ChessFigure.King, moveTo.getFigureColorEnum(), figure.position, false)
         case ChessFigure.Knight:
-            return new Knight(ChessFigure.Knight,moveTo.getFigureColorEnum(),figure.position,false)
+            return new Knight(ChessFigure.Knight, moveTo.getFigureColorEnum(), figure.position, false)
     }
 }

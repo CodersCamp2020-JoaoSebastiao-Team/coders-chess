@@ -1,0 +1,45 @@
+.time_head{
+    margin: 3%;
+    display: flex;
+    justify-content: space-around;
+}
+.time_head p{
+    color: black;
+    font-size: large;
+    font-weight: bold;
+}
+
+.time_body{
+   
+    height: 25%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.white_time{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    width: 40%;
+    height: 100%;
+    background-color:lightblue;
+}
+
+.black_time{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    width: 40%;
+    height: 100%;
+    background-color:#111;
+}
+.black_time p{
+    color: wheat;
+    font-size: large;
+}
+.white_time p{
+    color: black;
+    font-size: large;
+}
