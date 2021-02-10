@@ -104,8 +104,7 @@ export function saveMoveToLocalStorage(opponentFigure: Figure | null, moveTo: Fi
 
     let movesText = JSON.parse(<string>localStorage.getItem("movesText")) || [];
     let movesNotation = JSON.parse(<string>localStorage.getItem("movesNotation")) || [];
-    movesText = [...movesText];
-    movesNotation = [...movesNotation];
+
     let figure = JSON.parse(<string>localStorage.getItem("figure"))
     let figureObject = makeFigureObject(figure, moveTo);
     movesText.push(moveToText(figureObject, opponentFigure, moveTo));
@@ -113,10 +112,9 @@ export function saveMoveToLocalStorage(opponentFigure: Figure | null, moveTo: Fi
     localStorage.setItem("movesText", JSON.stringify(movesText));
     localStorage.setItem("movesNotation", JSON.stringify(movesNotation));
     const list = window.document.getElementById("history-list")!;
-
-    list.innerHTML = '<div style="word-wrap: break-word; overflow: auto; height: 100% ">' +
-        '<ol>' + movesText.map((move: string, index: number) => '<li style="color: whitesmoke; ' +
-            'font-size: 16px; margin-left: 10px" >' + index + ". " + move + '</li>').join(' ') + '</ol></div>';
+    let notationText = JSON.parse(<string>localStorage.getItem("notationText"))
+    list.innerHTML =
+        notationText === 'Notacja'? movesTextHTML(movesText): movesNotationHTML(movesNotation);
 
 }
 
@@ -135,4 +133,13 @@ function makeFigureObject(figure: any, moveTo: Figure) {
         case ChessFigure.Knight:
             return new Knight(ChessFigure.Knight, moveTo.getFigureColorEnum(), figure.position, false)
     }
+}
+
+export function movesNotationHTML(movesNotation:Array<string>) {
+    return '<ol>' + movesNotation.map((move: string, index: number) => '<li>' + index + ". " + move +
+        '</li>').join(' ') + '</ol>'
+}
+export function movesTextHTML(movesText:Array<string>) {
+    return '<ol>' + movesText.map((move: string, index: number) => '<li>' + index + ". " + move + '</li>').join(' ') +
+        '</ol>'
 }

@@ -36,6 +36,8 @@
     margin-bottom: 9px;
     background-color: #333;
     border-radius: 10px;
+    word-wrap: break-word;
+    overflow: auto;
 }
 .time h2, .list-container h2{
     color: #333;
@@ -51,4 +53,17 @@
 #leave-button, #undo-button{
     width: 15rem;
     border-radius: 10px;
+}
+#notation-button{
+    position: absolute;
+    left: 271px;
+    width: 8rem;
+    height: 40px;
+    border-radius: 10px;
+}
+
+.list li{
+    color: whitesmoke;
+    font-size: 16px;
+    text-align: center;
 }
