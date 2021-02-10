@@ -1,5 +1,6 @@
 import { Game } from './game.js';
 import {saveMoveToLocalStorage} from "./stats"
+import {getBeatFigures} from "./time";
 const board = <HTMLElement>document.querySelector(".board");
 const boardLetters = <HTMLElement>document.querySelector(".letters");
 const boardNumbers = <HTMLElement>document.querySelector(".numbers");
@@ -67,7 +68,7 @@ localStorage.removeItem('movesText');
 localStorage.removeItem('movesNotation');
 for (let i = 0; i < boardFields.length; i++) {
     boardFields[i].addEventListener("click", () => {
-
+       
         const figureNumber = Contest.checkBoardForFigure(i);
         const figure = gameFiguresArray[figureNumber];
         const boardFields = document.querySelectorAll(".square");
@@ -81,11 +82,13 @@ for (let i = 0; i < boardFields.length; i++) {
                     previousFigure.checked = false;
                     Contest.figureClicked(gameFiguresArray[previousNumber], boardFields);
                     console.log(`Congratulate! ${figure.getColor()} ${figure.getFigure()} was captured!`);
+                  
                     //Next player tour
                     PlayerTour = PlayerTour == ChessPlayerTour.White ? ChessPlayerTour.Black : ChessPlayerTour.White;
                     console.log(`Now is ${PlayerTour} player tour`);
                     saveMoveToLocalStorage(figure, previousFigure)
                     updateLocalStarage();
+                    getBeatFigures();
                     }
                 }
                 else {

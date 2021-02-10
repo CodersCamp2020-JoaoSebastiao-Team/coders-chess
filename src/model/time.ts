@@ -5,16 +5,16 @@ let blackTimePassed:number = 0;
 let whiteTimePassed:number = 0;
 const whiteTime = <HTMLElement>document.querySelector(".white_time");
 const blackTime = <HTMLElement>document.querySelector(".black_time");
-const dead_black = document.querySelector(".dead-black-figures");
-const dead_white = document.querySelector(".dead-white-figures");
+const dead_black = <HTMLElement>document.querySelector(".dead-black-figures");
+const dead_white = <HTMLElement>document.querySelector(".dead-white-figures");
+const timer_white = <HTMLElement>document.querySelector(".white_time");
+const timer_black =  <HTMLElement>document.querySelector(".black_time");
 let bubblee= localStorage.getItem("bubble");
-console.log(typeof localStorage.getItem("bubble"))
 let currentColor = "white";
 if (typeof bubblee=='string')
    timeLimit = parseFloat(bubblee)*60;
 whiteTime.innerHTML = `<p>${formatTime(timeLimit)}</p>`
 blackTime.innerHTML = `<p>${formatTime(timeLimit)}</p>`
-
 let array_of_beat_white_figures:string[] = [];
 let array_of_beat_black_figures:string[] = [];
 
@@ -25,12 +25,16 @@ function formatTime(time:any){
   }
 
 function updateWhiteTimer(){
+    timer_black.style.boxShadow= "none"; 
+    timer_white.style.boxShadow= "0 4px 4px rgba(0,0,0,.25), 4px 4px 40px red"; 
     whiteTimePassed++;
     whiteTimeLeft = timeLimit - whiteTimePassed;
     whiteTime.innerHTML = `<p>${formatTime(whiteTimeLeft)}</p>`
 }
 
 function updateBlackTimer(){
+    timer_white.style.boxShadow= "none"; 
+    timer_black.style.boxShadow= "0 4px 4px rgba(0,0,0,.25), 4px 4px 40px red"; 
     blackTimePassed++;
     blackTimeLeft = timeLimit - blackTimePassed;
     blackTime.innerHTML = `<p>${formatTime(blackTimeLeft)}</p>`
@@ -42,7 +46,6 @@ function startTimer():void{
             let color = localStorage.getItem("color");
             if(typeof color==='string'){
                 if(currentColor!==color){
-                    getBeatFigures();
                     currentColor = color;
                 }
                 if(color==='white') updateWhiteTimer()
@@ -53,13 +56,13 @@ function startTimer():void{
                 clearInterval(timerInterval)
             }
         }, 1000)
-     
 }
 
 startTimer();
 
 
-function getBeatFigures():void{
+
+export function getBeatFigures():void{
     let moveText:string|null = localStorage.getItem("movesText");
     let array_moves_texts;
     if(typeof moveText=='string'){
@@ -75,15 +78,66 @@ function getBeatFigures():void{
         let index:number = last_move.indexOf("beat");
         last_move=last_move.slice(index,last_move.length-1);
         array_of_beat_black_figures.push(returnFigureName(last_move))
+        
     }
       if(last_move?.includes('white') && last_move.includes('beat')){
         let index:number = last_move.indexOf("beat");
         last_move =last_move.slice(index,last_move.length-1);
         array_of_beat_white_figures.push(returnFigureName(last_move))
     }
+    updateDeadFiguresInHTML();
+}
+
+function updateDeadFiguresInHTML():void{
+    let white_img:string = "";
+    let black_img:string = "";
+    array_of_beat_white_figures.forEach(element => {
+        console.log(element);
+        white_img +=` <img src=${getUrlOfSVG('white',element)}>`
+        dead_white.innerHTML = white_img;
+    });
+    array_of_beat_black_figures.forEach(element =>{
+        black_img += ` <img src=${getUrlOfSVG('black',element)}>`
+        dead_black.innerHTML = black_img;
+    });
 
 }
 
+function getUrlOfSVG(color:string,figure:string):string{
+    if (color == "black") {
+        switch (figure) {
+            case "Pawn":
+                return "./figures/pawnOrange.svg";
+            case "Bishop":
+                return "./figures/bishopOrangesvg";
+            case "Knight":
+                return "./figures/knightOrange.svg";
+            case "Queen":
+                return "./figures/queenOrange.svg";
+            case "Rook":
+                return "./figures/rookOrange.svg";            
+            default:
+                return "";
+        }
+    }
+    if (color == "white") {
+        switch (figure) {
+            case "Pawn":
+                return "./figures/pawnPink.svg";
+            case "Bishop":
+                return "./figures/bishopPink.svg";
+            case "Knight":
+                return "./figures/knightPink.svg";
+            case "Queen":
+                return "./figures/queenPink.svg";
+            case "Rook":
+                return "./figures/rookPink.svg";
+            default:
+                return "";
+        }
+    }
+    return "";
+};
 
 
 function returnFigureName(str:string):string{
