@@ -102,6 +102,7 @@ export class Game {
             figureImg.style.backgroundImage = "";
         }
         for (let figure of gameFigures) {
+            console.log(figure);
             figurePosition = getFigureWrapper(figure.getFigurePosition());
             let figureImg = <HTMLInputElement>boardFields[figurePosition].querySelector(".figureImg");
             figureImg.style.width = "100%";
