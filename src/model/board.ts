@@ -66,58 +66,61 @@ let previousNumber: number = -1;
 let previousFigure = gameFiguresArray[0];
 localStorage.removeItem('movesText');
 localStorage.removeItem('movesNotation');
+localStorage.removeItem('koniec');
 for (let i = 0; i < boardFields.length; i++) {
-    boardFields[i].addEventListener("click", () => {
-       
-        const figureNumber = Contest.checkBoardForFigure(i);
-        const figure = gameFiguresArray[figureNumber];
-        const boardFields = document.querySelectorAll(".square");
 
-        if (figureNumber != -1) {
-                if (boardFields[i].classList.contains('figure-capture')) {
-                    if (figure.getColor() != PlayerTour) {
-                    //Capture figure!
-                    gameFiguresArray.splice(figureNumber, 1);
-                    previousFigure.setFigurePosition(decodeField(i));
-                    previousFigure.checked = false;
-                    Contest.figureClicked(gameFiguresArray[previousNumber], boardFields);
-                    console.log(`Congratulate! ${figure.getColor()} ${figure.getFigure()} was captured!`);
-                  
-                    //Next player tour
-                    PlayerTour = PlayerTour == ChessPlayerTour.White ? ChessPlayerTour.Black : ChessPlayerTour.White;
-                    console.log(`Now is ${PlayerTour} player tour`);
-                    saveMoveToLocalStorage(figure, previousFigure)
-                    updateLocalStarage();
-                    getBeatFigures();
+    boardFields[i].addEventListener("click", () => {
+        if(!localStorage.getItem('koniec')){
+            const figureNumber = Contest.checkBoardForFigure(i);
+            const figure = gameFiguresArray[figureNumber];
+            const boardFields = document.querySelectorAll(".square");
+    
+            if (figureNumber != -1) {
+                    if (boardFields[i].classList.contains('figure-capture')) {
+                        if (figure.getColor() != PlayerTour) {
+                        //Capture figure!
+                        gameFiguresArray.splice(figureNumber, 1);
+                        previousFigure.setFigurePosition(decodeField(i));
+                        previousFigure.checked = false;
+                        Contest.figureClicked(gameFiguresArray[previousNumber], boardFields);
+                        console.log(`Congratulate! ${figure.getColor()} ${figure.getFigure()} was captured!`);
+                      
+                        //Next player tour
+                        PlayerTour = PlayerTour == ChessPlayerTour.White ? ChessPlayerTour.Black : ChessPlayerTour.White;
+                        console.log(`Now is ${PlayerTour} player tour`);
+                        saveMoveToLocalStorage(figure, previousFigure)
+                        updateLocalStarage();
+                        getBeatFigures();
+                        }
                     }
-                }
-                else {
-                    if (figure.getColor() == PlayerTour) {
-                    Contest.figureClicked(gameFiguresArray[figureNumber], boardFields);
-                    previousNumber = figureNumber;
-                    localStorage.setItem("figure", JSON.stringify(figure));
+                    else {
+                        if (figure.getColor() == PlayerTour) {
+                        Contest.figureClicked(gameFiguresArray[figureNumber], boardFields);
+                        previousNumber = figureNumber;
+                        localStorage.setItem("figure", JSON.stringify(figure));
+                        }
                     }
-                }
-        }
-        else {
-            if ((previousNumber != -1) && previousFigure.checked) {
-                if (boardFields[i].classList.contains('figure-checked')) {
-                    //Movde figure to correct position
-                    previousFigure.setFigurePosition(decodeField(i));
-                    previousFigure.checked = false;
-                    Contest.figureClicked(gameFiguresArray[previousNumber], boardFields);
-                    //Next player tour
-                    PlayerTour = PlayerTour == ChessPlayerTour.White ? ChessPlayerTour.Black : ChessPlayerTour.White;
-                    console.log(`Now is ${PlayerTour} player tour`);
-                    saveMoveToLocalStorage(null, previousFigure)
-                    updateLocalStarage();
+            }
+            else {
+                if ((previousNumber != -1) && previousFigure.checked) {
+                    if (boardFields[i].classList.contains('figure-checked')) {
+                        //Movde figure to correct position
+                        previousFigure.setFigurePosition(decodeField(i));
+                        previousFigure.checked = false;
+                        Contest.figureClicked(gameFiguresArray[previousNumber], boardFields);
+                        //Next player tour
+                        PlayerTour = PlayerTour == ChessPlayerTour.White ? ChessPlayerTour.Black : ChessPlayerTour.White;
+                        console.log(`Now is ${PlayerTour} player tour`);
+                        saveMoveToLocalStorage(null, previousFigure)
+                        updateLocalStarage();
+                    }
                 }
             }
-        }
-        Contest.refreshBoard(gameFiguresArray, boardFields);
-        if (boardFields[i].classList.contains('figure-checked') || boardFields[i].classList.contains('figure-capture')) {
-            previousNumber = figureNumber;
-            previousFigure = gameFiguresArray[figureNumber];
+            Contest.refreshBoard(gameFiguresArray, boardFields);
+            if (boardFields[i].classList.contains('figure-checked') || boardFields[i].classList.contains('figure-capture')) {
+                previousNumber = figureNumber;
+                previousFigure = gameFiguresArray[figureNumber];
+            }
         }
     });
 

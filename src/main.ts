@@ -29,7 +29,7 @@ if (range) {
 function setBubble(range: HTMLInputElement, bubble: HTMLOutputElement) {
     const val: number = parseFloat(range.value);
 
-    const min: number = parseFloat(range.min) || 0;
+    const min: number = parseFloat(range.min) || 1;
     const max: number = parseFloat(range.max) || 100;
 
     const offset = Number(((val - min) * 100) / (max - min));

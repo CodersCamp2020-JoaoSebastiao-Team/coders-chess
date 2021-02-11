@@ -1,6 +1,6 @@
-let blackTimeLeft:number;
+let blackTimeLeft:number
 let whiteTimeLeft:number;
-let timeLimit : number = 10;
+let timeLimit : number = 1;
 let blackTimePassed:number = 0;
 let whiteTimePassed:number = 0;
 const whiteTime = <HTMLElement>document.querySelector(".white_time");
@@ -8,23 +8,24 @@ const blackTime = <HTMLElement>document.querySelector(".black_time");
 const dead_black = <HTMLElement>document.querySelector(".dead-black-figures");
 const dead_white = <HTMLElement>document.querySelector(".dead-white-figures");
 const timer_white = <HTMLElement>document.querySelector(".white_time");
-const timer_black =  <HTMLElement>document.querySelector(".black_time");
+const timer_black = <HTMLElement>document.querySelector(".black_time");
+const results = <HTMLElement>document.querySelector(".results");
 let bubblee= localStorage.getItem("bubble");
 let currentColor = "white";
 if (typeof bubblee=='string')
-   timeLimit = parseFloat(bubblee)*60;
+   timeLimit = parseFloat(bubblee);
 whiteTime.innerHTML = `<p>${formatTime(timeLimit)}</p>`
 blackTime.innerHTML = `<p>${formatTime(timeLimit)}</p>`
 let array_of_beat_white_figures:string[] = [];
 let array_of_beat_black_figures:string[] = [];
 
-function formatTime(time:any){
+function formatTime(time:number):string{
     let minutes = Math.floor(time / 60) > 9 ? `${Math.floor(time / 60)}` : `0${Math.floor(time / 60)}`;
     let seconds = time % 60 > 9 ? `${time % 60}` : `0${time % 60}`;
     return `${minutes}:${seconds}`;
   }
 
-function updateWhiteTimer(){
+function updateWhiteTimer():void{
     timer_black.style.boxShadow= "none"; 
     timer_white.style.boxShadow= "0 4px 4px rgba(0,0,0,.25), 4px 4px 40px red"; 
     whiteTimePassed++;
@@ -32,7 +33,7 @@ function updateWhiteTimer(){
     whiteTime.innerHTML = `<p>${formatTime(whiteTimeLeft)}</p>`
 }
 
-function updateBlackTimer(){
+function updateBlackTimer():void{
     timer_white.style.boxShadow= "none"; 
     timer_black.style.boxShadow= "0 4px 4px rgba(0,0,0,.25), 4px 4px 40px red"; 
     blackTimePassed++;
@@ -53,6 +54,9 @@ function startTimer():void{
             }
 
             if(blackTimeLeft == 0 || whiteTimeLeft == 0){
+                localStorage.setItem('koniec','koniec');
+                if(blackTimeLeft==0) results.innerHTML = `<p>WHITE WON BY TIME!!!</p>`;
+                results.innerHTML = `<p>BLACK WON BY TIME!!!</p>`;
                 clearInterval(timerInterval)
             }
         }, 1000)
@@ -92,7 +96,6 @@ function updateDeadFiguresInHTML():void{
     let white_img:string = "";
     let black_img:string = "";
     array_of_beat_white_figures.forEach(element => {
-        console.log(element);
         white_img +=` <img src=${getUrlOfSVG('white',element)}>`
         dead_white.innerHTML = white_img;
     });
@@ -109,7 +112,7 @@ function getUrlOfSVG(color:string,figure:string):string{
             case "Pawn":
                 return "./figures/pawnOrange.svg";
             case "Bishop":
-                return "./figures/bishopOrangesvg";
+                return "./figures/bishopOrange.svg";
             case "Knight":
                 return "./figures/knightOrange.svg";
             case "Queen":
