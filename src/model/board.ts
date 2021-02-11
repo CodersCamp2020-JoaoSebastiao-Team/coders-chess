@@ -1,6 +1,7 @@
 import { Game } from './game.js';
 import {saveMoveToLocalStorage} from "./stats"
 import {getBeatFigures} from "./time";
+import {undoMove} from "./stats"
 const board = <HTMLElement>document.querySelector(".board");
 const boardLetters = <HTMLElement>document.querySelector(".letters");
 const boardNumbers = <HTMLElement>document.querySelector(".numbers");
@@ -123,6 +124,11 @@ for (let i = 0; i < boardFields.length; i++) {
     });
 
 }
+
+const cancelButton = window.document.getElementById("cancel-move")!;
+cancelButton.addEventListener('click', (event: MouseEvent) => {
+    undoMove(Contest)
+});
 
 function decodeField(field: number): [number, number] {
     return [field % 8, Math.floor(field / 8)];

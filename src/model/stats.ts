@@ -5,6 +5,7 @@ import {Rook} from "./figures/rook"
 import {Pawn} from "./figures/pawn"
 import {Knight} from "./figures/knight"
 import {King} from "./figures/king"
+import {Game} from "./game";
 
 function moveToText(figure: Figure, opponentFigure: Figure | null, moveTo: Figure): string {
 
@@ -163,4 +164,7 @@ function movesHTML(movesArray: Array<string>) {
             blackMove +
             '</div>'
     }).join(' ')
+}
+export function undoMove(contest:Game){
+    console.log(contest)
 }

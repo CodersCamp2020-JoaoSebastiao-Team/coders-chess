@@ -1,7 +1,8 @@
 import {movesTextHTML, movesNotationHTML} from "./stats"
 
+
 const notationButton = window.document.getElementById("notation-button")!;
-const cancelButton = window.document.getElementById("cancel-move")!;
+
 localStorage.setItem('notationText', JSON.stringify(notationButton.textContent));
 localStorage.removeItem('koniec');
 localStorage.removeItem('movesText');
@@ -23,6 +24,4 @@ notationButton.addEventListener('click', (event: MouseEvent) => {
     }
 });
 
-cancelButton.addEventListener('click', (event: MouseEvent) => {
 
-});
