@@ -13,7 +13,7 @@ const results = <HTMLElement>document.querySelector(".results");
 let bubblee= localStorage.getItem("bubble");
 let currentColor = "white";
 if (typeof bubblee=='string')
-   timeLimit = parseFloat(bubblee);
+   timeLimit = parseFloat(bubblee)*60;
 whiteTime.innerHTML = `<p>${formatTime(timeLimit)}</p>`
 blackTime.innerHTML = `<p>${formatTime(timeLimit)}</p>`
 let array_of_beat_white_figures:string[] = [];
