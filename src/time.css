@@ -45,14 +45,23 @@
 }
 .dead-black-figures{
     color: white;
+    position: absolute;
+    top: -30px;
 }
 .dead-white-figures{
     color: white;
+    position: absolute;
+    bottom: 5px;
    
 }
 .dead-figures{
     width: 100%;
 }
+.dead-white-figures img,.dead-black-figures img{
+    width: 40px;
+    height: auto;
+}
+
 
 .results{
     width: 96%;
