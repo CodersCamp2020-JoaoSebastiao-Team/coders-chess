@@ -115,7 +115,7 @@ export function saveMoveToLocalStorage(opponentFigure: Figure | null, moveTo: Fi
     const list = window.document.getElementById("history-list")!;
     let notationText = JSON.parse(<string>localStorage.getItem("notationText"))
     list.innerHTML =
-        notationText === 'Notacja'? movesTextHTML(movesText): movesNotationHTML(movesNotation);
+        notationText === 'Notacja' ? movesTextHTML(movesText) : movesNotationHTML(movesNotation);
     list.scrollTop = list.scrollHeight;
 
 }
@@ -137,28 +137,30 @@ function makeFigureObject(figure: any, moveTo: Figure) {
     }
 }
 
-export function movesNotationHTML(movesNotation:Array<string>) {
+export function movesNotationHTML(movesNotation: Array<string>) {
     return movesHTML(movesNotation)
 }
-export function movesTextHTML(movesText:Array<string>) {
+
+export function movesTextHTML(movesText: Array<string>) {
     return movesHTML(movesText)
 }
 
 function movesHTML(movesArray: Array<string>) {
     let moves: Array<Array<string>> = [];
-    movesArray.forEach((move: string, index:number)=>{
-        if (index%2===0){
+    movesArray.forEach((move: string, index: number) => {
+        if (index % 2 === 0) {
             moves.push([move])
-        }else{
-            moves[moves.length-1].push(move)
+        } else {
+            moves[moves.length - 1].push(move)
         }
     })
-    return  moves.map((move: Array<string>, index: number) =>  {
-        let blackMove = move[1]?'<div class="black-move">' +move[1]+ '</div>':''
-        let moveNumber = index+1;
-        return'<div class="move">'+
+    return moves.map((move: Array<string>, index: number) => {
+        let blackMove = move[1] ? '<div class="black-move">' + move[1] + '</div>' : ''
+        let moveNumber = index + 1;
+        return '<div class="move">' +
             '<div class="move-number">' + moveNumber + '</div>' +
-            '<div class="white-move">' + move[0] + '</div>'+
-            blackMove+
-            '</div>'}).join(' ')
+            '<div class="white-move">' + move[0] + '</div>' +
+            blackMove +
+            '</div>'
+    }).join(' ')
 }

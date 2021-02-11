@@ -46,16 +46,7 @@
     font-size: 24px;
     margin: 5px 0 20px;
 }
-.buttons{
-    width: 95%;
-    display: flex;
-    justify-content: space-between;
-}
 
-#leave-button, #undo-button{
-    width: 15rem;
-    border-radius: 10px;
-}
 #notation-button{
     position: absolute;
     right: 0;
