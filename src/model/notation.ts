@@ -1,9 +1,14 @@
 import {movesTextHTML, movesNotationHTML} from "./stats"
+
+
 const notationButton = window.document.getElementById("notation-button")!;
+
 localStorage.setItem('notationText', JSON.stringify(notationButton.textContent));
-localStorage.removeItem('movesText');
-localStorage.removeItem('movesNotation');
+localStorage.removeItem('koniec');
+localStorage.setItem('movesText',JSON.stringify([]));
+localStorage.setItem('movesNotation',JSON.stringify([]));
 const list = window.document.getElementById("history-list")!;
+
 
 notationButton.addEventListener('click', (event: MouseEvent) => {
     if ((event.target as HTMLElement).textContent == 'Notacja') {
@@ -18,4 +23,6 @@ notationButton.addEventListener('click', (event: MouseEvent) => {
         localStorage.setItem('notationText', JSON.stringify('Notacja'));
     }
 });
+
+
 

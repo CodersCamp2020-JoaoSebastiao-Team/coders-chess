@@ -10,13 +10,23 @@
     <link rel="stylesheet" href="time.css">
 </head>
 <body>
-    <div class="containerr">
+<div class="flex-container">
+    <!-- <div class="dead-figures">
+        <div class='dead-white-figures'></div>
+        <div class="dead-black-figures"></div>
+    </div> -->
+    <div class="flex-child">
+        <div class='dead-white-figures'></div>
+        <div id="chessboard-background" class="container-background"></div>
         <div class="upperdiv">
             <div class="numbers"></div>
             <div class="letters"></div>
         </div>
+        <div class="dead-black-figures"></div>
         <div class="board"></div>
-        <div class="stats">
+    </div>
+    <div class="flex-child">
+        <div class="game-info-table container-background container">
             <div class="time">
                 <h2>Czas gry</h2>
                 <div class="time_head">
@@ -28,22 +38,26 @@
                     <div class="black_time"><P>00:00</P></div>
                 </div>
             </div>
+            <div class="results"><p></p></div>
             <div class="list-container">
                 <h2>Historia</h2>
                 <button class="btn" id="notation-button">Notacja</button>
                 <div class="list" id="history-list">
-
                 </div>
             </div>
-            <div class="buttons">
-                <button class="btn" id="leave-button">Wyjdź</button>
-                <button class="btn" id="undo-button">Cofnij</button>
+            <div class="game-buttons-container">
+                <a href="index.html" id="leave-button" class="btn game-btn-opt">WYJDZ Z GRY</a>
+                <a id="cancel-move" class="btn game-btn-opt">COFNIJ RUCH</a>
             </div>
         </div>
     </div>
-    <script>var exports = {};</script>
-    <script type="module" src="../lib/src/model/board.js"></script>
-    <script type="module" src="../lib/src/model/time.js"></script>
-    <script type="module" src="../lib/src/model/notation.js"></script>
+</div>
+<script>
+    var exports = {};
+</script>
+<script type="module" src="../lib/src/model/board.js"></script>
+<script type="module" src="../lib/src/main.js"></script>
+<script type="module" src="../lib/src/model/time.js"></script>
+<script type="module" src="../lib/src/model/notation.js"></script>
 </body>
 </html>
