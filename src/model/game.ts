@@ -102,7 +102,6 @@ export class Game {
             figureImg.style.backgroundImage = "";
         }
         for (let figure of gameFigures) {
-            console.log(figure);
             figurePosition = getFigureWrapper(figure.getFigurePosition());
             let figureImg = <HTMLInputElement>boardFields[figurePosition].querySelector(".figureImg");
             figureImg.style.width = "100%";
@@ -131,49 +130,81 @@ export class Game {
         return -1;
     }
     figureClicked(figure: Pawn | Rook | Knight | Bishop | King | Queen, fieldList: NodeListOf<Element>) {
-        let field = <HTMLInputElement>fieldList[getFigureWrapper(figure.getFigurePosition())].querySelector(".figureImg");
-        let clickedFigure = getFigureWrapper(figure.getFigurePosition());
-        for (let i = 0; i < fieldList.length; i++) {
-            let figureImg = <HTMLInputElement>fieldList[i].querySelector(".figureImg");
-            if (i === clickedFigure) {
-                continue;
+            //console.log(figure);
+            let field = <HTMLInputElement>fieldList[getFigureWrapper(figure.getFigurePosition())].querySelector(".figureImg");
+            let clickedFigure = getFigureWrapper(figure.getFigurePosition());
+            for (let i = 0; i < fieldList.length; i++) {
+                let figureImg = <HTMLInputElement>fieldList[i].querySelector(".figureImg");
+                if (i === clickedFigure) {
+                    continue;
+                }
+                fieldList[i].classList.remove('figure-checked');
+                fieldList[i].classList.remove('figure-capture');
             }
-            fieldList[i].classList.remove('figure-checked');
-            fieldList[i].classList.remove('figure-capture');
-        }
-        if (figure.checked) {
-            fieldList[getFigureWrapper(figure.getFigurePosition())].classList.add('figure-checked');
-            fieldList[getFigureWrapper(figure.getFigurePosition())].classList.remove('figure-capture');
-            const boardMatrix = getBoardMatrix(this.gameFigures);
-            let figureDirection: Array<[number, number]> = [];
-            let figureCapture: Array<[number, number]> = [];
-            figureDirection = figure.showDirections(boardMatrix);
+            if (figure.checked) {
+                fieldList[getFigureWrapper(figure.getFigurePosition())].classList.add('figure-checked');
+                fieldList[getFigureWrapper(figure.getFigurePosition())].classList.remove('figure-capture');
+                const boardMatrix = getBoardMatrix(this.gameFigures);
+                let figureDirection: Array<[number, number]> = [];
+                let figureCapture: Array<[number, number]> = [];
+                figureDirection = figure.showDirections(boardMatrix);
+                figureCapture = figure.showCaptures(boardMatrix);
+                showDirections(fieldList, figure, figureDirection, figureCapture, this.gameFigures);
+            }
+            else {
+                fieldList[getFigureWrapper(figure.getFigurePosition())].classList.remove('figure-checked');
+                fieldList[getFigureWrapper(figure.getFigurePosition())].classList.remove('figure-capture');
+            }
+
+            function showFigureDirection(fieldList: NodeListOf<Element>, figure: Pawn | Rook | Knight | Bishop | King | Queen, set: [number, number]) {
+                fieldList[getFigureWrapper([figure.getFigurePosition()[0] + set[0], figure.getFigurePosition()[1] + set[1]])].classList.add('figure-checked');
+            }
+            function showFigureCaptures(fieldList: NodeListOf<Element>, figure: Pawn | Rook | Knight | Bishop | King | Queen, set: [number, number], gameFigures: Array<Pawn | Rook | Knight | Bishop | King | Queen>) {
+                const actualColor = figure.getColor();
+                const opponentColor = lookingForOpponentColor(gameFigures, [figure.getFigurePosition()[0] + set[0], figure.getFigurePosition()[1] + set[1]]);
+                if (actualColor != opponentColor) {
+                    fieldList[getFigureWrapper([figure.getFigurePosition()[0] + set[0], figure.getFigurePosition()[1] + set[1]])].classList.add('figure-capture');
+                }
+
+            }
+            function showDirections(fieldList: NodeListOf<Element>, figure: Pawn | Rook | Knight | Bishop | King | Queen, figureDirection: Array<[number, number]>, figureCaptures: Array<[number, number]>, gameFigures: Array<Pawn | Rook | Knight | Bishop | King | Queen>) {
+                figureDirection.forEach(element => {
+                    showFigureDirection(fieldList, figure, element);
+                });
+                figureCaptures.forEach(element => {
+                    showFigureCaptures(fieldList, figure, element, gameFigures);
+                });
+            }
+    }
+    lookingForCheck(){
+        let figures = this.gameFigures;
+        const boardMatrix = getBoardMatrix(this.gameFigures);
+        let figureCapture;
+        for(let figure of figures){
+            let figureColor = figure.getColor();
+            //console.log("figura: ", figure);
             figureCapture = figure.showCaptures(boardMatrix);
-            showDirections(fieldList, figure, figureDirection, figureCapture, this.gameFigures);
-        }
-        else {
-            fieldList[getFigureWrapper(figure.getFigurePosition())].classList.remove('figure-checked');
-            fieldList[getFigureWrapper(figure.getFigurePosition())].classList.remove('figure-capture');
-        }
 
-        function showFigureDirection(fieldList: NodeListOf<Element>, figure: Pawn | Rook | Knight | Bishop | King | Queen, set: [number, number]) {
-            fieldList[getFigureWrapper([figure.getFigurePosition()[0] + set[0], figure.getFigurePosition()[1] + set[1]])].classList.add('figure-checked');
-        }
-        function showFigureCaptures(fieldList: NodeListOf<Element>, figure: Pawn | Rook | Knight | Bishop | King | Queen, set: [number, number], gameFigures: Array<Pawn | Rook | Knight | Bishop | King | Queen>) {
-            const actualColor = figure.getColor();
-            const opponentColor = lookingForOpponentColor(gameFigures, [figure.getFigurePosition()[0] + set[0], figure.getFigurePosition()[1] + set[1]]);
-            if (actualColor != opponentColor) {
-                fieldList[getFigureWrapper([figure.getFigurePosition()[0] + set[0], figure.getFigurePosition()[1] + set[1]])].classList.add('figure-capture');
+            for (let figureOffset of figureCapture){
+                //let figureWrapper = getFigureWrapper(figurepos);
+                let figurePosition = figure.getFigurePosition();
+                let opponnentPos:[number, number] = [ (figurePosition[0] + figureOffset[0]), (figurePosition[1] + figureOffset[1])];
+                let opponnentWrapper = getFigureWrapper(opponnentPos);
+                for (let figureOpp of figures){
+                    //console.log("figure: ", opponnentPos, "figureOpp: ", figureOpp.getFigurePosition());
+                    if (figureOpp.getFigurePosition()[0] == opponnentPos[0] && figureOpp.getFigurePosition()[1] == opponnentPos[1]){
+                        if (figureOpp.getColor() != figureColor){
+                            //console.log("I catch you! ", figureOpp);
+                            if (figureOpp.getFigure() === "King"){
+                                console.log("check!");
+                            }
+                        }
+                        //console.log("it's a figure!: ", figureOpp);
+                    }
+                }
+                //console.log("pos: ", opponnentWrapper);
             }
-
-        }
-        function showDirections(fieldList: NodeListOf<Element>, figure: Pawn | Rook | Knight | Bishop | King | Queen, figureDirection: Array<[number, number]>, figureCaptures: Array<[number, number]>, gameFigures: Array<Pawn | Rook | Knight | Bishop | King | Queen>) {
-            figureDirection.forEach(element => {
-                showFigureDirection(fieldList, figure, element);
-            });
-            figureCaptures.forEach(element => {
-                showFigureCaptures(fieldList, figure, element, gameFigures);
-            });
+            //console.log("figura: ", figure, "figure captures: ",  figureCapture);
         }
     }
 }
@@ -245,11 +276,15 @@ function getBoardMatrix(gameFigures: Array<Pawn | Rook | Knight | Bishop | King 
 
 function lookingForOpponentColor(gameFigures: Array<Pawn | Rook | Knight | Bishop | King | Queen>, figurePosition: [number, number]): string {
     let opponentPosition = getFigureWrapper(figurePosition);
-    let opponentColor = "";
+    let opponentColor = "white";
     for (let figure of gameFigures) {
-        if (opponentPosition == getFigureWrapper(figure.getFigurePosition())) {
-            opponentColor = figure.getColor();
+        if (figure != undefined) {
+            if (opponentPosition == getFigureWrapper(figure.getFigurePosition())) {
+                opponentColor = figure.getColor();
+            }
         }
+
     }
+    //console.log("color: ",opponentColor)
     return opponentColor;
 }

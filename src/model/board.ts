@@ -97,7 +97,7 @@ for (let i = 0; i < boardFields.length; i++) {
                 }
         }
         else {
-            if ((previousNumber != -1) && previousFigure.checked) {
+            if ((previousNumber != -1) && previousFigure.checked ) {
                 if (boardFields[i].classList.contains('figure-checked')) {
                     //Movde figure to correct position
                     previousFigure.setFigurePosition(decodeField(i));
@@ -112,6 +112,7 @@ for (let i = 0; i < boardFields.length; i++) {
             }
         }
         Contest.refreshBoard(gameFiguresArray, boardFields);
+        Contest.lookingForCheck();
         if (boardFields[i].classList.contains('figure-checked') || boardFields[i].classList.contains('figure-capture')) {
             previousNumber = figureNumber;
             previousFigure = gameFiguresArray[figureNumber];
