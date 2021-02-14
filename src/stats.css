@@ -63,7 +63,7 @@
     border-bottom: 1px solid var(--buttons-color);
 }
 
-.white-move, .black-move, .move-number{
+.moves, .move-number{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -71,6 +71,11 @@
     height: 30px;
     width: 45%;
     font-weight: bold;
+}
+.moves:hover{
+    cursor: pointer;
+    background-color: #e3941e;
+    color: #333333;
 }
 .white-move{
     background-color: whitesmoke;

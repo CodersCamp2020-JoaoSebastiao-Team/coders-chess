@@ -92,6 +92,9 @@ export class Game {
     getGameFigures(): Array<Pawn | Rook | Knight | Bishop | King | Queen> {
         return this.gameFigures;
     }
+    setGameFigures(figures:Array<Pawn | Rook | Knight | Bishop | King | Queen>) {
+        this.gameFigures = figures;
+    }
     refreshBoard(gameFigures: Array<Pawn | Rook | Knight | Bishop | King | Queen>, boardFields: NodeListOf<Element>): void {
         const actualBoardArray: Array<Pawn | Rook | Knight | Bishop | King | Queen | unknown> = [];
         let figurePosition: number = 0;

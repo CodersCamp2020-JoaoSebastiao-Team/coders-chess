@@ -1,5 +1,5 @@
 import { Game } from './game.js';
-import { saveMoveToLocalStorage } from "./stats"
+import {saveMoveToLocalStorage, seeLastMovesEventListener} from "./stats"
 import { getBeatFigures } from "./time";
 import { undoMove } from "./stats"
 const board = <HTMLElement>document.querySelector(".board");
@@ -58,7 +58,7 @@ export enum ChessPlayerTour {
 const boardFields = document.querySelectorAll(".square");
 const Contest = new Game(200);
 Contest.gameInit();
-const gameFiguresArray = Contest.getGameFigures();
+let gameFiguresArray = Contest.getGameFigures();
 Contest.refreshBoard(gameFiguresArray, boardFields);
 let check: [boolean, string];
 
@@ -88,8 +88,9 @@ for (let i = 0; i < boardFields.length; i++) {
                         //Next player tour
                         PlayerTour = PlayerTour == ChessPlayerTour.White ? ChessPlayerTour.Black : ChessPlayerTour.White;
                         console.log(`Now is ${PlayerTour} player tour`);
-                        saveMoveToLocalStorage(figure, previousFigure)
+                        saveMoveToLocalStorage(figure, previousFigure, gameFiguresArray)
                         updateLocalStarage();
+                        seeLastMovesEventListener(Contest,boardFields)
                         getBeatFigures();
                     }
                 }
@@ -129,8 +130,9 @@ for (let i = 0; i < boardFields.length; i++) {
                                 //Next player tour
                                 PlayerTour = PlayerTour == ChessPlayerTour.White ? ChessPlayerTour.Black : ChessPlayerTour.White;
                                 console.log(`Now is ${PlayerTour} player tour`);
-                                saveMoveToLocalStorage(null, previousFigure)
+                                saveMoveToLocalStorage(null, previousFigure, gameFiguresArray)
                                 updateLocalStarage();
+                                seeLastMovesEventListener(Contest,boardFields)
                             }
                         }
                         else {
@@ -156,8 +158,9 @@ for (let i = 0; i < boardFields.length; i++) {
                                 //Next player tour
                                 PlayerTour = PlayerTour == ChessPlayerTour.White ? ChessPlayerTour.Black : ChessPlayerTour.White;
                                 console.log(`Now is ${PlayerTour} player tour`);
-                                saveMoveToLocalStorage(null, previousFigure);
+                                saveMoveToLocalStorage(null, previousFigure, gameFiguresArray)
                                 updateLocalStarage();
+                                seeLastMovesEventListener(Contest,boardFields)
                             }
                         }
                     }
@@ -177,7 +180,14 @@ for (let i = 0; i < boardFields.length; i++) {
 
 const cancelButton = window.document.getElementById("cancel-move")!;
 cancelButton.addEventListener('click', (event: MouseEvent) => {
-    undoMove(Contest)
+    gameFiguresArray = undoMove(Contest)
+    Contest.setGameFigures(gameFiguresArray)
+    Contest.refreshBoard(Contest.getGameFigures(), boardFields)
+    if (JSON.parse(<string>localStorage.getItem("movesNotation"))[0]!==undefined){
+        PlayerTour = PlayerTour == ChessPlayerTour.White ? ChessPlayerTour.Black : ChessPlayerTour.White;
+    }else {
+        PlayerTour = ChessPlayerTour.White
+    }
 });
 
 function decodeField(field: number): [number, number] {
