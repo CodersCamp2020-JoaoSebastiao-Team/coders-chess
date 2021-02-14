@@ -10,6 +10,7 @@ const dead_white = <HTMLElement>document.querySelector(".dead-white-figures");
 const timer_white = <HTMLElement>document.querySelector(".white_time");
 const timer_black = <HTMLElement>document.querySelector(".black_time");
 const results = <HTMLElement>document.querySelector(".results");
+const time_head = <HTMLElement>document.querySelector(".time_head");
 let bubblee= localStorage.getItem("bubble");
 let currentColor = "white";
 if (typeof bubblee=='string')
@@ -95,15 +96,25 @@ export function getBeatFigures():void{
 function updateDeadFiguresInHTML():void{
     let white_img:string = "";
     let black_img:string = "";
+    let value_black:number = 0;
+    let value_white:number = 0;
     array_of_beat_white_figures.forEach(element => {
         white_img +=` <img src=${getUrlOfSVG('white',element)}>`
         dead_white.innerHTML = white_img;
+        value_white += getValueOfFigure(element);
     });
     array_of_beat_black_figures.forEach(element =>{
         black_img += ` <img src=${getUrlOfSVG('black',element)}>`
         dead_black.innerHTML = black_img;
+        value_black -= getValueOfFigure(element);
     });
-
+    if(value_black+value_white!=0){
+        value_white+value_black>0 ? time_head.innerHTML =  `<p>Białe +${value_black+value_white}</p><p>Czarne</p>`
+        : time_head.innerHTML =  `<p>Białe</p><p>Czarne +${-value_white-value_black}</p>`;
+    }
+    else{
+        time_head.innerHTML =  `<p>Białe</p><p>Czarne</p>`;
+    }
 }
 
 function getUrlOfSVG(color:string,figure:string):string{
@@ -140,7 +151,8 @@ function getUrlOfSVG(color:string,figure:string):string{
         }
     }
     return "";
-};
+}
+
 
 
 function returnFigureName(str:string):string{
@@ -152,3 +164,19 @@ function returnFigureName(str:string):string{
 }
 
 
+function getValueOfFigure(figure:string):number{
+    switch (figure) {
+        case "Pawn":
+            return 1;
+        case "Bishop":
+            return 3;
+        case "Knight":
+            return 3;
+        case "Queen":
+            return 9;
+        case "Rook":
+            return 5;         
+        default:
+            return 0;  
+    }
+}
