@@ -1,7 +1,7 @@
 import { Game } from './game.js';
-import {saveMoveToLocalStorage} from "./stats"
-import {getBeatFigures} from "./time";
-import {undoMove} from "./stats"
+import { saveMoveToLocalStorage } from "./stats"
+import { getBeatFigures } from "./time";
+import { undoMove } from "./stats"
 const board = <HTMLElement>document.querySelector(".board");
 const boardLetters = <HTMLElement>document.querySelector(".letters");
 const boardNumbers = <HTMLElement>document.querySelector(".numbers");
@@ -60,6 +60,7 @@ const Contest = new Game(200);
 Contest.gameInit();
 const gameFiguresArray = Contest.getGameFigures();
 Contest.refreshBoard(gameFiguresArray, boardFields);
+let check: [boolean, string];
 
 let PlayerTour: ChessPlayerTour = ChessPlayerTour.White;
 console.log(`Player white begin.`);
@@ -69,60 +70,109 @@ let previousFigure = gameFiguresArray[0];
 for (let i = 0; i < boardFields.length; i++) {
 
     boardFields[i].addEventListener("click", () => {
-        if(!localStorage.getItem('koniec')){
+        if (!localStorage.getItem('koniec')) {
             const figureNumber = Contest.checkBoardForFigure(i);
             const figure = gameFiguresArray[figureNumber];
             const boardFields = document.querySelectorAll(".square");
-    
+
             if (figureNumber != -1) {
-                    if (boardFields[i].classList.contains('figure-capture')) {
-                        if (figure.getColor() != PlayerTour) {
+                if (boardFields[i].classList.contains('figure-capture')) {
+                    if (figure.getColor() != PlayerTour) {
                         //Capture figure!
                         gameFiguresArray.splice(figureNumber, 1);
                         previousFigure.setFigurePosition(decodeField(i));
                         previousFigure.checked = false;
                         Contest.figureClicked(gameFiguresArray[previousNumber], boardFields);
                         console.log(`Congratulate! ${figure.getColor()} ${figure.getFigure()} was captured!`);
-                      
+
                         //Next player tour
                         PlayerTour = PlayerTour == ChessPlayerTour.White ? ChessPlayerTour.Black : ChessPlayerTour.White;
                         console.log(`Now is ${PlayerTour} player tour`);
                         saveMoveToLocalStorage(figure, previousFigure)
                         updateLocalStarage();
                         getBeatFigures();
-                        }
                     }
-                    else {
-                        if (figure.getColor() == PlayerTour) {
+                }
+                else {
+                    if (figure.getColor() == PlayerTour) {
                         Contest.figureClicked(gameFiguresArray[figureNumber], boardFields);
                         previousNumber = figureNumber;
                         localStorage.setItem("figure", JSON.stringify(figure));
-                        }
                     }
+                }
             }
             else {
                 if ((previousNumber != -1) && previousFigure.checked) {
                     if (boardFields[i].classList.contains('figure-checked')) {
                         //Movde figure to correct position
-                        previousFigure.setFigurePosition(decodeField(i));
-                        previousFigure.checked = false;
-                        Contest.figureClicked(gameFiguresArray[previousNumber], boardFields);
-                        //Next player tour
-                        PlayerTour = PlayerTour == ChessPlayerTour.White ? ChessPlayerTour.Black : ChessPlayerTour.White;
-                        console.log(`Now is ${PlayerTour} player tour`);
-                        saveMoveToLocalStorage(null, previousFigure)
-                        updateLocalStarage();
+                        if (Contest.lookingForCheck()[0] && PlayerTour == Contest.lookingForCheck()[1]) {
+                            let previousFigurePosition = previousFigure.getFigurePosition();
+                            previousFigure.setFigurePosition(decodeField(i));
+                            let checkIfStillCheck = Contest.lookingForCheck();
+                            if (checkIfStillCheck[0] && PlayerTour == checkIfStillCheck[1]) {
+                                console.log("Hola hola, it's check!");
+                                previousFigure.setFigurePosition(previousFigurePosition);
+                                boardFields[i].classList.add('figure-capture');
+                                previousFigure.checked = false;
+                                setTimeout(() => {
+                                    boardFields[i].classList.remove('figure-capture');
+                                    for (let m = 0; m < boardFields.length; m++) {
+                                        boardFields[m].classList.remove('figure-checked');
+                                        boardFields[m].classList.remove('figure-capture');
+                                    }
+                                }, 2000);
+                            }
+                            else {
+                                previousFigure.setFigurePosition(decodeField(i));
+                                previousFigure.checked = false;
+                                Contest.figureClicked(gameFiguresArray[previousNumber], boardFields);
+                                //Next player tour
+                                PlayerTour = PlayerTour == ChessPlayerTour.White ? ChessPlayerTour.Black : ChessPlayerTour.White;
+                                console.log(`Now is ${PlayerTour} player tour`);
+                                saveMoveToLocalStorage(null, previousFigure)
+                                updateLocalStarage();
+                            }
+                        }
+                        else {
+                            let previousFigurePosition = previousFigure.getFigurePosition();
+                            previousFigure.setFigurePosition(decodeField(i));
+                            let checkIfStillCheck = Contest.lookingForCheck();
+                            if (checkIfStillCheck[0] && PlayerTour == checkIfStillCheck[1]) {
+                                console.log("Hola hola, it's check!");
+                                previousFigure.setFigurePosition(previousFigurePosition);
+                                boardFields[i].classList.add('figure-capture');
+                                previousFigure.checked = false;
+                                setTimeout(() => {
+                                    boardFields[i].classList.remove('figure-capture');
+                                    for (let m = 0; m < boardFields.length; m++) {
+                                        boardFields[m].classList.remove('figure-checked');
+                                        boardFields[m].classList.remove('figure-capture');
+                                    }
+                                }, 2000);
+                            }
+                            else {
+                                previousFigure.checked = false;
+                                Contest.figureClicked(gameFiguresArray[previousNumber], boardFields);
+                                //Next player tour
+                                PlayerTour = PlayerTour == ChessPlayerTour.White ? ChessPlayerTour.Black : ChessPlayerTour.White;
+                                console.log(`Now is ${PlayerTour} player tour`);
+                                saveMoveToLocalStorage(null, previousFigure);
+                                updateLocalStarage();
+                            }
+                        }
                     }
                 }
             }
             Contest.refreshBoard(gameFiguresArray, boardFields);
+            check = Contest.lookingForCheck();
+            Contest.lookingForMat();
             if (boardFields[i].classList.contains('figure-checked') || boardFields[i].classList.contains('figure-capture')) {
                 previousNumber = figureNumber;
                 previousFigure = gameFiguresArray[figureNumber];
             }
         }
-    });
 
+    });
 }
 
 const cancelButton = window.document.getElementById("cancel-move")!;
@@ -135,11 +185,11 @@ function decodeField(field: number): [number, number] {
 
 }
 
-function updateLocalStarage(){
-    if(PlayerTour == ChessPlayerTour.White){
-        localStorage.setItem("color","white")
+function updateLocalStarage() {
+    if (PlayerTour == ChessPlayerTour.White) {
+        localStorage.setItem("color", "white")
     }
-    else{
-        localStorage.setItem("color","black")
+    else {
+        localStorage.setItem("color", "black")
     }
 }
