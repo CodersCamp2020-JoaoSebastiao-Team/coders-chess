@@ -5,6 +5,7 @@ import {Rook} from "./figures/rook"
 import {Pawn} from "./figures/pawn"
 import {Knight} from "./figures/knight"
 import {King} from "./figures/king"
+import {Game} from "./game";
 
 function moveToText(figure: Figure, opponentFigure: Figure | null, moveTo: Figure): string {
 
@@ -104,8 +105,8 @@ export function saveMoveToLocalStorage(opponentFigure: Figure | null, moveTo: Fi
 
     let movesText = JSON.parse(<string>localStorage.getItem("movesText")) || [];
     let movesNotation = JSON.parse(<string>localStorage.getItem("movesNotation")) || [];
-    movesText = [...movesText];
-    movesNotation = [...movesNotation];
+
+
     let figure = JSON.parse(<string>localStorage.getItem("figure"))
     let figureObject = makeFigureObject(figure, moveTo);
     movesText.push(moveToText(figureObject, opponentFigure, moveTo));
@@ -113,10 +114,10 @@ export function saveMoveToLocalStorage(opponentFigure: Figure | null, moveTo: Fi
     localStorage.setItem("movesText", JSON.stringify(movesText));
     localStorage.setItem("movesNotation", JSON.stringify(movesNotation));
     const list = window.document.getElementById("history-list")!;
-
-    list.innerHTML = '<div style="word-wrap: break-word; overflow: auto; height: 100% ">' +
-        '<ol>' + movesText.map((move: string, index: number) => '<li style="color: whitesmoke; ' +
-            'font-size: 16px; margin-left: 10px" >' + index + ". " + move + '</li>').join(' ') + '</ol></div>';
+    let notationText = JSON.parse(<string>localStorage.getItem("notationText"))
+    list.innerHTML =
+        notationText === 'Notacja' ? movesTextHTML(movesText) : movesNotationHTML(movesNotation);
+    list.scrollTop = list.scrollHeight;
 
 }
 
@@ -135,4 +136,35 @@ function makeFigureObject(figure: any, moveTo: Figure) {
         case ChessFigure.Knight:
             return new Knight(ChessFigure.Knight, moveTo.getFigureColorEnum(), figure.position, false)
     }
+}
+
+export function movesNotationHTML(movesNotation: Array<string>) {
+    return movesHTML(movesNotation)
+}
+
+export function movesTextHTML(movesText: Array<string>) {
+    return movesHTML(movesText)
+}
+
+function movesHTML(movesArray: Array<string>) {
+    let moves: Array<Array<string>> = [];
+    movesArray.forEach((move: string, index: number) => {
+        if (index % 2 === 0) {
+            moves.push([move])
+        } else {
+            moves[moves.length - 1].push(move)
+        }
+    })
+    return moves.map((move: Array<string>, index: number) => {
+        let blackMove = move[1] ? '<div class="black-move">' + move[1] + '</div>' : ''
+        let moveNumber = index + 1;
+        return '<div class="move">' +
+            '<div class="move-number">' + moveNumber + '</div>' +
+            '<div class="white-move">' + move[0] + '</div>' +
+            blackMove +
+            '</div>'
+    }).join(' ')
+}
+export function undoMove(contest:Game){
+    console.log(contest)
 }

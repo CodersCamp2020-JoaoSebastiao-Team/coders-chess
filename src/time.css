@@ -7,7 +7,7 @@
     color: black;
     font-size: large;
     font-weight: bold;
-}
+} 
 
 .time_body{
    
@@ -40,6 +40,40 @@
     font-size: large;
 }
 .white_time p{
-    color: black;
+    color: whitesmoke;
     font-size: large;
+}
+.dead-black-figures{
+    color: white;
+    position: absolute;
+    top: -30px;
+}
+.dead-white-figures{
+    color: white;
+    position: absolute;
+    bottom: 5px;
+   
+}
+.dead-figures{
+    width: 100%;
+}
+.dead-white-figures img,.dead-black-figures img{
+    width: 40px;
+    height: auto;
+}
+
+
+.results{
+    width: 96%;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: whitesmoke;
+
+}
+.results p{
+    font-size: xx-large;
+    font-weight: bold;
+    color: black;
 }

@@ -18,7 +18,7 @@
 
 const range = <HTMLInputElement>document.getElementById("range");
 const bubble = <HTMLOutputElement>document.getElementById("bubble");
-
+localStorage.setItem("color","white")
 
 if (range) {
     range.addEventListener("input", () => {
@@ -29,7 +29,7 @@ if (range) {
 function setBubble(range: HTMLInputElement, bubble: HTMLOutputElement) {
     const val: number = parseFloat(range.value);
 
-    const min: number = parseFloat(range.min) || 0;
+    const min: number = parseFloat(range.min) || 1;
     const max: number = parseFloat(range.max) || 100;
 
     const offset = Number(((val - min) * 100) / (max - min));
@@ -39,7 +39,6 @@ function setBubble(range: HTMLInputElement, bubble: HTMLOutputElement) {
     bubble.style.left = `calc(${offset}% - 10px)`;
     bubble.style.color = 'black';
     localStorage.setItem("bubble", val.toString());
-    localStorage.setItem("color","white")
 }
 
 
