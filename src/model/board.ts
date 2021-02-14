@@ -58,6 +58,7 @@ const Contest = new Game(200);
 Contest.gameInit();
 const gameFiguresArray = Contest.getGameFigures();
 Contest.refreshBoard(gameFiguresArray, boardFields);
+let check: [boolean, string];
 
 let PlayerTour: ChessPlayerTour = ChessPlayerTour.White;
 console.log(`Player white begin.`);
@@ -83,7 +84,7 @@ for (let i = 0; i < boardFields.length; i++) {
                     console.log(`Congratulate! ${figure.getColor()} ${figure.getFigure()} was captured!`);
                     //Next player tour
                     PlayerTour = PlayerTour == ChessPlayerTour.White ? ChessPlayerTour.Black : ChessPlayerTour.White;
-                    console.log(`Now is ${PlayerTour} player tour`);
+                    //console.log(`Now is ${PlayerTour} player tour`);
                     saveMoveToLocalStorage(figure, previousFigure)
                     updateLocalStarage();
                     }
@@ -100,19 +101,41 @@ for (let i = 0; i < boardFields.length; i++) {
             if ((previousNumber != -1) && previousFigure.checked ) {
                 if (boardFields[i].classList.contains('figure-checked')) {
                     //Movde figure to correct position
-                    previousFigure.setFigurePosition(decodeField(i));
-                    previousFigure.checked = false;
-                    Contest.figureClicked(gameFiguresArray[previousNumber], boardFields);
-                    //Next player tour
-                    PlayerTour = PlayerTour == ChessPlayerTour.White ? ChessPlayerTour.Black : ChessPlayerTour.White;
-                    console.log(`Now is ${PlayerTour} player tour`);
-                    saveMoveToLocalStorage(null, previousFigure)
-                    updateLocalStarage();
+                    if (Contest.lookingForCheck()[0] && PlayerTour == Contest.lookingForCheck()[1]){
+                        let previousFigurePosition = previousFigure.getFigurePosition();
+                        previousFigure.setFigurePosition(decodeField(i));
+                        let checkIfStillCheck = Contest.lookingForCheck();
+                        if (checkIfStillCheck[0] && PlayerTour == checkIfStillCheck[1]){
+                            console.log("Hola hola, it's check!");
+                            previousFigure.setFigurePosition(previousFigurePosition);
+                        }
+                        else{
+                            previousFigure.setFigurePosition(decodeField(i));
+                            previousFigure.checked = false;
+                            Contest.figureClicked(gameFiguresArray[previousNumber], boardFields);
+                            //Next player tour
+                            PlayerTour = PlayerTour == ChessPlayerTour.White ? ChessPlayerTour.Black : ChessPlayerTour.White;
+                            console.log(`Now is ${PlayerTour} player tour`);
+                            saveMoveToLocalStorage(null, previousFigure)
+                            updateLocalStarage();
+                        }
+                    }
+                    else{
+                        previousFigure.setFigurePosition(decodeField(i));
+                        previousFigure.checked = false;
+                        Contest.figureClicked(gameFiguresArray[previousNumber], boardFields);
+                        //Next player tour
+                        PlayerTour = PlayerTour == ChessPlayerTour.White ? ChessPlayerTour.Black : ChessPlayerTour.White;
+                        console.log(`Now is ${PlayerTour} player tour`);
+                        saveMoveToLocalStorage(null, previousFigure)
+                        updateLocalStarage();
+                    }
                 }
             }
         }
         Contest.refreshBoard(gameFiguresArray, boardFields);
-        Contest.lookingForCheck();
+        check = Contest.lookingForCheck();
+        Contest.lookingForMat();
         if (boardFields[i].classList.contains('figure-checked') || boardFields[i].classList.contains('figure-capture')) {
             previousNumber = figureNumber;
             previousFigure = gameFiguresArray[figureNumber];

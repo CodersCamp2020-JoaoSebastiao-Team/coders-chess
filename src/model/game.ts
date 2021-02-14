@@ -176,36 +176,80 @@ export class Game {
                 });
             }
     }
-    lookingForCheck(){
+    lookingForCheck(): [boolean, string]{
+        let check: [boolean, string] = [false,""];
         let figures = this.gameFigures;
         const boardMatrix = getBoardMatrix(this.gameFigures);
         let figureCapture;
         for(let figure of figures){
             let figureColor = figure.getColor();
-            //console.log("figura: ", figure);
             figureCapture = figure.showCaptures(boardMatrix);
 
             for (let figureOffset of figureCapture){
-                //let figureWrapper = getFigureWrapper(figurepos);
                 let figurePosition = figure.getFigurePosition();
                 let opponnentPos:[number, number] = [ (figurePosition[0] + figureOffset[0]), (figurePosition[1] + figureOffset[1])];
-                let opponnentWrapper = getFigureWrapper(opponnentPos);
                 for (let figureOpp of figures){
-                    //console.log("figure: ", opponnentPos, "figureOpp: ", figureOpp.getFigurePosition());
                     if (figureOpp.getFigurePosition()[0] == opponnentPos[0] && figureOpp.getFigurePosition()[1] == opponnentPos[1]){
                         if (figureOpp.getColor() != figureColor){
-                            //console.log("I catch you! ", figureOpp);
                             if (figureOpp.getFigure() === "King"){
-                                console.log("check!");
+                                console.log("check! for: ", figureOpp.getColor());
+                                check = [true, figureOpp.getColor()];
                             }
                         }
-                        //console.log("it's a figure!: ", figureOpp);
                     }
                 }
-                //console.log("pos: ", opponnentWrapper);
             }
-            //console.log("figura: ", figure, "figure captures: ",  figureCapture);
         }
+        return check;
+    }
+    lookingForMat(): [boolean, string]{
+        let check: [boolean, string] = [false,""];
+        let figures = this.gameFigures;
+        const boardMatrix = getBoardMatrix(this.gameFigures);
+        let figureCapture;
+        for(let figure of figures){
+            let figureColor = figure.getColor();
+            figureCapture = figure.showCaptures(boardMatrix);
+
+            for (let figureOffset of figureCapture){
+                let figurePosition = figure.getFigurePosition();
+                let opponnentPos:[number, number] = [ (figurePosition[0] + figureOffset[0]), (figurePosition[1] + figureOffset[1])];
+                for (let figureOpp of figures){
+                    if (figureOpp.getFigurePosition()[0] == opponnentPos[0] && figureOpp.getFigurePosition()[1] == opponnentPos[1]){
+                        if (figureOpp.getColor() != figureColor){
+                            if (figureOpp.getFigure() === "King"){
+                                //logic for MAT:
+                                //console.log("checking figure position: ", figurePosition);
+                                let checkMat;
+                                let opponentCanCapture;
+                                if(figureOpp.showDirections(boardMatrix).length == 0){
+                                    checkMat = true;
+                                }
+                                for(let figureOpponent of figures){
+                                    let figureOpponentPosition = figureOpponent.getFigurePosition();
+                                    if (figureOpponent.getColor() == figureOpp.getColor()){
+                                        let figureCapturesPos = figureOpponent.showCaptures(boardMatrix);
+                                        for (let figureCaptures of figureCapturesPos){
+                                            let opponnentPos:[number, number] = [ (figureOpponentPosition[0] + figureCaptures[0]), (figureOpponentPosition[1] + figureCaptures[1])];
+                                            if (opponnentPos[0] == figurePosition[0] && opponnentPos[1] == figurePosition[1]){
+                                                checkMat = false;
+                                            }
+                                        }
+                                    }
+                                }
+
+                                if (checkMat){
+                                    console.log("check mat!");
+                                }
+
+                                check = [true, figureOpp.getColor()];
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return check;
     }
 }
 
