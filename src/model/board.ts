@@ -118,6 +118,7 @@ for (let i = 0; i < boardFields.length; i++) {
                                     boardFields[i].classList.remove('figure-capture');
                                     for (let m = 0; m < boardFields.length; m++) {
                                         boardFields[m].classList.remove('figure-checked');
+                                        boardFields[m].classList.remove('figure-capture');
                                     }
                                 }, 2000);
                             }
@@ -145,6 +146,7 @@ for (let i = 0; i < boardFields.length; i++) {
                                     boardFields[i].classList.remove('figure-capture');
                                     for (let m = 0; m < boardFields.length; m++) {
                                         boardFields[m].classList.remove('figure-checked');
+                                        boardFields[m].classList.remove('figure-capture');
                                     }
                                 }, 2000);
                             }
