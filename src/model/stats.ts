@@ -7,6 +7,8 @@ import {Knight} from "./figures/knight"
 import {King} from "./figures/king"
 import {Game} from "./game";
 
+
+
 function moveToText(figure: Figure, opponentFigure: Figure | null, moveTo: Figure): string {
 
     if (opponentFigure !== null) {
@@ -94,24 +96,43 @@ function figureName(figure: number): string {
     return '';
 }
 
-export function saveMoveToLocalStorage(opponentFigure: Figure | null, moveTo: Figure) {
+function figureCreate(figure: any): Pawn | Rook | Knight | Bishop | King | Queen {
+    switch (figure.figure) {
+        case 0:{
+            return new Pawn(ChessFigure.Pawn, figure.color, figure.position, false)
+        }
+        case 1:{
+            return new Bishop(ChessFigure.Bishop, figure.color, figure.position, false)
+        }
+        case 2:{
+            return new King(ChessFigure.King, figure.color, figure.position, false)
+        }
+        case 3:{
+            return new Knight(ChessFigure.Knight, figure.color, figure.position, false)
+        }
+        case 4:{
+            return new Queen(ChessFigure.Queen, figure.color, figure.position, false)
+        }
+        case 5:{
+            return new Rook(ChessFigure.Rook, figure.color, figure.position, false)
+        }
+    }
+    return new Pawn(ChessFigure.Rook, figure.color, figure.position, false)
+
+
+}
+export function saveMoveToLocalStorage(opponentFigure: Figure | null, moveTo: Figure,
+                                       gameFiguresArray: Array<Pawn | Rook | Knight | Bishop | King | Queen>) {
 
     let movesText = JSON.parse(<string>localStorage.getItem("movesText")) || [];
     let movesNotation = JSON.parse(<string>localStorage.getItem("movesNotation")) || [];
-
-
+    let boardFiguresByMove = JSON.parse(<string>localStorage.getItem("boardFiguresByMove")) || [];
+    boardFiguresByMove.push(gameFiguresArray)
     let figure = JSON.parse(<string>localStorage.getItem("figure"))
     let figureObject = makeFigureObject(figure, moveTo);
     movesText.push(moveToText(figureObject, opponentFigure, moveTo));
     movesNotation.push(moveToNotation(figureObject, opponentFigure, moveTo));
-    localStorage.setItem("movesText", JSON.stringify(movesText));
-    localStorage.setItem("movesNotation", JSON.stringify(movesNotation));
-    const list = window.document.getElementById("history-list")!;
-    let notationText = JSON.parse(<string>localStorage.getItem("notationText"))
-    list.innerHTML =
-        notationText === 'Notacja' ? movesTextHTML(movesText) : movesNotationHTML(movesNotation);
-    list.scrollTop = list.scrollHeight;
-
+    setLocalStorage(null, movesNotation, movesText, boardFiguresByMove)
 }
 
 function makeFigureObject(figure: any, moveTo: Figure) {
@@ -149,113 +170,67 @@ function movesHTML(movesArray: Array<string>) {
         }
     })
     return moves.map((move: Array<string>, index: number) => {
-        let blackMove = move[1] ? '<div class="black-move">' + move[1] + '</div>' : ''
+        let blackMove = move[1] ? '<div class="black-move moves">' + move[1] + '</div>' : ''
         let moveNumber = index + 1;
         return '<div class="move">' +
             '<div class="move-number">' + moveNumber + '</div>' +
-            '<div class="white-move">' + move[0] + '</div>' +
+            '<div class="white-move moves">' + move[0] + '</div>' +
             blackMove +
             '</div>'
     }).join(' ')
 }
 
-function makeFigureObjectFromNotation(move: string, color: string): (Pawn | Rook | Knight | Bishop | King | Queen){
-    let colorEnum: ChessColor = color == 'white'?ChessColor.Black:ChessColor.White
-    let position = figurePositionNumbers(move.substr(5,2))
-    switch (move[4]) {
-        case 'P':
-            return new Pawn(ChessFigure.Pawn, colorEnum, position, false)
-        case 'Q':
-            return new Queen(ChessFigure.Queen, colorEnum, position, false)
-        case 'R':
-            return new Rook(ChessFigure.Rook, colorEnum, position, false)
-        case 'B':
-            return new Bishop(ChessFigure.Bishop, colorEnum, position, false)
-        case 'K':
-            return new King(ChessFigure.King, colorEnum, position, false)
-        case 'N':
-            return new Knight(ChessFigure.Knight, colorEnum, position, false)
-        default:
-            return new Knight(ChessFigure.Knight, colorEnum, position, false)
-    }
-}
 
-function figurePositionNumbers(figurePosition: string): [number, number]{
-    let posRow = 0;
-    switch (figurePosition[0]) {
-        case 'a': {
-            posRow = 0;
-            break;
-        }
-        case 'b': {
-            posRow = 1;
-            break;
-        }
-        case 'c': {
-            posRow = 2;
-            break;
-        }
-        case 'd': {
-            posRow = 3;
-            break;
-        }
-        case  'e': {
-            posRow = 4;
-            break;
-        }
-        case 'f': {
-            posRow = 5;
-            break;
-        }
-        case 'g': {
-            posRow = 6;
-            break;
-        }
-        case 'h': {
-            posRow = 7;
-            break;
-        }
-    }
-    return [posRow, Math.abs(parseInt(figurePosition[1]) - 8)];
-}
 export function undoMove(contest:Game): Array<Pawn | Rook | Knight | Bishop | King | Queen>{
-    let moves = JSON.parse(<string>localStorage.getItem('movesNotation'));
-    let movesText = JSON.parse(<string>localStorage.getItem('movesText'));
-    const lastMoveText = movesText.pop()
-    const lastMove = moves.pop()
 
-    let figures = contest.getGameFigures();
-    if (lastMove){
-        const color:string = localStorage.getItem('color')=='white'?'black':'white';
-        const positionToUndo = figurePositionNumbers(lastMove.substr(1,2))
-        if (lastMove.includes('x')){
-            let lastPosition = figurePositionNumbers(lastMove.substr(5,2))
-            figures.map(figure=>{
-                let position = figure.getFigurePosition();
-                if (position[0]===lastPosition[0] && position[1] === lastPosition[1]){
-                    figure.setFigurePosition(positionToUndo)
-                }
-            });
-            figures.push(makeFigureObjectFromNotation(lastMove,color))
-        }else {
-            let lastPosition = figurePositionNumbers(lastMove.substr(3,2))
-            figures.map(figure=>{
-                let position = figure.getFigurePosition();
-                if (position[0]===lastPosition[0] && position[1] === lastPosition[1]){
-                    figure.setFigurePosition(positionToUndo)
-                }
-            });
+    let boardFiguresByMove = JSON.parse(<string>localStorage.getItem("boardFiguresByMove")) || [];
+
+    if (boardFiguresByMove[0] === undefined ||boardFiguresByMove[1] === undefined){
+        setLocalStorage('white', [], [], [])
+        contest.setGameFigures([])
+        contest.gameInit()
+        return contest.getGameFigures()
+    }else{
+        boardFiguresByMove.pop();
+        let lastMoveboardFigures = boardFiguresByMove[boardFiguresByMove.length-1]
+        let gameFigures: Array<Pawn | Rook | Knight | Bishop | King | Queen> = [];
+        for (let figure of lastMoveboardFigures) {
+            gameFigures.push(figureCreate(figure))
         }
-        localStorage.setItem('color', color);
-        localStorage.setItem('movesNotation', JSON.stringify(moves))
-        localStorage.setItem('moves', JSON.stringify(moves))
-        localStorage.setItem('movesText',JSON.stringify(movesText));
-        const list = window.document.getElementById("history-list")!;
-        let notationText = JSON.parse(<string>localStorage.getItem("notationText"))
-        list.innerHTML =
-            notationText === 'Notacja' ? movesTextHTML(movesText) : movesNotationHTML(moves);
-        list.scrollTop = list.scrollHeight;
-        return figures;
+        let movesNotation = JSON.parse(<string>localStorage.getItem('movesNotation'));
+        let movesText = JSON.parse(<string>localStorage.getItem('movesText'));
+        const color:string = localStorage.getItem('color')=='white'?'black':'white';
+        movesText.pop();
+        movesNotation.pop()
+        setLocalStorage(color, movesNotation, movesText, boardFiguresByMove)
+        return gameFigures;
     }
-    return figures
+}
+function setLocalStorage(color:string|null, movesNotation:Array<string>,movesText: Array<string>,
+                         boardFiguresByMove:Array<string>) {
+    if (color!==null){
+        localStorage.setItem('color', color);
+    }
+    localStorage.setItem('movesNotation', JSON.stringify(movesNotation))
+    localStorage.setItem('movesText',JSON.stringify(movesText));
+    localStorage.setItem('boardFiguresByMove',JSON.stringify(boardFiguresByMove));
+    const list = window.document.getElementById("history-list")!;
+    let notationText = JSON.parse(<string>localStorage.getItem("notationText"))
+    list.innerHTML =
+        notationText === 'Notacja' ? movesTextHTML(movesText) : movesNotationHTML(movesNotation);
+    list.scrollTop = list.scrollHeight;
+}
+export function seeLastMovesEventListener(contest:Game, boardFields:any){
+    let moves = window.document.getElementsByClassName("moves");
+    let boardFiguresByMove = JSON.parse(<string>localStorage.getItem("boardFiguresByMove")) || [];
+    for (let i=0; i<moves.length;i++){
+        moves[i].addEventListener('click',(event)=>{
+            let gameFigures: Array<Pawn | Rook | Knight | Bishop | King | Queen> = [];
+            for (let figure of boardFiguresByMove[i]) {
+                gameFigures.push(figureCreate(figure))
+            }
+            contest.refreshBoard(gameFigures, boardFields)
+        })
+    }
+
 }
