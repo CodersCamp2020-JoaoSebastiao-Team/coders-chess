@@ -12,22 +12,23 @@ import {Game} from "./game";
 function moveToText(figure: Figure, opponentFigure: Figure | null, moveTo: Figure): string {
 
     if (opponentFigure !== null) {
-        return figure.getFigure() + " from " + figurePosition(figure.getFigurePosition())
-            + " beat " + opponentFigure?.getFigure() + " on " + figurePosition(moveTo.getFigurePosition())
+        return `${figure.getFigure()} from ${figurePosition(figure.getFigurePosition())} 
+        beat ${opponentFigure?.getFigure()} on ${figurePosition(moveTo.getFigurePosition())}`
     } else {
-        return figure.getFigure() + " move from " +
-            figurePosition(figure.getFigurePosition()) + " to " + figurePosition(moveTo.getFigurePosition())
+        return `${figure.getFigure()} move from ${figurePosition(figure.getFigurePosition())} 
+         to ${figurePosition(moveTo.getFigurePosition())}`
     }
     //roszady i szach jeszcze
 }
 
 function moveToNotation(figure: Figure, opponentFigure: Figure | null, moveTo: Figure): string {
     if (opponentFigure !== null) {
-        return figureName(figure.getFigureNumber()) + figurePosition(figure.getFigurePosition())
-            + "x" + figureName(opponentFigure?.getFigureNumber()) + figurePosition(moveTo.getFigurePosition())
+
+        return `${figureName(figure.getFigureNumber())}${figurePosition(figure.getFigurePosition())}x`+
+            `${figureName(opponentFigure?.getFigureNumber())}${figurePosition(moveTo.getFigurePosition())}`
     } else {
-        return figureName(figure.getFigureNumber()) + figurePosition(figure.getFigurePosition()) +
-            figurePosition(moveTo.getFigurePosition())
+        return `${figureName(figure.getFigureNumber())}${figurePosition(figure.getFigurePosition())}`+
+                `${figurePosition(moveTo.getFigurePosition())}`
     }
     //roszady i szach jeszcze
 }
@@ -170,13 +171,17 @@ function movesHTML(movesArray: Array<string>) {
         }
     })
     return moves.map((move: Array<string>, index: number) => {
-        let blackMove = move[1] ? '<div class="black-move moves">' + move[1] + '</div>' : ''
-        let moveNumber = index + 1;
+        return `<div class="move"> 
+             <div class="move-number">${index+1}</div>
+             <div class="white-move moves">${move[0]}</div>
+            ${move[1] ? '<div class="black-move moves">' + move[1] + '</div>' : ''}</div>`
+
+        /*
         return '<div class="move">' +
             '<div class="move-number">' + moveNumber + '</div>' +
             '<div class="white-move moves">' + move[0] + '</div>' +
             blackMove +
-            '</div>'
+            '</div>'*/
     }).join(' ')
 }
 
