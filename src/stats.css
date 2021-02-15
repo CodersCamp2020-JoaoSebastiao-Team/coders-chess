@@ -38,13 +38,14 @@
     border-radius: 10px;
     word-wrap: break-word;
     overflow: auto;
-    border: 1px solid var(--buttons-color);
+    background-color: rgb(187, 185, 185);
 }
 
 .time h2, .list-container h2{
     color: #333;
-    font-size: 24px;
+    font-size: 2.4rem;
     margin: 5px 0 20px;
+    text-transform: uppercase;
 }
 
 #notation-button{
@@ -74,19 +75,19 @@
 }
 .moves:hover{
     cursor: pointer;
-    background-color: #e3941e;
+    background-color: #edf0f3;
     color: #333333;
 }
 .white-move{
-    background-color: whitesmoke;
+    background-color: #e6c89d;
     color: #333333;
 }
 .black-move{
-    background-color: #333;
-    color: whitesmoke;
+    background-color: #925e75;
+    color: white;
 }
 .move-number{
     width: 10%;
-    background-color: midnightblue;
-    color: var(--buttons-color);
+    background-color: #6b6b6b;
+    color: white;
 }

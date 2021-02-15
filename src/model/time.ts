@@ -12,9 +12,17 @@ const timer_black = <HTMLElement>document.querySelector(".black_time");
 const results = <HTMLElement>document.querySelector(".results");
 const time_head = <HTMLElement>document.querySelector(".time_head");
 const info = <HTMLElement>document.querySelector(".info");
+const whoPlays = <HTMLElement>document.querySelector("#whoPlays");
 
-const nick_black = localStorage.getItem('nick_black')||"player2";
-const nick_white = localStorage.getItem('nick_white')||"player1";
+const time_head_white = <HTMLElement>document.querySelector("#time_head_white");
+const time_head_black = <HTMLElement>document.querySelector("#time_head_black");
+
+const nick_black = localStorage.getItem('nick_black')||"Gracz 2";
+const nick_white = localStorage.getItem('nick_white')||"Gracz 1";
+
+time_head_white.innerText = nick_white;
+time_head_black.innerText = nick_black;
+
 let bubblee= localStorage.getItem("bubble");
 let currentColor = "white";
 if (typeof bubblee=='string')
@@ -31,16 +39,16 @@ function formatTime(time:number):string{
   }
 
 function updateWhiteTimer():void{
+    whoPlays.innerText=`${nick_white}, Twoja kolej!`;
     timer_black.style.boxShadow= "none"; 
-    timer_white.style.boxShadow= "0 4px 4px rgba(0,0,0,.25), 4px 4px 40px red"; 
     whiteTimePassed++;
     whiteTimeLeft = timeLimit - whiteTimePassed;
     whiteTime.innerHTML = `<p>${formatTime(whiteTimeLeft)}</p>`
 }
 
 function updateBlackTimer():void{
+    whoPlays.innerText=`${nick_black}, Twoja kolej!`;
     timer_white.style.boxShadow= "none"; 
-    timer_black.style.boxShadow= "0 4px 4px rgba(0,0,0,.25), 4px 4px 40px red"; 
     blackTimePassed++;
     blackTimeLeft = timeLimit - blackTimePassed;
     blackTime.innerHTML = `<p>${formatTime(blackTimeLeft)}</p>`
@@ -49,7 +57,6 @@ function updateBlackTimer():void{
 
 function startTimer():void{
         const timerInterval = setInterval(() => {
-            info.innerHTML = `<h2>${nick_white}</h2> <h2>Czas gry</h2> <h2>${nick_black}</h2>`
             let color = localStorage.getItem("color");
             if(typeof color==='string'){
                 if(currentColor!==color){
@@ -62,10 +69,10 @@ function startTimer():void{
             if(blackTimeLeft == 0 || whiteTimeLeft == 0){
                 localStorage.setItem('koniec','koniec');
                 if(blackTimeLeft==0){
-                    results.innerHTML = `<p>WHITE WON BY TIME!!!</p>`;
+                    results.innerHTML = `<p>Koniec czasu. Wygrał ${nick_white}!</p>`;
                 }
                 else{
-                    results.innerHTML = `<p>BLACK WON BY TIME!!!</p>`;
+                    results.innerHTML = `<p>Koniec czasu. Wygrał ${nick_black}!</p>`;
                 }
                 clearInterval(timerInterval)
             }
@@ -125,8 +132,8 @@ function updateDeadFiguresInHTML():void{
         value_black -= getValueOfFigure(element);
     });
     if(value_black+value_white!=0){
-        value_white+value_black>0 ? time_head.innerHTML =  `<p>Białe +${value_black+value_white}</p><p>Czarne</p>`
-        : time_head.innerHTML =  `<p>Białe</p><p>Czarne +${-value_white-value_black}</p>`;
+        value_white+value_black>0 ? time_head.innerHTML =  `<p>${nick_white} +${value_black+value_white}</p><p>${nick_black}</p>`
+        : time_head.innerHTML =  `<p>${nick_white}</p><p>${nick_black} +${-value_white-value_black}</p>`;
     }
     else{
         time_head.innerHTML =  `<p>Białe</p><p>Czarne</p>`;

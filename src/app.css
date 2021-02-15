@@ -3,14 +3,15 @@
     background-color: #ecf5ff;
     font-size: 62.5%; 
     --buttons-color :#FA6009;
+    --orange-player: #e3941e;
+    --pink-player: #792548;
 }
 
 * {
     box-sizing: border-box;
-    font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+    font-family: Roboto, sans-serif;
     margin: 0;
     padding: 0;
-    /* color: #333; */
 }
 
 h1,
@@ -22,13 +23,12 @@ h4 {
 
 h1 {
     font-size: 5.4rem;
-    color: #56a5eb;
     margin-bottom: 5rem;
 }
 
-h1 > span {
+h2 > span {
     font-weight: 500;
-    color: #56a5eb;
+    color: white;
 }
 
 h2 {
@@ -43,7 +43,7 @@ h2 {
 h3 {
     font-size: 2.8rem;
     font-weight: 400;
-    color: var(--buttons-color);
+    color: white;
     margin: 2rem 0;
     text-transform: uppercase;
 }
@@ -93,7 +93,8 @@ h4 {
 /* buttons */
 
 .btn {
-    font-size: 1.3rem;
+    font-size: 1.5rem;
+    text-transform: uppercase;
     padding: 1rem 0;
     width: 20rem;
     text-align: center;
@@ -102,6 +103,7 @@ h4 {
     text-decoration: none;
     color: white;
     background-color: var(--buttons-color);
+    border-radius: 1rem;
 }
 
 .btn:hover {
@@ -137,10 +139,11 @@ input[type='text'] {
     font-size: 1.8rem;
     border: none;
     box-shadow: 0 0.1rem 1.4rem 0  rgba(235, 102, 49, 0.966);
+    border-radius: 1rem;
 }
 
 input::placeholder {
-    color: #aaa;
+    color: rgb(129, 129, 129);
 }
 
 input:focus {

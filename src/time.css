@@ -1,4 +1,6 @@
 .time_head{
+    text-transform: uppercase;
+    font-size: 1.2rem;
     margin: 3%;
     display: flex;
     justify-content: space-around;
@@ -23,7 +25,7 @@
     border-radius: 15px;
     width: 40%;
     height: 100%;
-    background-color:lightblue;
+    background-color:#e3941e;
 }
 
 .black_time{
@@ -33,7 +35,7 @@
     border-radius: 15px;
     width: 40%;
     height: 100%;
-    background-color:#111;
+    background-color:#7e2349;
 }
 .black_time p{
     color: wheat;
@@ -46,12 +48,16 @@
 .dead-black-figures{
     color: white;
     position: absolute;
-    top: -30px;
+    top: -35px;
+    background-color: rgba(255, 255, 255, .3);
+    backdrop-filter: blur(5px);
 }
 .dead-white-figures{
     color: white;
     position: absolute;
     bottom: 5px;
+    background-color: rgba(255, 255, 255, .3);
+    backdrop-filter: blur(5px);
    
 }
 .dead-figures{
@@ -73,9 +79,9 @@
 
 }
 .results p{
-    font-size: xx-large;
+    font-size: 2rem;
     font-weight: bold;
-    color: black;
+    color:red;
 }
 .info{
     display: flex;

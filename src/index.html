@@ -4,19 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Coders Chess</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="app.css">
     <link rel="stylesheet" href="home.css">
 </head>
 <body>
     <div class="container">
-        <h2 id="game-name">.coders <span>chess</span></h2>
+        <h2 id="game-name">.coders<span>Chess</span></h2>
         <div id="home" class="flex-center flex-column">
-            <h4 id="form-title">ustawienia gry</h4>
+            <h3 id="form-title">ustawienia gry</h3>
             <form>
                 <div id="players-name">
                     <h4>imiona graczy</h4>
-                    <div class="flex-space"><input type="text" name="username" id="player1" placeholder="gracz 1">
-                    <input type="text" name="username" id="player2" placeholder="gracz 2"></div>
+                    <div class="flex-space"><input type="text" name="username" id="player1" placeholder="gracz 1" required>
+                    <input type="text" name="username" id="player2" placeholder="gracz 2" required></div>
                 </div>
                 <div class="range-container">
                     <h4>czas gry <span>(w minutach)</span></h4>
