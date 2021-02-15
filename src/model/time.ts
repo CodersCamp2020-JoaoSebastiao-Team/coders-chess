@@ -91,13 +91,11 @@ export function getBeatFigures():void{
         if(color==='black' && last_move.includes('beat')){
             let index:number = last_move.indexOf("beat");
             last_move=last_move.slice(index,last_move.length-1);
-            console.log(last_move)
             array_of_beat_black_figures.push(returnFigureName(last_move))
         }
         if(color==='white' && last_move.includes('beat')){
         let index:number = last_move.indexOf("beat");
         last_move =last_move.slice(index,last_move.length-1);
-        console.log(last_move)
         array_of_beat_white_figures.push(returnFigureName(last_move))
     }
     }
@@ -168,7 +166,7 @@ function getUrlOfSVG(color:string,figure:string):string{
 
 
 
-function returnFigureName(str:string):string{
+export function returnFigureName(str:string):string{
     if(str.includes('Pawn')) return 'Pawn';
     else if(str.includes('Queen')) return 'Queen';
     else if(str.includes('Bishop')) return 'Bishop';

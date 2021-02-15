@@ -6,7 +6,7 @@ import {Pawn} from "./figures/pawn"
 import {Knight} from "./figures/knight"
 import {King} from "./figures/king"
 import {Game} from "./game";
-
+import {returnFigureName} from "./time"
 
 
 function moveToText(figure: Figure, opponentFigure: Figure | null, moveTo: Figure): string {
@@ -33,7 +33,6 @@ function moveToText(figure: Figure, opponentFigure: Figure | null, moveTo: Figur
 
 function moveToNotation(figure: Figure, opponentFigure: Figure | null, moveTo: Figure): string {
     let checkString = ""
-    console.log(localStorage.getItem("check"))
     if (localStorage.getItem('checkmate')){
         checkString =  "++"
     }else if(localStorage.getItem('check')){
@@ -224,8 +223,19 @@ export function undoMove(contest:Game): Array<Pawn | Rook | Knight | Bishop | Ki
         let movesNotation = JSON.parse(<string>localStorage.getItem('movesNotation'));
         let movesText = JSON.parse(<string>localStorage.getItem('movesText'));
         const color:string = localStorage.getItem('color')=='white'?'black':'white';
-        movesText.pop();
-        movesNotation.pop()
+        movesNotation.pop();
+        let lastMove = movesText.pop()
+        if (lastMove.includes('beat')){
+            if (color=='white'){
+                localStorage.setItem('beatenFigureToUndo',JSON.stringify(
+                    ['black', returnFigureName(lastMove.slice(lastMove.indexOf("beat"),lastMove.length-1))]))
+            }else {
+                localStorage.setItem('beatenFigureToUndo',JSON.stringify(
+                    ['white', returnFigureName(lastMove.slice(lastMove.indexOf("beat"),lastMove.length-1))]))
+            }
+        }else {
+            localStorage.setItem('beatenFigureToUndo',JSON.stringify([]))
+        }
         setLocalStorage(color, movesNotation, movesText, boardFiguresByMove)
         return gameFigures;
     }
