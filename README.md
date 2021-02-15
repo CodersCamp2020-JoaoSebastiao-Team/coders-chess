@@ -1,6 +1,6 @@
 # CodersCamp 2020 | Projekt Zespołowy | TypeScript
 Aplikacja do gry w szachy.
-![CodersChess](\static\ui\gra-widok-glowny.png)
+![CodersChess](/static/ui/gra-widok-glowny.png)
 
 ## Zespół projektowy
 
