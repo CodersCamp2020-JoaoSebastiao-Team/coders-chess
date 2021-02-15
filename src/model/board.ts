@@ -46,10 +46,6 @@ for (let i = 1; i <= 64; i++) {
     figureImage.classList.add("figureImg");
 }
 
-// export class Board{
-
-// }
-
 export enum ChessPlayerTour {
     Black = "black",
     White = "white",
@@ -63,7 +59,6 @@ Contest.refreshBoard(gameFiguresArray, boardFields);
 let check: [boolean, string];
 
 let PlayerTour: ChessPlayerTour = ChessPlayerTour.White;
-console.log(`Player white begin.`);
 let previousNumber: number = -1;
 let previousFigure = gameFiguresArray[0];
 
@@ -83,11 +78,9 @@ for (let i = 0; i < boardFields.length; i++) {
                         previousFigure.setFigurePosition(decodeField(i));
                         previousFigure.checked = false;
                         Contest.figureClicked(gameFiguresArray[previousNumber], boardFields);
-                        console.log(`Congratulate! ${figure.getColor()} ${figure.getFigure()} was captured!`);
 
                         //Next player tour
                         PlayerTour = PlayerTour == ChessPlayerTour.White ? ChessPlayerTour.Black : ChessPlayerTour.White;
-                        console.log(`Now is ${PlayerTour} player tour`);
                         checkChecks();
                         saveMoveToLocalStorage(figure, previousFigure, gameFiguresArray)
                         updateLocalStarage();
@@ -112,7 +105,6 @@ for (let i = 0; i < boardFields.length; i++) {
                             previousFigure.setFigurePosition(decodeField(i));
                             let checkIfStillCheck = Contest.lookingForCheck();
                             if (checkIfStillCheck[0] && PlayerTour == checkIfStillCheck[1]) {
-                                console.log("Hola hola, it's check!");
                                 previousFigure.setFigurePosition(previousFigurePosition);
                                 boardFields[i].classList.add('figure-capture');
                                 previousFigure.checked = false;
@@ -130,7 +122,6 @@ for (let i = 0; i < boardFields.length; i++) {
                                 Contest.figureClicked(gameFiguresArray[previousNumber], boardFields);
                                 //Next player tour
                                 PlayerTour = PlayerTour == ChessPlayerTour.White ? ChessPlayerTour.Black : ChessPlayerTour.White;
-                                console.log(`Now is ${PlayerTour} player tour`);
                                 checkChecks();
                                 saveMoveToLocalStorage(null, previousFigure, gameFiguresArray)
                                 updateLocalStarage();
@@ -142,7 +133,6 @@ for (let i = 0; i < boardFields.length; i++) {
                             previousFigure.setFigurePosition(decodeField(i));
                             let checkIfStillCheck = Contest.lookingForCheck();
                             if (checkIfStillCheck[0] && PlayerTour == checkIfStillCheck[1]) {
-                                console.log("Hola hola, it's check!");
                                 previousFigure.setFigurePosition(previousFigurePosition);
                                 boardFields[i].classList.add('figure-capture');
                                 previousFigure.checked = false;
@@ -159,7 +149,6 @@ for (let i = 0; i < boardFields.length; i++) {
                                 Contest.figureClicked(gameFiguresArray[previousNumber], boardFields);
                                 //Next player tour
                                 PlayerTour = PlayerTour == ChessPlayerTour.White ? ChessPlayerTour.Black : ChessPlayerTour.White;
-                                console.log(`Now is ${PlayerTour} player tour`);
                                 checkChecks();
                                 saveMoveToLocalStorage(null, previousFigure, gameFiguresArray)
                                 updateLocalStarage();
