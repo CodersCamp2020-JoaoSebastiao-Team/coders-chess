@@ -11,24 +11,43 @@ import {Game} from "./game";
 
 function moveToText(figure: Figure, opponentFigure: Figure | null, moveTo: Figure): string {
 
-    if (opponentFigure !== null) {
-        return `${figure.getFigure()} from ${figurePosition(figure.getFigurePosition())} 
-        beat ${opponentFigure?.getFigure()} on ${figurePosition(moveTo.getFigurePosition())}`
-    } else {
-        return `${figure.getFigure()} move from ${figurePosition(figure.getFigurePosition())} 
-         to ${figurePosition(moveTo.getFigurePosition())}`
+    let checkString = ""
+    if (localStorage.getItem('checkmate')){
+        checkString =  "with checkmate!"
+    }else if(localStorage.getItem('check')){
+        checkString =  "with check!"
     }
+    if (opponentFigure !== null) {
+        return `${figure.getFigure()} from ${figurePosition(figure.getFigurePosition())} `+
+        `beat ${opponentFigure?.getFigure()} on ${figurePosition(moveTo.getFigurePosition())} `+
+            `${checkString}`
+
+    } else {
+        return `${figure.getFigure()} move from ${figurePosition(figure.getFigurePosition())} `+
+         `to ${figurePosition(moveTo.getFigurePosition())} `+
+            `${checkString}`
+    }
+
     //roszady i szach jeszcze
 }
 
 function moveToNotation(figure: Figure, opponentFigure: Figure | null, moveTo: Figure): string {
+    let checkString = ""
+    console.log(localStorage.getItem("check"))
+    if (localStorage.getItem('checkmate')){
+        checkString =  "++"
+    }else if(localStorage.getItem('check')){
+        checkString =  "+"
+    }
     if (opponentFigure !== null) {
 
         return `${figureName(figure.getFigureNumber())}${figurePosition(figure.getFigurePosition())}x`+
-            `${figureName(opponentFigure?.getFigureNumber())}${figurePosition(moveTo.getFigurePosition())}`
+            `${figureName(opponentFigure?.getFigureNumber())}${figurePosition(moveTo.getFigurePosition())}`+
+            `${checkString}`
     } else {
         return `${figureName(figure.getFigureNumber())}${figurePosition(figure.getFigurePosition())}`+
-                `${figurePosition(moveTo.getFigurePosition())}`
+                `${figurePosition(moveTo.getFigurePosition())}`+
+            `${checkString}`
     }
     //roszady i szach jeszcze
 }

@@ -88,6 +88,7 @@ for (let i = 0; i < boardFields.length; i++) {
                         //Next player tour
                         PlayerTour = PlayerTour == ChessPlayerTour.White ? ChessPlayerTour.Black : ChessPlayerTour.White;
                         console.log(`Now is ${PlayerTour} player tour`);
+                        checkChecks();
                         saveMoveToLocalStorage(figure, previousFigure, gameFiguresArray)
                         updateLocalStarage();
                         seeLastMovesEventListener(Contest,boardFields)
@@ -130,6 +131,7 @@ for (let i = 0; i < boardFields.length; i++) {
                                 //Next player tour
                                 PlayerTour = PlayerTour == ChessPlayerTour.White ? ChessPlayerTour.Black : ChessPlayerTour.White;
                                 console.log(`Now is ${PlayerTour} player tour`);
+                                checkChecks();
                                 saveMoveToLocalStorage(null, previousFigure, gameFiguresArray)
                                 updateLocalStarage();
                                 seeLastMovesEventListener(Contest,boardFields)
@@ -158,6 +160,7 @@ for (let i = 0; i < boardFields.length; i++) {
                                 //Next player tour
                                 PlayerTour = PlayerTour == ChessPlayerTour.White ? ChessPlayerTour.Black : ChessPlayerTour.White;
                                 console.log(`Now is ${PlayerTour} player tour`);
+                                checkChecks();
                                 saveMoveToLocalStorage(null, previousFigure, gameFiguresArray)
                                 updateLocalStarage();
                                 seeLastMovesEventListener(Contest,boardFields);
