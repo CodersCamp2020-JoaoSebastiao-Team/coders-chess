@@ -10,12 +10,12 @@
 }
 
 #players-name {
-  width: 40vw;
+  width: 80%;
 }
 
 .range-wrap {
   position: relative;
-  width: 40vw;
+  width: 100%;
   padding: 1.5em 0;
   /* max-width: 400px; */
 }
@@ -77,8 +77,7 @@
 
 .range-container {
   height: 100%;
-  /* display: grid;
-    grid-gap: 5rem; */
+  width:80%;
   place-items: center;
 }
 
@@ -90,7 +89,7 @@
 /* pat section */
 .pat-options {
   margin: 1rem 0;
-  width: 40vw;
+  width: 80%;
   display: flex;
   flex-direction: column;
 }
@@ -153,4 +152,19 @@ input[type="radio"]:checked+.label:after {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+}
+
+@media (max-width: 560px){
+  #home{
+      width: 75%;
+  }
+}
+
+@media (max-width: 400px){
+  .btn{
+    width: 90%;
+  }
+  #home{
+      width: 90%;
+  }
 }
