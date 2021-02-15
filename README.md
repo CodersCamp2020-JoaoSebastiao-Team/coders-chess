@@ -1,6 +1,6 @@
 # CodersCamp 2020 | Projekt Zespołowy | TypeScript
 Aplikacja do gry w szachy.
-![CodersChess](static\ui\gra-widok-glowny.JPG)
+![CodersChess](\static\ui\gra-widok-glowny.png)
 
 ## Zespół projektowy
 
@@ -61,13 +61,13 @@ Grę zaczyna zawsze gracz z pomarańczowymi pionkami, następnie gracze wykonuj�
 ![CodersChess](./static/ui/zbite-pionki.jpg)
 
 #### W projekcie każdy z uczestników zaprezentował praktyczną znajomość poniższych zagadnień związanych z TypeScript:
--typy podstawowe
--definiowanie własnych typów
--składanie typów
--typy / klasy / interfejsy
--implementacja / dziedziczenie / kompozycja / implementacja interfejsu
--modyfikatory dostępu
--typy generyczne
+- typy podstawowe
+- definiowanie własnych typów
+- składanie typów
+- typy / klasy / interfejsy
+- implementacja / dziedziczenie / kompozycja / implementacja interfejsu
+- modyfikatory dostępu
+- typy generyczne
 
 
 #### Uruchomienie projektu
