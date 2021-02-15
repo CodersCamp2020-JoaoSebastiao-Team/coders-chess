@@ -223,7 +223,7 @@ export class Game {
                             if (figureOpp.getFigure() === "King"){
                                 //logic for MAT:
                                 //console.log("checking figure position: ", figurePosition);
-                                let checkMat;
+                                let checkMat = false;
                                 let opponentCanCapture;
                                 if(figureOpp.showDirections(boardMatrix).length == 0){
                                     checkMat = true;
@@ -245,7 +245,7 @@ export class Game {
                                     console.log("check mat!");
                                 }
 
-                                check = [true, figureOpp.getColor()];
+                                check = [checkMat, figureOpp.getColor()];
                             }
                         }
                     }

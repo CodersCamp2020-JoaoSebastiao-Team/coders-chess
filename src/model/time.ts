@@ -56,10 +56,18 @@ function startTimer():void{
 
             if(blackTimeLeft == 0 || whiteTimeLeft == 0){
                 localStorage.setItem('koniec','koniec');
-                if(blackTimeLeft==0) results.innerHTML = `<p>WHITE WON BY TIME!!!</p>`;
-                results.innerHTML = `<p>BLACK WON BY TIME!!!</p>`;
+                if(blackTimeLeft==0){
+                    results.innerHTML = `<p>WHITE WON BY TIME!!!</p>`;
+                }
+                else{
+                    results.innerHTML = `<p>BLACK WON BY TIME!!!</p>`;
+                }
                 clearInterval(timerInterval)
             }
+            if (localStorage.getItem('checkmate')){
+                clearInterval(timerInterval)
+            }
+
         }, 1000)
 }
 

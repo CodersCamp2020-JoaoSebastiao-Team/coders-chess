@@ -70,7 +70,7 @@ let previousFigure = gameFiguresArray[0];
 for (let i = 0; i < boardFields.length; i++) {
 
     boardFields[i].addEventListener("click", () => {
-        if (!localStorage.getItem('koniec')) {
+        if (!localStorage.getItem('koniec') || !localStorage.getItem('checkmate')) {
             const figureNumber = Contest.checkBoardForFigure(i);
             const figure = gameFiguresArray[figureNumber];
             const boardFields = document.querySelectorAll(".square");
@@ -160,15 +160,16 @@ for (let i = 0; i < boardFields.length; i++) {
                                 console.log(`Now is ${PlayerTour} player tour`);
                                 saveMoveToLocalStorage(null, previousFigure, gameFiguresArray)
                                 updateLocalStarage();
-                                seeLastMovesEventListener(Contest,boardFields)
+                                seeLastMovesEventListener(Contest,boardFields);
+
                             }
                         }
                     }
                 }
             }
             Contest.refreshBoard(gameFiguresArray, boardFields);
-            check = Contest.lookingForCheck();
-            Contest.lookingForMat();
+            checkChecks()
+
             if (boardFields[i].classList.contains('figure-checked') || boardFields[i].classList.contains('figure-capture')) {
                 previousNumber = figureNumber;
                 previousFigure = gameFiguresArray[figureNumber];
@@ -177,18 +178,39 @@ for (let i = 0; i < boardFields.length; i++) {
 
     });
 }
-
+function checkChecks() {
+    check = Contest.lookingForCheck();
+    let checkMate = Contest.lookingForMat();
+    const checkDiv = window.document.querySelector(".results")!;
+    console.log(checkMate)
+    if (checkMate[0]){
+        checkDiv.innerHTML = `<p> Checkmate: ${check[1]=='black'?'white':'black'} won!</p>`;
+        localStorage.setItem('checkmate','checkmate');
+    }else if (check[0]){
+        checkDiv.innerHTML = `<p> Check for: ${check[1]}</p>`
+        localStorage.setItem('check','check');
+    }else {
+        checkDiv.innerHTML = `<p></p>`
+        localStorage.removeItem('check');
+        localStorage.removeItem('checkmate')
+    }
+}
 const cancelButton = window.document.getElementById("cancel-move")!;
 cancelButton.addEventListener('click', (event: MouseEvent) => {
-    gameFiguresArray = undoMove(Contest)
-    Contest.setGameFigures(gameFiguresArray)
-    Contest.refreshBoard(Contest.getGameFigures(), boardFields)
-    if (JSON.parse(<string>localStorage.getItem("movesNotation"))[0]!==undefined){
-        PlayerTour = PlayerTour == ChessPlayerTour.White ? ChessPlayerTour.Black : ChessPlayerTour.White;
-    }else {
-        PlayerTour = ChessPlayerTour.White
+    if (!localStorage.getItem('koniec')){
+        gameFiguresArray = undoMove(Contest)
+        Contest.setGameFigures(gameFiguresArray)
+        Contest.refreshBoard(Contest.getGameFigures(), boardFields)
+        checkChecks()
+        if (JSON.parse(<string>localStorage.getItem("movesNotation"))[0]!==undefined){
+            PlayerTour = PlayerTour == ChessPlayerTour.White ? ChessPlayerTour.Black : ChessPlayerTour.White;
+        }else {
+            PlayerTour = ChessPlayerTour.White
+        }
     }
 });
+
+
 
 function decodeField(field: number): [number, number] {
     return [field % 8, Math.floor(field / 8)];
