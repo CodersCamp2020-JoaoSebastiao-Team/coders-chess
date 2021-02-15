@@ -1,5 +1,6 @@
 # CodersCamp 2020 | Projekt Zespołowy | TypeScript
-Gra w szachy
+Aplikacja do gry w szachy.
+![CodersChess](./static/ui/gra-widok-glowny.jpg)
 
 ## Zespół projektowy
 
@@ -22,10 +23,7 @@ W ramach trzeciego projektu, zadaniem naszego zespołu było opracowanie aplikac
 ### Demo
 Wersja demonstracyjna aplikacji jest dostępna [TUTAJ](http://coders-chess.herokuapp.com/)
 
-![CodersChess](./static/assets/ui/strona_glowna.png)
-
 ### Cel projektu
-
 Celem projektu było dostarczenie aplikacji pozwalającej na rozgrywkę szachową między dwoma graczami. Aplikacja została stworzona bez użycia dedykowanych bibliotek (chess.js).
 Aplikacja została wykonana według dostarczonych przez organizatorów CodersCamp wymagań.
 
@@ -53,10 +51,14 @@ W trakcie developmentu wykorzystaliśmy:
 - LocalStorage, do zapisywania ruchów graczy
 
 #### Menu Główne
-W menu głównym należy podać imiona graczy, wybrać czas gry (w domyśle czas jest nieskończony) oraz wybrać opcję zakończenia gry w przypadk pata.
+W menu głównym należy podać imiona graczy, wybrać czas gry (w domyśle czas jest nieskończony) oraz wybrać opcję zakończenia gry w przypadku pata.
+
+![CodersChess](./static/ui/ustawienia-gry.jpg)
 
 ## Rywalizacja
 Grę zaczyna zawsze gracz z pomarańczowymi pionkami, następnie gracze wykonują ruchy na przemian. Możliwe ruchy pokazane są po naciśnięcu na dany pionek. Zbite pionki wyświelane są odpowiednio nad planszą oraz pod nią. Rozgrywka toczy się do zamatowania króla przeciwnika lub gdy przeciwnikowi skończy się czas.
+
+![CodersChess](./static/ui/zbite-pionki.jpg)
 
 #### W projekcie każdy z uczestników zaprezentował praktyczną znajomość poniższych zagadnień związanych z TypeScript:
 -typy podstawowe
@@ -81,6 +83,9 @@ Kod produkcyjny aplikacji umieszczamy w katalogu `src`.
 3. Odliczanie czasu dla każdej ze stron.
 4. Kończenie gry przez limit czasowy - gracz, któremu skończył się czas przegrywa. Nie rozpatrujemy przypadku remisu.
 5. Wyświetlanie zbitych pionków.
+6. Wyświetlanie przewagi gracza.
+
+![Wyświetlanie przebiegu gry oraz przewagi gracza](./static/ui/przewaga-gracza.jpg)
 
 ### Organizacja pracy
 Praca zespołu była organizowana przy użyciu narzędzi dostarczanych przez GitHub. 
