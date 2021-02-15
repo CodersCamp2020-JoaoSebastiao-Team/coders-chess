@@ -11,6 +11,10 @@ const timer_white = <HTMLElement>document.querySelector(".white_time");
 const timer_black = <HTMLElement>document.querySelector(".black_time");
 const results = <HTMLElement>document.querySelector(".results");
 const time_head = <HTMLElement>document.querySelector(".time_head");
+const info = <HTMLElement>document.querySelector(".info");
+
+const nick_black = localStorage.getItem('nick_black')||"player2";
+const nick_white = localStorage.getItem('nick_white')||"player1";
 let bubblee= localStorage.getItem("bubble");
 let currentColor = "white";
 if (typeof bubblee=='string')
@@ -42,9 +46,10 @@ function updateBlackTimer():void{
     blackTime.innerHTML = `<p>${formatTime(blackTimeLeft)}</p>`
 }
 
+
 function startTimer():void{
         const timerInterval = setInterval(() => {
-          
+            info.innerHTML = `<h2>${nick_white}</h2> <h2>Czas gry</h2> <h2>${nick_black}</h2>`
             let color = localStorage.getItem("color");
             if(typeof color==='string'){
                 if(currentColor!==color){
