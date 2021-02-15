@@ -8,6 +8,7 @@ localStorage.removeItem('koniec');
 localStorage.setItem('movesText',JSON.stringify([]));
 localStorage.setItem('movesNotation',JSON.stringify([]));
 localStorage.setItem('boardFiguresByMove',JSON.stringify([]));
+localStorage.setItem('boardFigureToUndo',JSON.stringify([]));
 const list = window.document.getElementById("history-list")!;
 
 
