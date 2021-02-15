@@ -70,7 +70,7 @@ let previousFigure = gameFiguresArray[0];
 for (let i = 0; i < boardFields.length; i++) {
 
     boardFields[i].addEventListener("click", () => {
-        if (!localStorage.getItem('koniec') || !localStorage.getItem('checkmate')) {
+        if (!localStorage.getItem('koniec') && !localStorage.getItem('checkmate')) {
             const figureNumber = Contest.checkBoardForFigure(i);
             const figure = gameFiguresArray[figureNumber];
             const boardFields = document.querySelectorAll(".square");
@@ -179,20 +179,23 @@ for (let i = 0; i < boardFields.length; i++) {
     });
 }
 function checkChecks() {
-    check = Contest.lookingForCheck();
+
     let checkMate = Contest.lookingForMat();
     const checkDiv = window.document.querySelector(".results")!;
     console.log(checkMate)
     if (checkMate[0]){
         checkDiv.innerHTML = `<p> Checkmate: ${check[1]=='black'?'white':'black'} won!</p>`;
         localStorage.setItem('checkmate','checkmate');
-    }else if (check[0]){
-        checkDiv.innerHTML = `<p> Check for: ${check[1]}</p>`
-        localStorage.setItem('check','check');
     }else {
-        checkDiv.innerHTML = `<p></p>`
-        localStorage.removeItem('check');
-        localStorage.removeItem('checkmate')
+        check = Contest.lookingForCheck();
+        if (check[0]) {
+            checkDiv.innerHTML = `<p> Check for: ${check[1]}</p>`
+            localStorage.setItem('check', 'check');
+        } else {
+            checkDiv.innerHTML = `<p></p>`
+            localStorage.removeItem('check');
+            localStorage.removeItem('checkmate')
+        }
     }
 }
 const cancelButton = window.document.getElementById("cancel-move")!;
