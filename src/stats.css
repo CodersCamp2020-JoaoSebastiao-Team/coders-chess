@@ -20,6 +20,7 @@
     background-color: whitesmoke;
 }
 .list-container{
+    position: relative;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -30,25 +31,62 @@
     background-color: whitesmoke;
 }
 .list{
-
     width: 95%;
     height: 80%;
     margin-bottom: 9px;
-    background-color: #333;
+    background-color: #888;
     border-radius: 10px;
+    word-wrap: break-word;
+    overflow: auto;
+    border: 1px solid var(--buttons-color);
 }
+
 .time h2, .list-container h2{
     color: #333;
     font-size: 24px;
     margin: 5px 0 20px;
 }
-.buttons{
-    width: 95%;
+
+#notation-button{
+    position: absolute;
+    right: 0;
+    width: 8rem;
+    height: 40px;
+    border-radius: 10px;
+}
+.move{
+    align-items: flex-start;
     display: flex;
-    justify-content: space-between;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    border-bottom: 1px solid var(--buttons-color);
 }
 
-#leave-button, #undo-button{
-    width: 15rem;
-    border-radius: 10px;
+.moves, .move-number{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    height: 30px;
+    width: 45%;
+    font-weight: bold;
+}
+.moves:hover{
+    cursor: pointer;
+    background-color: #e3941e;
+    color: #333333;
+}
+.white-move{
+    background-color: whitesmoke;
+    color: #333333;
+}
+.black-move{
+    background-color: #333;
+    color: whitesmoke;
+}
+.move-number{
+    width: 10%;
+    background-color: midnightblue;
+    color: var(--buttons-color);
 }
