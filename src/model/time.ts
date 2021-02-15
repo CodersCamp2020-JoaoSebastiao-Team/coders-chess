@@ -11,6 +11,10 @@ const timer_white = <HTMLElement>document.querySelector(".white_time");
 const timer_black = <HTMLElement>document.querySelector(".black_time");
 const results = <HTMLElement>document.querySelector(".results");
 const time_head = <HTMLElement>document.querySelector(".time_head");
+const info = <HTMLElement>document.querySelector(".info");
+
+const nick_black = localStorage.getItem('nick_black')||"player2";
+const nick_white = localStorage.getItem('nick_white')||"player1";
 let bubblee= localStorage.getItem("bubble");
 let currentColor = "white";
 if (typeof bubblee=='string')
@@ -42,9 +46,10 @@ function updateBlackTimer():void{
     blackTime.innerHTML = `<p>${formatTime(blackTimeLeft)}</p>`
 }
 
+
 function startTimer():void{
         const timerInterval = setInterval(() => {
-          
+            info.innerHTML = `<h2>${nick_white}</h2> <h2>Czas gry</h2> <h2>${nick_black}</h2>`
             let color = localStorage.getItem("color");
             if(typeof color==='string'){
                 if(currentColor!==color){
@@ -56,10 +61,18 @@ function startTimer():void{
 
             if(blackTimeLeft == 0 || whiteTimeLeft == 0){
                 localStorage.setItem('koniec','koniec');
-                if(blackTimeLeft==0) results.innerHTML = `<p>WHITE WON BY TIME!!!</p>`;
-                results.innerHTML = `<p>BLACK WON BY TIME!!!</p>`;
+                if(blackTimeLeft==0){
+                    results.innerHTML = `<p>WHITE WON BY TIME!!!</p>`;
+                }
+                else{
+                    results.innerHTML = `<p>BLACK WON BY TIME!!!</p>`;
+                }
                 clearInterval(timerInterval)
             }
+            if (localStorage.getItem('checkmate')){
+                clearInterval(timerInterval)
+            }
+
         }, 1000)
 }
 
@@ -71,25 +84,28 @@ export function getBeatFigures():void{
     let moveText:string|null = localStorage.getItem("movesText");
     let array_moves_texts;
     if(typeof moveText=='string'){
-        array_moves_texts = moveText.split(","); 
+        array_moves_texts = moveText.split(",");
     }
   
     let last_move:string|undefined;
     if(typeof array_moves_texts==='object'){
        last_move = array_moves_texts[array_moves_texts.length-1]
     }
-  
-    if(last_move?.includes('black') && last_move.includes('beat')){
-        let index:number = last_move.indexOf("beat");
-        last_move=last_move.slice(index,last_move.length-1);
-        array_of_beat_black_figures.push(returnFigureName(last_move))
-        
-    }
-      if(last_move?.includes('white') && last_move.includes('beat')){
+    if(last_move){
+        let color = localStorage.getItem('color')=='white'?'black':'white'
+        if(color==='black' && last_move.includes('beat')){
+            let index:number = last_move.indexOf("beat");
+            last_move=last_move.slice(index,last_move.length-1);
+            array_of_beat_black_figures.push(returnFigureName(last_move))
+        }
+        if(color==='white' && last_move.includes('beat')){
         let index:number = last_move.indexOf("beat");
         last_move =last_move.slice(index,last_move.length-1);
         array_of_beat_white_figures.push(returnFigureName(last_move))
     }
+    }
+
+
     updateDeadFiguresInHTML();
 }
 
@@ -155,7 +171,7 @@ function getUrlOfSVG(color:string,figure:string):string{
 
 
 
-function returnFigureName(str:string):string{
+export function returnFigureName(str:string):string{
     if(str.includes('Pawn')) return 'Pawn';
     else if(str.includes('Queen')) return 'Queen';
     else if(str.includes('Bishop')) return 'Bishop';

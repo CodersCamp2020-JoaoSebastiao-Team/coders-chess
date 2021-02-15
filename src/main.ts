@@ -18,6 +18,8 @@
 
 const range = <HTMLInputElement>document.getElementById("range");
 const bubble = <HTMLOutputElement>document.getElementById("bubble");
+const button = <HTMLButtonElement>document.querySelector('.btn');
+
 localStorage.setItem("color","white")
 
 if (range) {
@@ -39,6 +41,15 @@ function setBubble(range: HTMLInputElement, bubble: HTMLOutputElement) {
     bubble.style.left = `calc(${offset}% - 10px)`;
     bubble.style.color = 'black';
     localStorage.setItem("bubble", val.toString());
+  
 }
+button.addEventListener('click',() =>{
+    let nick_white =  (<HTMLInputElement>document.getElementById("player1")).value || '';
+    let nick_black =  (<HTMLInputElement>document.getElementById("player2")).value || '';
+    localStorage.setItem('nick_black',nick_black);
+    localStorage.setItem('nick_white',nick_white);
+})
+
+
 
 

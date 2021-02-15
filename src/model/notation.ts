@@ -5,8 +5,10 @@ const notationButton = window.document.getElementById("notation-button")!;
 
 localStorage.setItem('notationText', JSON.stringify(notationButton.textContent));
 localStorage.removeItem('koniec');
-localStorage.removeItem('movesText');
-localStorage.removeItem('movesNotation');
+localStorage.setItem('movesText',JSON.stringify([]));
+localStorage.setItem('movesNotation',JSON.stringify([]));
+localStorage.setItem('boardFiguresByMove',JSON.stringify([]));
+localStorage.setItem('boardFigureToUndo',JSON.stringify([]));
 const list = window.document.getElementById("history-list")!;
 
 
@@ -23,5 +25,3 @@ notationButton.addEventListener('click', (event: MouseEvent) => {
         localStorage.setItem('notationText', JSON.stringify('Notacja'));
     }
 });
-
-

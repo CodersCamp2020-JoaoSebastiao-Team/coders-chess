@@ -92,6 +92,9 @@ export class Game {
     getGameFigures(): Array<Pawn | Rook | Knight | Bishop | King | Queen> {
         return this.gameFigures;
     }
+    setGameFigures(figures:Array<Pawn | Rook | Knight | Bishop | King | Queen>) {
+        this.gameFigures = figures;
+    }
     refreshBoard(gameFigures: Array<Pawn | Rook | Knight | Bishop | King | Queen>, boardFields: NodeListOf<Element>): void {
         const actualBoardArray: Array<Pawn | Rook | Knight | Bishop | King | Queen | unknown> = [];
         let figurePosition: number = 0;
@@ -220,7 +223,7 @@ export class Game {
                             if (figureOpp.getFigure() === "King"){
                                 //logic for MAT:
                                 //console.log("checking figure position: ", figurePosition);
-                                let checkMat;
+                                let checkMat = false;
                                 let opponentCanCapture;
                                 if(figureOpp.showDirections(boardMatrix).length == 0){
                                     checkMat = true;
@@ -242,7 +245,7 @@ export class Game {
                                     console.log("check mat!");
                                 }
 
-                                check = [true, figureOpp.getColor()];
+                                check = [checkMat, figureOpp.getColor()];
                             }
                         }
                     }
