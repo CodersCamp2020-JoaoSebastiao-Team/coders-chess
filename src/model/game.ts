@@ -12,7 +12,6 @@ export class Game {
     private gameFigures: Array<Pawn | Rook | Knight | Bishop | King | Queen> = [];
 
     gameInit(): void {
-        console.log("Lets ChessPlay begun!");
         // Set figures for white player
         const pawnWhite1 = new Pawn(ChessFigure.Pawn, ChessColor.White, [0, 6], false);
         this.gameFigures.push(pawnWhite1);
@@ -133,7 +132,6 @@ export class Game {
         return -1;
     }
     figureClicked(figure: Pawn | Rook | Knight | Bishop | King | Queen, fieldList: NodeListOf<Element>) {
-            //console.log(figure);
             let field = <HTMLInputElement>fieldList[getFigureWrapper(figure.getFigurePosition())].querySelector(".figureImg");
             let clickedFigure = getFigureWrapper(figure.getFigurePosition());
             for (let i = 0; i < fieldList.length; i++) {
@@ -221,10 +219,7 @@ export class Game {
                     if (figureOpp.getFigurePosition()[0] == opponnentPos[0] && figureOpp.getFigurePosition()[1] == opponnentPos[1]){
                         if (figureOpp.getColor() != figureColor){
                             if (figureOpp.getFigure() === "King"){
-                                //logic for MAT:
-                                //console.log("checking figure position: ", figurePosition);
                                 let checkMat = false;
-                                let opponentCanCapture;
                                 if(figureOpp.showDirections(boardMatrix).length == 0){
                                     checkMat = true;
                                 }
@@ -332,6 +327,5 @@ function lookingForOpponentColor(gameFigures: Array<Pawn | Rook | Knight | Bisho
         }
 
     }
-    //console.log("color: ",opponentColor)
     return opponentColor;
 }
