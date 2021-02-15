@@ -53,12 +53,12 @@ W trakcie developmentu wykorzystaliśmy:
 #### Menu Główne
 W menu głównym należy podać imiona graczy, wybrać czas gry (w domyśle czas jest nieskończony) oraz wybrać opcję zakończenia gry w przypadku pata.
 
-![CodersChess](./static/ui/ustawienia-gry.jpg)
+![CodersChess](/static/ui/ustawienia-gry.jpg)
 
 ## Rywalizacja
 Grę zaczyna zawsze gracz z pomarańczowymi pionkami, następnie gracze wykonują ruchy na przemian. Możliwe ruchy pokazane są po naciśnięcu na dany pionek. Zbite pionki wyświelane są odpowiednio nad planszą oraz pod nią. Rozgrywka toczy się do zamatowania króla przeciwnika lub gdy przeciwnikowi skończy się czas.
 
-![CodersChess](./static/ui/zbite-pionki.jpg)
+![CodersChess](/static/ui/zbite-pionki.jpg)
 
 #### W projekcie każdy z uczestników zaprezentował praktyczną znajomość poniższych zagadnień związanych z TypeScript:
 - typy podstawowe
@@ -85,7 +85,7 @@ Kod produkcyjny aplikacji umieszczamy w katalogu `src`.
 5. Wyświetlanie zbitych pionków.
 6. Wyświetlanie przewagi gracza.
 
-![Wyświetlanie przebiegu gry oraz przewagi gracza](./static/ui/przewaga-gracza.jpg)
+![Wyświetlanie przebiegu gry oraz przewagi gracza](/static/ui/przewaga-gracza.jpg)
 
 ### Organizacja pracy
 Praca zespołu była organizowana przy użyciu narzędzi dostarczanych przez GitHub. 
