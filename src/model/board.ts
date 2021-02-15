@@ -185,7 +185,7 @@ function checkChecks() {
 
     let checkMate = Contest.lookingForMat();
     const checkDiv = window.document.querySelector(".results")!;
-    console.log(checkMate)
+
     if (checkMate[0]){
         checkDiv.innerHTML = `<p> Checkmate: ${check[1]=='black'?'white':'black'} won!</p>`;
         localStorage.setItem('checkmate','checkmate');

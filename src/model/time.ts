@@ -79,25 +79,30 @@ export function getBeatFigures():void{
     let moveText:string|null = localStorage.getItem("movesText");
     let array_moves_texts;
     if(typeof moveText=='string'){
-        array_moves_texts = moveText.split(","); 
+        array_moves_texts = moveText.split(",");
     }
   
     let last_move:string|undefined;
     if(typeof array_moves_texts==='object'){
        last_move = array_moves_texts[array_moves_texts.length-1]
     }
-  
-    if(last_move?.includes('black') && last_move.includes('beat')){
-        let index:number = last_move.indexOf("beat");
-        last_move=last_move.slice(index,last_move.length-1);
-        array_of_beat_black_figures.push(returnFigureName(last_move))
-        
-    }
-      if(last_move?.includes('white') && last_move.includes('beat')){
+    if(last_move){
+        let color = localStorage.getItem('color')=='white'?'black':'white'
+        if(color==='black' && last_move.includes('beat')){
+            let index:number = last_move.indexOf("beat");
+            last_move=last_move.slice(index,last_move.length-1);
+            console.log(last_move)
+            array_of_beat_black_figures.push(returnFigureName(last_move))
+        }
+        if(color==='white' && last_move.includes('beat')){
         let index:number = last_move.indexOf("beat");
         last_move =last_move.slice(index,last_move.length-1);
+        console.log(last_move)
         array_of_beat_white_figures.push(returnFigureName(last_move))
     }
+    }
+
+
     updateDeadFiguresInHTML();
 }
 

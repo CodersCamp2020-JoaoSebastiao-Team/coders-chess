@@ -13,18 +13,18 @@ function moveToText(figure: Figure, opponentFigure: Figure | null, moveTo: Figur
 
     let checkString = ""
     if (localStorage.getItem('checkmate')){
-        checkString =  "with checkmate!"
+        checkString =  " with checkmate!"
     }else if(localStorage.getItem('check')){
-        checkString =  "with check!"
+        checkString =  " with check!"
     }
     if (opponentFigure !== null) {
         return `${figure.getFigure()} from ${figurePosition(figure.getFigurePosition())} `+
-        `beat ${opponentFigure?.getFigure()} on ${figurePosition(moveTo.getFigurePosition())} `+
+        `beat ${opponentFigure?.getFigure()} on ${figurePosition(moveTo.getFigurePosition())}`+
             `${checkString}`
 
     } else {
         return `${figure.getFigure()} move from ${figurePosition(figure.getFigurePosition())} `+
-         `to ${figurePosition(moveTo.getFigurePosition())} `+
+         `to ${figurePosition(moveTo.getFigurePosition())}`+
             `${checkString}`
     }
 
