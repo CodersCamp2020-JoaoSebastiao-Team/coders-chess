@@ -31,8 +31,6 @@ if (typeof bubblee=='string')
    timeLimit = parseFloat(bubblee)*60;
 whiteTime.innerHTML = `<p>${formatTime(timeLimit)}</p>`
 blackTime.innerHTML = `<p>${formatTime(timeLimit)}</p>`
-let array_of_beat_white_figures:string[] = [];
-let array_of_beat_black_figures:string[] = [];
 
 function formatTime(time:number):string{
     let minutes = Math.floor(time / 60) > 9 ? `${Math.floor(time / 60)}` : `0${Math.floor(time / 60)}`;
