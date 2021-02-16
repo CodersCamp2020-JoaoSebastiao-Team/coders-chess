@@ -95,11 +95,10 @@ export function getBeatFigures():void{
     let black_img:string = "";
     let value_black:number = 0;
     let value_white:number = 0;
-    console.log(beatenBlack);
-    console.log(beatenWhite);
+  
     if(beatenWhite.length>0){
         beatenWhite.forEach((element:string) => {
-            white_img +=` <img src=${getUrlOfSVG('white',element)}>`
+            white_img +=` <img src=${getUrlOfSVG('black',element)}>`
             dead_white.innerHTML = white_img;
             value_white += getValueOfFigure(element);
         });
@@ -109,7 +108,7 @@ export function getBeatFigures():void{
     }
     if(beatenBlack.length>0){
         beatenBlack.forEach((element:string) =>{
-            black_img += ` <img src=${getUrlOfSVG('black',element)}>`
+            black_img += ` <img src=${getUrlOfSVG('white',element)}>`
             dead_black.innerHTML = black_img;
             value_black -= getValueOfFigure(element);
         });
