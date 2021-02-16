@@ -13,6 +13,7 @@ localStorage.setItem('blackBeatenFigures',JSON.stringify([]));
 const list = window.document.getElementById("history-list")!;
 
 
+
 notationButton.addEventListener('click', (event: MouseEvent) => {
     if ((event.target as HTMLElement).textContent == 'Notacja') {
         (event.target as HTMLElement).textContent = 'Tekst'
