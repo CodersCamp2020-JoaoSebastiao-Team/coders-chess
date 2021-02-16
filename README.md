@@ -28,15 +28,13 @@ Celem projektu było dostarczenie aplikacji pozwalającej na rozgrywkę szachow�
 Aplikacja została wykonana według dostarczonych przez organizatorów CodersCamp wymagań.
 
 ### Lista funkcjonalności aplikacji
-
 1. Ruchy wszystkich bierek: pionek, hetman, wieża, goniec, król (wykonanie ruchu, jak i pokazywanie możliwych).
 2. Promowanie pionka na dowolną inną figurę (oprócz króla) na końcu planszy.
-3. Roszada: https://pl.wikipedia.org/wiki/Roszada
-4. Szachowanie króla: https://pl.wikipedia.org/wiki/Szach_(szachy)
-5. Szach mat: https://pl.wikipedia.org/wiki/Mat_(szachy)
-6. Kończenie gry przez Pat: https://www.chess.com/pl/article/view/czym-jest-pat-szachowe-terminy
-7. Bicie w przelocie: https://www.chess.com/pl/article/view/bicie-w-przelocie-specjalne-ruchy-w-szachach
-8. Możliwość cofania ruchów (aż do początkowego układu).
+3. Szachowanie króla: https://pl.wikipedia.org/wiki/Szach_(szachy)
+4. Szach mat: https://pl.wikipedia.org/wiki/Mat_(szachy)
+5. Kończenie gry przez Pat: https://www.chess.com/pl/article/view/czym-jest-pat-szachowe-terminy
+6. Bicie w przelocie: https://www.chess.com/pl/article/view/bicie-w-przelocie-specjalne-ruchy-w-szachach
+7. Możliwość cofania ruchów (aż do początkowego układu).
 
 
 Zadaniem projektu była realizacja wymagań klienta, z którym konsultowane były wprowadzane funkcjonalności. Utworzona aplikacja jest responsywna (dostosowana do wyświetlania na Tabletach i Telefonach).
@@ -84,6 +82,7 @@ Kod produkcyjny aplikacji umieszczamy w katalogu `src`.
 4. Kończenie gry przez limit czasowy - gracz, któremu skończył się czas przegrywa. Nie rozpatrujemy przypadku remisu.
 5. Wyświetlanie zbitych pionków.
 6. Wyświetlanie przewagi gracza.
+7. Możliwości wyświetlania stanu szachownicy po danym ruchu.
 
 ![Wyświetlanie przebiegu gry oraz przewagi gracza](/static/ui/przewaga-gracza.png)
 

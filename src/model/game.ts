@@ -230,7 +230,7 @@ export class Game {
                                         for (let figureCaptures of figureCapturesPos){
                                             let opponnentPos:[number, number] = [ (figureOpponentPosition[0] + figureCaptures[0]), (figureOpponentPosition[1] + figureCaptures[1])];
                                             if (opponnentPos[0] == figurePosition[0] && opponnentPos[1] == figurePosition[1]){
-                                                checkMat = false;
+                                                checkMat = true;
                                             }
                                         }
                                     }
