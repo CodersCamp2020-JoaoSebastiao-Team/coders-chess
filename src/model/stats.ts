@@ -1,4 +1,4 @@
-import {Figure, ChessFigure, ChessColor} from "./figure";
+import {ChessColor, ChessFigure, Figure} from "./figure";
 import {Bishop} from "./figures/bishop"
 import {Queen} from "./figures/queen"
 import {Rook} from "./figures/rook"
@@ -146,6 +146,8 @@ export function saveMoveToLocalStorage(opponentFigure: Figure | null, moveTo: Fi
     let movesText = JSON.parse(<string>localStorage.getItem("movesText")) || [];
     let movesNotation = JSON.parse(<string>localStorage.getItem("movesNotation")) || [];
     let boardFiguresByMove = JSON.parse(<string>localStorage.getItem("boardFiguresByMove")) || [];
+
+    setBeatenFiguresLocalStorage(opponentFigure)
     boardFiguresByMove.push(gameFiguresArray)
     let figure = JSON.parse(<string>localStorage.getItem("figure"))
     let figureObject = makeFigureObject(figure, moveTo);
@@ -154,6 +156,35 @@ export function saveMoveToLocalStorage(opponentFigure: Figure | null, moveTo: Fi
     setLocalStorage(null, movesNotation, movesText, boardFiguresByMove)
 }
 
+function setBeatenFiguresLocalStorage(opponentFigure: Figure | null) {
+    if (opponentFigure){
+        if (opponentFigure.getFigureColorEnum() ==ChessColor.White){
+            let whiteBeatenFigures =  JSON.parse(<string>localStorage.getItem("whiteBeatenFigures")) || [];
+            whiteBeatenFigures.push(opponentFigure.getFigure())
+            localStorage.setItem("whiteBeatenFigures", JSON.stringify(whiteBeatenFigures))
+        }else {
+            let blackBeatenFigures =  JSON.parse(<string>localStorage.getItem("blackBeatenFigures")) || [];
+            blackBeatenFigures.push(opponentFigure.getFigure())
+            localStorage.setItem("blackBeatenFigures", JSON.stringify(blackBeatenFigures))
+        }
+    }
+}
+
+function undoBeatenFigure(color: string) {
+    if (color=='black'){
+        let whiteBeatenFigures =  JSON.parse(<string>localStorage.getItem("whiteBeatenFigures")) || [];
+        if (whiteBeatenFigures){
+            whiteBeatenFigures.pop()
+            localStorage.setItem("whiteBeatenFigures", JSON.stringify(whiteBeatenFigures))
+        }
+    }else {
+        let blackBeatenFigures =  JSON.parse(<string>localStorage.getItem("blackBeatenFigures")) || [];
+        if (blackBeatenFigures){
+            blackBeatenFigures.pop()
+            localStorage.setItem("blackBeatenFigures", JSON.stringify(blackBeatenFigures))
+        }
+    }
+}
 function makeFigureObject(figure: any, moveTo: Figure) {
     switch (moveTo.getFigureEnum()) {
         case ChessFigure.Pawn:
@@ -226,15 +257,7 @@ export function undoMove(contest:Game): Array<Pawn | Rook | Knight | Bishop | Ki
         movesNotation.pop();
         let lastMove = movesText.pop()
         if (lastMove.includes('beat')){
-            if (color=='white'){
-                localStorage.setItem('beatenFigureToUndo',JSON.stringify(
-                    ['black', returnFigureName(lastMove.slice(lastMove.indexOf("beat"),lastMove.length-1))]))
-            }else {
-                localStorage.setItem('beatenFigureToUndo',JSON.stringify(
-                    ['white', returnFigureName(lastMove.slice(lastMove.indexOf("beat"),lastMove.length-1))]))
-            }
-        }else {
-            localStorage.setItem('beatenFigureToUndo',JSON.stringify([]))
+            undoBeatenFigure(color);
         }
         setLocalStorage(color, movesNotation, movesText, boardFiguresByMove)
         return gameFigures;

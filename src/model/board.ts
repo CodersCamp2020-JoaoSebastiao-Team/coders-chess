@@ -82,7 +82,6 @@ for (let i = 0; i < boardFields.length; i++) {
                         //Next player tour
                         console.log(PlayerTour);
                         PlayerTour = PlayerTour == ChessPlayerTour.White ? ChessPlayerTour.Black : ChessPlayerTour.White;
-                        
                         checkChecks();
                         saveMoveToLocalStorage(figure, previousFigure, gameFiguresArray)
                         updateLocalStarage();
