@@ -91,3 +91,15 @@
     background-color: #6b6b6b;
     color: white;
 }
+
+@media (max-width: 455px){
+    .list-container h2 {
+        align-self: flex-start;
+    }
+}
+
+@media (max-width: 350px){
+    .list-container h2 {
+        font-size: 1.6rem;
+    }
+}
