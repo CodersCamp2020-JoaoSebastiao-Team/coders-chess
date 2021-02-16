@@ -7,7 +7,7 @@ import {Knight} from "./figures/knight"
 import {King} from "./figures/king"
 import {Game} from "./game";
 import {returnFigureName} from "./time"
-
+import {getBeatFigures} from "./time"
 
 function moveToText(figure: Figure, opponentFigure: Figure | null, moveTo: Figure): string {
 
@@ -154,6 +154,7 @@ export function saveMoveToLocalStorage(opponentFigure: Figure | null, moveTo: Fi
     movesText.push(moveToText(figureObject, opponentFigure, moveTo));
     movesNotation.push(moveToNotation(figureObject, opponentFigure, moveTo));
     setLocalStorage(null, movesNotation, movesText, boardFiguresByMove)
+    getBeatFigures();
 }
 
 function setBeatenFiguresLocalStorage(opponentFigure: Figure | null) {
@@ -260,6 +261,7 @@ export function undoMove(contest:Game): Array<Pawn | Rook | Knight | Bishop | Ki
             undoBeatenFigure(color);
         }
         setLocalStorage(color, movesNotation, movesText, boardFiguresByMove)
+        getBeatFigures();
         return gameFigures;
     }
 }

@@ -86,7 +86,7 @@ for (let i = 0; i < boardFields.length; i++) {
                         saveMoveToLocalStorage(figure, previousFigure, gameFiguresArray)
                         updateLocalStarage();
                         seeLastMovesEventListener(Contest,boardFields)
-                        getBeatFigures();
+                        // getBeatFigures();
                     }
                 }
                 else {

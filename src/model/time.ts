@@ -1,3 +1,5 @@
+import { strict } from "assert";
+
 let blackTimeLeft:number
 let whiteTimeLeft:number;
 let timeLimit : number = 1;
@@ -88,57 +90,45 @@ startTimer();
 
 
 export function getBeatFigures():void{
-    let moveText:string|null = localStorage.getItem("movesText");
-    let array_moves_texts;
-    if(typeof moveText=='string'){
-        array_moves_texts = moveText.split(",");
-    }
-  
-    let last_move:string|undefined;
-    if(typeof array_moves_texts==='object'){
-       last_move = array_moves_texts[array_moves_texts.length-1]
-    }
-    if(last_move){
-        let color = localStorage.getItem('color')=='white'?'black':'white'
-        if(color==='black' && last_move.includes('beat')){
-            let index:number = last_move.indexOf("beat");
-            last_move=last_move.slice(index,last_move.length-1);
-            array_of_beat_black_figures.push(returnFigureName(last_move))
-        }
-        if(color==='white' && last_move.includes('beat')){
-        let index:number = last_move.indexOf("beat");
-        last_move =last_move.slice(index,last_move.length-1);
-        array_of_beat_white_figures.push(returnFigureName(last_move))
-    }
-    }
+    let beatenWhite = JSON.parse(<string>localStorage.getItem("whiteBeatenFigures"))||[];
+    let beatenBlack = JSON.parse(<string>localStorage.getItem("blackBeatenFigures"))||[];
 
-
-    updateDeadFiguresInHTML();
-}
-
-function updateDeadFiguresInHTML():void{
     let white_img:string = "";
     let black_img:string = "";
     let value_black:number = 0;
     let value_white:number = 0;
-    array_of_beat_white_figures.forEach(element => {
-        white_img +=` <img src=${getUrlOfSVG('white',element)}>`
-        dead_white.innerHTML = white_img;
-        value_white += getValueOfFigure(element);
-    });
-    array_of_beat_black_figures.forEach(element =>{
-        black_img += ` <img src=${getUrlOfSVG('black',element)}>`
-        dead_black.innerHTML = black_img;
-        value_black -= getValueOfFigure(element);
-    });
+    console.log(beatenBlack);
+    console.log(beatenWhite);
+    if(beatenWhite.length>0){
+        beatenWhite.forEach((element:string) => {
+            white_img +=` <img src=${getUrlOfSVG('white',element)}>`
+            dead_white.innerHTML = white_img;
+            value_white += getValueOfFigure(element);
+        });
+    }
+    else{
+        dead_white.innerHTML = '<p></p>'
+    }
+    if(beatenBlack.length>0){
+        beatenBlack.forEach((element:string) =>{
+            black_img += ` <img src=${getUrlOfSVG('black',element)}>`
+            dead_black.innerHTML = black_img;
+            value_black -= getValueOfFigure(element);
+        });
+    }
+    else{
+        dead_black.innerHTML = '<p></p>'
+    }
     if(value_black+value_white!=0){
         value_white+value_black>0 ? time_head.innerHTML =  `<p>${nick_white} +${value_black+value_white}</p><p>${nick_black}</p>`
         : time_head.innerHTML =  `<p>${nick_white}</p><p>${nick_black} +${-value_white-value_black}</p>`;
     }
     else{
+       
         time_head.innerHTML =  `<p>Białe</p><p>Czarne</p>`;
     }
 }
+
 
 function getUrlOfSVG(color:string,figure:string):string{
     if (color == "black") {
