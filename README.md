@@ -53,12 +53,12 @@ W trakcie developmentu wykorzystaliśmy:
 #### Menu Główne
 W menu głównym należy podać imiona graczy, wybrać czas gry (w domyśle czas jest nieskończony) oraz wybrać opcję zakończenia gry w przypadku pata.
 
-![CodersChess](/static/ui/ustawienia-gry.png)
+![Ekran startowy](/static/ui/ustawienia-gry.png)
 
 ## Rywalizacja
 Grę zaczyna zawsze gracz z pomarańczowymi pionkami, następnie gracze wykonują ruchy na przemian. Możliwe ruchy pokazane są po naciśnięcu na dany pionek. Zbite pionki wyświelane są odpowiednio nad planszą oraz pod nią. Rozgrywka toczy się do zamatowania króla przeciwnika lub gdy przeciwnikowi skończy się czas.
 
-![CodersChess](/static/ui/zbite-pionki.png)
+![Wyświetlanie zbitych pionków](/static/ui/zbite-pionki.png)
 
 #### W projekcie każdy z uczestników zaprezentował praktyczną znajomość poniższych zagadnień związanych z TypeScript:
 - typy podstawowe
