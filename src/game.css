@@ -2,13 +2,13 @@
     display: flex;
     flex-wrap: wrap;
     position: relative;
-    height:100vh;
+    height: 100vh;
 }
 
 .flex-child {
     height: 90%;
     flex: 50%;
-    top:50px;
+    top: 50px;
     padding: 20px;
     position: relative;
 }
@@ -21,15 +21,14 @@
     width: 550px;
     height: 550px;
     font-size: 1.5rem;
-    
+
 }
 
 .upperdiv #whoPlays {
     text-align: center;
     font-size: 2rem;
     text-transform: uppercase;
-    /* font-weight: bold; */
-    color:white;
+    color: white;
     margin-bottom: .5rem;
 }
 
@@ -99,18 +98,12 @@ li {
 }
 
 .figureImg {
-    position:absolute;
+    position: absolute;
     z-index: 20;
 }
 
-.figure-checked{
-    /* border: 1px solid rgb(238, 246, 248);  */
-    box-shadow: 0 0.7rem 1.4rem 0 rgba(238, 232, 230, 0.966);
-}
-
 .figure-checked::before {
-    content: "🔘";
-    color: black;
+    content: "🟠";
     font-size: 1.3rem;
     position: absolute;
     top: 50%;
@@ -125,7 +118,7 @@ li {
 }
 
 .figure-capture {
-    filter: brightness(2);
+    background-color: darkorange;
 }
 
 .figure-capture:hover {
@@ -148,7 +141,7 @@ li {
 /* timer */
 .stopwatch-container {
     width: 90%;
-    height:6 rem;
+    height: 6 rem;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -213,6 +206,7 @@ li {
     background-color: white;
     color: var(--buttons-color);
 }
+
 @media only screen and (max-width: 768px) {
 
     .flex-child {
